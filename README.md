@@ -1,4 +1,5 @@
-# Angular Express Seed
+shoppingpal
+===========# Angular Express Seed
 
 Start an awesome app with AngularJS on the front, Express + Node on the back. This project is an
 application skeleton for a typical [AngularJS](http://angularjs.org/) web app for those who want
