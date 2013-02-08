@@ -6,6 +6,9 @@
 var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api');
+  test = require('./routes/test');
+//  test = require('./routes/test');
+
 
 var app = module.exports = express();
 
@@ -28,11 +31,13 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+
 // Routes
 
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
-
+app.get('/test/:collection',test.findAll);
+app.get('/test/:collection/:filter/:key',test.findBy);
 // JSON API
 
 app.get('/api/name', api.name);
