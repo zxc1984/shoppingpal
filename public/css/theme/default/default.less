@@ -37,6 +37,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+p { padding-bottom:12px;}
 
 
 
@@ -64,8 +65,8 @@ body {
 h1 {
   color: white;
   font-size: 20px;
-  font-weight: bold;
   line-height: 42px;
+  font-weight: normal;
 }
 
 a {
@@ -103,13 +104,18 @@ nav {
     color: rgba(255, 255, 255, 0.8);
     display: block;
     font-size: 17px;
-    font-weight: bold;
     height: 42px;
     line-height: 40px;
     margin: 0;
     padding: 0 0 0 10px;
     position: relative;
     text-decoration: none;
+    &:hover {
+      text-decoration: none;
+      cursor: pointer;
+      color:#aaa;
+      background-color: @headerGradientLighter;
+    }
     &:after {
       opacity: 0.3;
       background: transparent url('img/arrow-right-white.png') no-repeat left center;
@@ -127,6 +133,11 @@ nav {
     }
   }
 }
+.nav-header { 
+  background-color: @headerGradient;
+  line-height: 14px;
+}
+
 
 .selectedNavLi() {
   content: ' ';
@@ -180,7 +191,6 @@ header {
     border: 1px solid #32163d;
     color: white;
     font-size: 13px;
-    font-weight: bold;
     height: 28px;
     left: 5px;
     line-height: 26px;
@@ -241,6 +251,10 @@ header {
   -o-box-sizing:      border-box;
   box-sizing:         border-box;
 }
+.stp-content-body > div {
+  padding:15px;
+}
+
 .stp-content-panel {
   background: @bgColor;
 }

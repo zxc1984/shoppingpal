@@ -37,7 +37,7 @@ body {
   width: 100%;
 }
 .stp-content-body {
-  padding-top:60px;
+  padding-top:45px;
 }
 .stp-content-body > * > *:first-child {
   margin-top: 0;

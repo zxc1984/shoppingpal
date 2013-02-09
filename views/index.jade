@@ -6,8 +6,15 @@ block body
       div
         .nav-header test
         nav
-          a.selected(href="view1") View 1
-          a(href="view2") View 2
+          a.selected(href="view1",data-header-text="Shopping") 
+            i.icon-shopping-cart 
+            | &nbsp;&nbsp;Shopping
+          a(href="view2",data-header-text="Lists") 
+            i.icon-book 
+            | &nbsp;&nbsp;List
+          a(href="view2",data-header-text="Expenditure") 
+            i.icon-money 
+            | &nbsp;&nbsp;Expenditure
         .nav-header test2
         nav
           a(href="view1") View 1
@@ -20,7 +27,7 @@ block body
         header
           a.header-button.icon.menu(href="javascript:void(0)")
             span Menu
-          h1 Header Text
+          h1#header Header Text
 
         div.stp-content-frame
           div.stp-content-body
@@ -49,4 +56,7 @@ block body
       var self = this;
       $(".stp-nav div nav a").removeClass("selected");
       $(self).addClass("selected");
+      var headerText = $(self).attr('data-header-text');
+      $("#header").text(headerText);
+      st.toggle_nav();
     }
