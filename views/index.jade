@@ -9,7 +9,7 @@ block body
           a.selected(href="view1",data-header-text="Shopping") 
             i.icon-shopping-cart 
             | &nbsp;&nbsp;Shopping
-          a(href="view2",data-header-text="Lists") 
+          a(href="lists",data-header-text="Lists") 
             i.icon-book 
             | &nbsp;&nbsp;List
           a(href="view2",data-header-text="Expenditure") 
@@ -51,8 +51,14 @@ block body
   script
     var st = sidetap();
     $(".header-button.menu").on("click",st.toggle_nav);
-    $(".stp-nav div nav a").on("click",test);
-    function test() {
+    $(".stp-nav div nav a").on("click",menuClick);
+    $("i.clearText").on("click",clearClick); 
+    function clearClick() {
+      var self = this;
+      alert('hihi');
+      $(self).parent().find('input[type=text]').val('');
+    };
+    function menuClick() {
       var self = this;
       $(".stp-nav div nav a").removeClass("selected");
       $(self).addClass("selected");

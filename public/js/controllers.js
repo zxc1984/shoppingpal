@@ -1,5 +1,3 @@
-'use strict';
-
 /* Controllers */
 
 function AppCtrl($scope, $http) {
@@ -19,3 +17,10 @@ MyCtrl1.$inject = [];
 function MyCtrl2() {
 }
 MyCtrl2.$inject = [];
+
+function ListCtrl($scope, $http) {
+	$scope.clearListName = function() {
+		if ($scope.list)
+			$scope.list.name = "";
+	};
+}
