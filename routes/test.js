@@ -47,7 +47,7 @@ exports.findAll = function(req, res) {
 };
 
 exports.findBy = function(req, res) {
-    db.collection(req.params.collection).find({email:req.params.key}, fn(req, res));
+    db.collection(req.params.collection).find({emails:req.params.key}, fn(req, res));
 };
 
 // Save
