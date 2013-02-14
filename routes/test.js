@@ -1,5 +1,5 @@
-var databaseUrl = "test"; // "username:password@example.com/mydb"
-var collections = ["user"]
+var databaseUrl = "test:test@ds051007.mongolab.com:51007/shoppal"; // "username:password@example.com/mydb"
+var collections = ["list"]
 var db = require("mongojs").connect(databaseUrl, collections);
  
 var objectId = function (_id) {
