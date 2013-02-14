@@ -43,11 +43,14 @@ exports.query = function(req, res) {
 
 exports.findAll = function(req, res) {
 	qw = {};
-	db.collection(req.params.collection).find(qw).toArray(fn(req, res))
+	db.collection(req.params.collection).find(qw).toArray(fn(req, res));
 };
 
 exports.findBy = function(req, res) {
-    db.collection(req.params.collection).find({emails:req.params.key}, fn(req, res));
+    qw = {};
+    filter = req.params.filter; 
+    qw[filter] = req.params.key;
+    db.collection(req.params.collection).find(qw).toArray(fn(req, res));;
 };
 
 // Save
