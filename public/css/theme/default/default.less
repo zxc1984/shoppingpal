@@ -39,7 +39,9 @@ table {
 }
 p { padding-bottom:12px;}
 
-
+.row-fluid [class*="span"] {
+margin-left: 0;
+}
 
 @bgColor: white;
 @fontColor: #171a21;
@@ -90,7 +92,8 @@ img {
   max-width: 100%;
 }
 
-
+.left {float:left;}
+.right {float:right;}
 
 .stp-nav {
   background: #101318;
@@ -269,10 +272,43 @@ header {
 .text-with-remove i {
   font-size: 1.2em;
   position: relative;
-  left:-20px;
-  top:-2px;
+  left:-10px;
+  top:-33px;
+  float:right;
   &:hover {
     color:#777;
     cursor:pointer;
   }
+}
+
+.innerShadow(@size,@color) {
+  -moz-box-shadow:    inset 0 0 @size @color;
+   -webkit-box-shadow: inset 0 0 @size @color;
+   box-shadow:         inset 0 0 @size @color;
+}
+
+.list-container {
+  border:1px solid #f0f0f0;
+  padding:15px;
+  .row {margin:0;}
+  i { color:#999;}
+  &:hover {
+    border-color: #b7b7b7;
+    background-color: #fefefe;
+    cursor: pointer;
+    .innerShadow(5px,#dadada);
+    i { color:@fontColor;}
+  }
+  &:active {
+    background-color: #ededed;
+    .innerShadow(5px,#c0c0c0);
+  }
+}
+
+#footer {
+  top:-60px;
+  height:60px;
+  width: 100%;
+  text-align: center;
+
 }

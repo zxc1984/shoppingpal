@@ -1,5 +1,15 @@
-form
-	label List Name
-	div.text-with-remove
-		input(type="text",id="list-name",name="list-name",ng-model="list.name")
-		i.icon-remove-circle.clearText(ng-click="clearListName()")
+.span12
+	ul.row-fluid
+		li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+			div.list-container(ng-click="ListDetails()")
+				div.row
+					div.left.list-name
+						| Name {{n}}
+					div.right
+						i.icon-chevron-right
+
+script
+	$(document).ready(function() {
+		$("#header").text("Lists");
+	});
+	
