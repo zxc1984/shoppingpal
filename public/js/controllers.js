@@ -1,5 +1,5 @@
 /* Controllers */
-
+var st = sidetap();
 function AppCtrl($scope, $http) {
   $http({method: 'GET', url: '/api/name'}).
   success(function(data, status, headers, config) {
@@ -8,6 +8,9 @@ function AppCtrl($scope, $http) {
   error(function(data, status, headers, config) {
     $scope.name = 'Error!'
   });
+  $scope.menuClick = function() {
+    st.toggle_nav();
+  };
 }
 
 function MyCtrl1() {}

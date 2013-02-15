@@ -24,13 +24,7 @@ block body
       header.stp-fake.header
       div.stp-overlay.nav-toggle
       div.stp-content-panel
-        header
-          a.header-button.icon.menu(href="javascript:void(0)")
-            span Menu
-          h1#header Header Text
-        div.stp-content-frame
-          div.stp-content-body.container-fluid
-            div(ng-view)
+        div(ng-view)
       #push
 
   #footer
@@ -47,8 +41,8 @@ block body
   script(src='js/directives.js')
   script(src='js/less-1.3.3.min.js')
   script
-    var st = sidetap();
-    $(".header-button.menu").on("click",st.toggle_nav);
+    
+    //$(".header-button.menu").on("click",);
     $(".stp-nav div nav a").on("click",menuClick);
     $("i.clearText").on("click",clearClick); 
     function clearClick() {

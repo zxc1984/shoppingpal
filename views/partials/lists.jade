@@ -1,15 +1,19 @@
-.span12
-	ul.row-fluid
-		li.span6(ng-repeat="n in [1,2,3,4,5,6]")
-			div.list-container(ng-click="ListDetails()")
-				div.row
-					div.left.list-name
-						| Name {{n}}
-					div.right
-						i.icon-chevron-right
-
-script
-	$(document).ready(function() {
-		$("#header").text("Lists");
-	});
+header
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
+	h1#header Lists
+	a.header-button.icon.add.right(href="/lists/update")
+		span
+			i.icon-add
+div.stp-content-frame
+	div.stp-content-body.container-fluid
+		.span12
+			ul.row-fluid
+				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+					div.list-container(ng-click="ListDetails()")
+						div.row
+							div.left.list-name
+								| Name {{n}}
+							div.right
+								i.icon-chevron-right
 	

@@ -7,7 +7,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
     $routeProvider.when('/view1', {templateUrl: 'partials/partial1', controller: MyCtrl1});
     $routeProvider.when('/view2', {templateUrl: 'partials/partial2', controller: MyCtrl2});
     $routeProvider.when('/lists', {templateUrl: 'partials/lists', controller: ListCtrl});
-    $routeProvider.when('/lists/update', {templateUrl: 'partials/updateList', controller: ListCtrl});
+    $routeProvider.when('/lists/update', {templateUrl: 'partials/createListName', controller: ListCtrl});
     $routeProvider.otherwise({redirectTo: '/lists'});
     $locationProvider.html5Mode(true);
   }]);

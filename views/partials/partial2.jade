@@ -1,4 +1,10 @@
-p This is the partial for view 2.
-p
-  | Showing of 'interpolate' filter:
-  | {{ 'Current version is v%VERSION%.' | interpolate }}
+header
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
+	h1#header Lists
+div.stp-content-frame
+	div.stp-content-body.container-fluid		
+		p This is the partial for view 2.
+		p
+		  | Showing of 'interpolate' filter:
+		  | {{ 'Current version is v%VERSION%.' | interpolate }}

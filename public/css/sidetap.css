@@ -94,7 +94,7 @@ body {
   height: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  position: relative;
+  /*position: relative;*/
 }
 .ios .stp-content-body {
   -webkit-transform: translatez(0);
