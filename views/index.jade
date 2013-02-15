@@ -28,15 +28,13 @@ block body
           a.header-button.icon.menu(href="javascript:void(0)")
             span Menu
           h1#header Header Text
-
         div.stp-content-frame
-          div.stp-content-body
+          div.stp-content-body.container-fluid
             div(ng-view)
       #push
 
   #footer
-    | Angular seed app: v
-    span(app-version)
+    | Zoppal &copy; 2013
 
   script(src='js/bootstrap.min.js')
   script(src='js/zepto.min.js')
@@ -63,6 +61,6 @@ block body
       $(".stp-nav div nav a").removeClass("selected");
       $(self).addClass("selected");
       var headerText = $(self).attr('data-header-text');
-      $("#header").text(headerText);
+      //$("#header").text(headerText);
       st.toggle_nav();
     }
