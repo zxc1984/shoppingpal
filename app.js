@@ -7,6 +7,7 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api');
   test = require('./routes/test');
+  list = require('./routes/list');
 //  test = require('./routes/test');
 
 
@@ -37,7 +38,8 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 app.get('/test/:collection',test.findAll);
-app.get('/test/:collection/:filter/:key',test.findBy);
+app.get('/test/:collection/find/:filter/:key',test.findBy);
+app.get('/list/insert',list.insert);
 // JSON API
 
 app.get('/api/name', api.name);

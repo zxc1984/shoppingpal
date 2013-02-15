@@ -1,7 +1,16 @@
 var databaseUrl = "test:test@ds051007.mongolab.com:51007/shoppal"; // "username:password@example.com/mydb"
-var collections = ["shoppal"]
+var collections = ["list"]
 var db = require("mongojs").connect(databaseUrl, collections);
- 
+
+
+/*fields
+*
+* @_id  - id of list
+* @name String - name of list
+* @owner Id - id of owner
+* @sharedList - array of users who are sharing the list
+*/
+
 var objectId = function (_id) {
     if (_id.length === 24 && parseInt(db.ObjectId(_id).getTimestamp().toISOString().slice(0,4), 10) >= 2010) {
         return db.ObjectId(_id);
@@ -41,52 +50,11 @@ exports.query = function(req, res) {
     db.collection(req.params.collection).find(qw).sort(sort).skip(req.query.skip).limit(req.query.limit).toArray(fn(req, res))
 };
 
-exports.findAll = function(req, res) {
-	qw = {};
-	db.collection(req.params.collection).find(qw).toArray(fn(req, res));
-};
 
-exports.findBy = function(req, res) {
-    qw = {};
-    filter = req.params.filter; 
-    qw[filter] = req.params.key;
-    db.collection(req.params.collection).find(qw).toArray(fn(req, res));
-};
 
-// Save
+// Create
 exports.insert = function(req, res) {
     qw = {"name":"whatsup"};
-    db.collection(req.params.collection).insert(qw, {safe:true}, fn(req, res));
+    db.collection("list").insert(qw, {safe:true}, fn(req, res));
 };
-
-
-// Save
-exports.save = function(req, res) {
-    if (req.body._id) { req.body._id = objectId(req.body._id);}
-    db.collection(req.params.collection).save(req.body, {safe:true}, fn(req, res));
-};
-
-// Delete
-exports.delete = function(req, res) {
-    db.collection(req.params.collection).remove({_id:objectId(req.params.id)}, {safe:true}, fn(req, res));
-};
-
-//Group
-exports.groupBy = function(req, res) {
-    db.collection(req.params.collection).group(req.body.keys, req.body.cond, req.body.initial, req.body.reduce, req.body.finalize, fn(req, res))
-};
-
-// MapReduce
-exports.mapReduce = function(req, res) {
-    if (!req.body.options) {req.body.options  = {}};
-    req.body.options.out = { inline : 1};
-    req.body.options.verbose = false;
-    db.collection(req.params.collection).mapReduce(req.body.map, req.body.reduce, req.body.options, fn(req, res));    
-};
-
-// Command (count, distinct, find, aggregate)
-exports.cmd =  function (req, res) {
-    if (req.params.cmd === 'distinct') {req.body = req.body.key}
-    db.collection(req.params.collection)[req.params.cmd](req.body, fn(req, res)); 
-}
 
