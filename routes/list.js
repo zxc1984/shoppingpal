@@ -54,7 +54,7 @@ exports.query = function(req, res) {
 
 // Create
 exports.insert = function(req, res) {
-    qw = {"name":"whatsup"};
+    qw = {"name":"Shopping List 1","owner":"jagdish","sharedBy":['1','2','3']};
     db.collection("list").insert(qw, {safe:true}, fn(req, res));
 };
 

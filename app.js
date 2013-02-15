@@ -3,15 +3,15 @@
  * Module dependencies.
  */
 
-var express = require('express'),
-  routes = require('./routes'),
-  api = require('./routes/api');
-  test = require('./routes/test');
-  list = require('./routes/list');
-//  test = require('./routes/test');
-
-
+var express = require('express');
 var app = module.exports = express();
+var routes = require('./routes'),
+  api = require('./routes/api');
+  list = require('./routes/list');
+  test = require('./routes/test')(app);
+
+
+
 
 // Configuration
 
@@ -37,12 +37,10 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
-app.get('/test/:collection',test.findAll);
-app.get('/test/:collection/find/:filter/:key',test.findBy);
+app.get('/api/:collection',api.findAll);
+app.get('/api/:collection/find/:filter/:key',api.findBy);
 app.get('/list/insert',list.insert);
 // JSON API
-
-app.get('/api/name', api.name);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
