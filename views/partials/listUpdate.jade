@@ -1,8 +1,8 @@
 header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header Lists
-	a.header-button.icon.add.right(href="/list/create")
+	h1#header Name of List
+	a.header-button.icon.add.right(href="javascript:void(0)")
 		span
 			i.icon-add
 div.stp-content-frame
@@ -13,7 +13,7 @@ div.stp-content-frame
 					div.list-container(ng-click="ListDetails()")
 						div.row
 							div.left.list-name
-								| Name {{n}}
+								| Item Name {{n}}
 							div.right
 								i.icon-chevron-right
 	
