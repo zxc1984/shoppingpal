@@ -6,9 +6,8 @@
 var express = require('express');
 var app = module.exports = express();
 var routes = require('./routes'),
-  api = require('./routes/api');
+  api = require('./routes/api'),
   list = require('./routes/list');
-  test = require('./routes/test')(app);
 
 
 
@@ -39,7 +38,6 @@ app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 app.get('/api/:collection',api.findAll);
 app.get('/api/:collection/find/:filter/:key',api.findBy);
-app.get('/list/insert',list.insert);
 // JSON API
 
 // redirect all others to the index (HTML5 history)
