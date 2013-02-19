@@ -11,11 +11,11 @@ div.stp-content-frame
 		.span12
 			| This view will show summary of expense , then show more details below
 			ul.row-fluid
-				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+				li.span6(ng-repeat="expense in userExpense")
 					div.list-container(ng-click="ExpenseDetail()")
 						div.row
 							div.left.list-name
-								| Name {{n}}
+								| {{expense.name}} -- ${{expense.amount}}
 							div.right
 								i.icon-chevron-right
 	

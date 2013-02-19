@@ -45,6 +45,9 @@ function ListCtrl($scope, $http,$location) {
   $http.get('/api/list').success(function(data, status, headers, config) {
     $scope.lists = data;
   });
+  $http.get('/api/items').success(function(data, status, headers, config) {
+    $scope.items = data;
+  });
   $scope.clearListName = function() {
     if ($scope.list)
       $scope.list.name = "";
@@ -65,12 +68,17 @@ function ExpenseCtrl($scope, $http, $location) {
   $scope.ExpenseDetail = function() {
     $location.path('/expense/details/1');
   }
+   $http.get('/api/userExpense').success(function(data, status, headers, config) {
+    $scope.userExpense = data;
+  });
+    $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
+    $scope.trips = data;
+  });
+   
 }
-function ShoppingCtrl($scope, $http, $location) {
-  $scope.ItemDetails = function() {
-    $location.path('/shopping/itemdetail/1');
-  }
-}
-function PaymentCtrl($scope, $http, $location) {
 
+function ShoppingCtrl($scope, $http,$location) {
+  $http.get('/api/items').success(function(data, status, headers, config) {
+    $scope.items = data;
+  });
 }
