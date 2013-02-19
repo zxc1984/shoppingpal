@@ -21,9 +21,12 @@ function MyCtrl2() {
 }
 MyCtrl2.$inject = [];
 
-function ListCtrl($scope, $http) {
+function ListCtrl($scope, $http,$location) {
 	$scope.clearListName = function() {
 		if ($scope.list)
 			$scope.list.name = "";
 	};
+  $scope.ListDetails = function() {
+    $location.path('/list/update/');
+  }
 }

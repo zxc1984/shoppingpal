@@ -141,6 +141,14 @@ nav {
   line-height: 14px;
 }
 
+.background-gradient(@headColor,@headGradientColor) {
+  background: @headColor;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, @headGradientColor), color-stop(100%, @headColor));
+  background: -webkit-linear-gradient(top, @headGradientColor, @headColor);
+  background:    -moz-linear-gradient(top, @headGradientColor, @headColor);
+  background:      -o-linear-gradient(top, @headGradientColor, @headColor);
+  background:         linear-gradient(top, @headGradientColor, @headColor);
+}
 
 .selectedNavLi() {
   content: ' ';
@@ -161,12 +169,7 @@ nav {
 }
 
 header {
-  background: @headerColor;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, @headerGradient), color-stop(100%, @headerColor));
-  background: -webkit-linear-gradient(top, @headerGradient, @headerColor);
-  background:    -moz-linear-gradient(top, @headerGradient, @headerColor);
-  background:      -o-linear-gradient(top, @headerGradient, @headerColor);
-  background:         linear-gradient(top, @headerGradient, @headerColor);
+  .background-gradient(@headerColor, @headerGradient);
   border-bottom: 1px solid #281730;
   color: white;
   display: block;
@@ -185,12 +188,7 @@ header {
   -o-box-shadow:      inset 0px 1px 0px rgba(255, 255, 255, 0.2), 0px 1px 5px rgba(0, 0, 0, 0.75);
   box-shadow:         inset 0px 1px 0px rgba(255, 255, 255, 0.2), 0px 1px 5px rgba(0, 0, 0, 0.75);
   .header-button {
-    background: @headerGradient;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, @headerGradientLighter), color-stop(100%, @headerGradient));
-    background: -webkit-linear-gradient(top, @headerGradientLighter, @headerGradient);
-    background:    -moz-linear-gradient(top, @headerGradientLighter, @headerGradient);
-    background:      -o-linear-gradient(top, @headerGradientLighter, @headerGradient);
-    background:         linear-gradient(top, @headerGradientLighter, @headerGradient);
+    .background-gradient(@headerGradient, @headerGradientLighter);
     border: 1px solid #32163d;
     color: white;
     font-size: 13px;
@@ -253,6 +251,29 @@ header {
       background-size:         8px 17px;
     }
   }
+  .header-menu-bar {
+    height:43px;
+    position: absolute;
+    left: auto;
+    right: 5px;
+    display: block;
+    top: 0px;
+  }
+  .header-menu-button {
+    width:43px;
+    height:43px;
+    line-height: 43px;
+    display: inline-block;
+    position: relative;
+    color:white;
+    &:hover,&:active {
+      .background-gradient(@headerGradient, @headerGradientLighter);
+    }
+    &.icon span {
+      display: inline-block;
+      margin:6px 0;
+    }
+  }
 }
 
 
@@ -313,7 +334,9 @@ header {
     background-color: #ededed;
     .innerShadow(5px,#c0c0c0);
   }
+  
 }
+.list-name span {margin-left:10px;}
 
 #footer {
   top:-60px;

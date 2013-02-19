@@ -2,9 +2,13 @@ header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
 	h1#header Name of List
-	a.header-button.icon.add.right(href="javascript:void(0)")
-		span
-			i.icon-add
+	div.header-menu-bar
+		a.header-menu-button.icon
+			span
+				i.icon-cog.icon-2x
+		a.header-menu-button.icon(href="/list/update/itemlist/")
+			span
+				i.icon-plus.icon-2x
 div.stp-content-frame
 	div.stp-content-body.container-fluid
 		.span12
