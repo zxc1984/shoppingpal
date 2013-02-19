@@ -42,6 +42,9 @@ function MyCtrl2() {
 MyCtrl2.$inject = [];
 
 function ListCtrl($scope, $http,$location) {
+  $http.get('/api/list').success(function(data, status, headers, config) {
+    $scope.lists = data;
+  });
   $scope.clearListName = function() {
     if ($scope.list)
       $scope.list.name = "";
@@ -63,7 +66,5 @@ function ExpenseCtrl($scope, $http, $location) {
     $location.path('/expense/details/1');
   }
 
-   $http.get('/api/list').success(function(data, status, headers, config) {
-      $scope.lists = data;
-    });
+   
 }
