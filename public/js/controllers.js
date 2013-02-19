@@ -62,4 +62,8 @@ function ExpenseCtrl($scope, $http, $location) {
   $scope.ExpenseDetail = function() {
     $location.path('/expense/details/1');
   }
+
+   $http.get('/api/list').success(function(data, status, headers, config) {
+      $scope.lists = data;
+    });
 }
