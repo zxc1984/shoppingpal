@@ -92,7 +92,7 @@ body {
 }
 .ios .stp-content-frame {
   height: 100%;
-  overflow: auto;
+  /*overflow: auto;*/
   -webkit-overflow-scrolling: touch;
   /*position: relative;*/
 }

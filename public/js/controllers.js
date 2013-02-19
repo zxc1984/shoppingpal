@@ -65,6 +65,12 @@ function ExpenseCtrl($scope, $http, $location) {
   $scope.ExpenseDetail = function() {
     $location.path('/expense/details/1');
   }
+}
+function ShoppingCtrl($scope, $http, $location) {
+  $scope.ItemDetails = function() {
+    $location.path('/shopping/itemdetail/1');
+  }
+}
+function PaymentCtrl($scope, $http, $location) {
 
-   
 }

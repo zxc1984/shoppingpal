@@ -1,7 +1,7 @@
 header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header Shopping
+	h1#header Consolidated List
 	div.header-menu-bar.right
 		a.header-menu-button.icon(href="/shopping/checkout")
 			span
@@ -11,12 +11,12 @@ div.stp-content-frame
 		.span12
 			form
 				ul.row-fluid
-					li.span6(ng-repeat="n in [1,2,3,4,5,6]")
-						div.list-container
+					li.span6(ng-repeat="n in ['apple','orange','pear','banana','papaya','pineapple']")
+						div.list-container(ng-click="ItemDetails()")
 							div.row
 								div.left.list-name
 									input(type="checkbox") 
-									span Item Name {{n}}
+									span \#{{$index}} {{n}}
 								div.right
 									i.icon-chevron-right
 	

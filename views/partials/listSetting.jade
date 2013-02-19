@@ -2,7 +2,7 @@ form
 	header
 		a.header-button.icon(href="/list/1/")
 			div back
-		h1#header Create List
+		h1#header List Option
 		div.header-menu-bar.right
 			a.header-menu-button.icon(href="/list/1")
 				span
@@ -13,3 +13,5 @@ form
 				div.text-with-remove
 					input(type="text",id="list-name",name="list-name",ng-model="list.name",class="input-block-level", placeholder="List name...")
 					i.icon-remove-circle.clearText(ng-click="clearListName()")
+				div
+				| Shows all friends in the list and ability to send more invite

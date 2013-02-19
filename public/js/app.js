@@ -23,9 +23,10 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
     $routeProvider.when('/list/1/additem/1', {templateUrl: 'partials/itemCreate', controller: ItemCtrl});
 
     // Shopping Scenario
-    $routeProvider.when('/shopping', {templateUrl: 'partials/shopping', controller: ListCtrl});
-    $routeProvider.when('/shopping/on', {templateUrl: 'partials/shopping', controller: ListCtrl});
-    $routeProvider.when('/shopping/checkout', {templateUrl: 'partials/shoppingCheckout', controller: ListCtrl});
+    $routeProvider.when('/shopping', {templateUrl: 'partials/shopping', controller: ShoppingCtrl});
+    $routeProvider.when('/shopping/on', {templateUrl: 'partials/shopping', controller: ShoppingCtrl});
+    $routeProvider.when('/shopping/checkout', {templateUrl: 'partials/shoppingCheckout', controller: ShoppingCtrl});
+    $routeProvider.when('/shopping/itemdetail/1', {templateUrl: 'partials/shoppingItemDetail', controller: ShoppingCtrl});
 
     // Expenditure Scenario
     $routeProvider.when('/expense', {templateUrl: 'partials/expenseSummary', controller: ExpenseCtrl});
@@ -33,11 +34,11 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
     $routeProvider.when('/expense/details/1', {templateUrl: 'partials/expenseDetails', controller: ExpenseCtrl});
 
     // payment scenario
-    $routeProvider.when('/payment/', {templateUrl: 'partials/paymentSummary', controller: ListCtrl});
-    $routeProvider.when('/payment/new', {templateUrl: 'partials/paymentCreate', controller: ListCtrl});
-    $routeProvider.when('/payment/confirmation', {templateUrl: 'partials/paymentConfirmation', controller: ListCtrl});
-    $routeProvider.when('/payment/invoice', {templateUrl: 'partials/paymentDetails', controller: ListCtrl});
-    $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: ListCtrl});
+    $routeProvider.when('/payment/', {templateUrl: 'partials/paymentSummary', controller: PaymentCtrl});
+    $routeProvider.when('/payment/new', {templateUrl: 'partials/paymentCreate', controller: PaymentCtrl});
+    $routeProvider.when('/payment/confirmation', {templateUrl: 'partials/paymentConfirmation', controller: PaymentCtrl});
+    $routeProvider.when('/payment/invoice', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
+    $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
 
     // Default
     $routeProvider.otherwise({redirectTo: '/'});

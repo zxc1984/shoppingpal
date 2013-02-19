@@ -1,7 +1,7 @@
 header
 	a.header-button.icon(href="/list/1/")
 			div back
-	h1#header Item Lists
+	h1#header Add to list (items)
 	div.header-menu-bar.right
 		a.header-menu-button.icon(href="/list/1/additem/create")
 			span
@@ -14,12 +14,12 @@ div.stp-content-frame
 		.span12
 			form
 				ul.row-fluid
-					li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+					li.span6(ng-repeat="n in ['apple','orange','pear','banana','papaya','pineapple']")
 						div.list-container(ng-click="ItemDetails()")
 							div.row
 								div.left.list-name
 									input(type="checkbox") 
-									span Name {{n}}
+									span \#{{$index + 1}} {{n}}
 								div.right
 									i.icon-chevron-right
 	
