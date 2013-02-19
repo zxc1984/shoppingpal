@@ -1,7 +1,7 @@
 header
 	a.header-button.icon(href="/list")
 			div back
-	h1#header Name of List
+	h1#header Housemates List
 	div.header-menu-bar.right
 		a.header-menu-button.icon(href="/list/1/option")
 			span
@@ -13,11 +13,11 @@ div.stp-content-frame
 	div.stp-content-body.container
 		.span12
 			ul.row-fluid
-				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+				li.span6(ng-repeat="item in items")
 					div.list-container(ng-click="ListItemDetail()")
 						div.row
 							div.left.list-name
-								| Item Name {{n}}
+								| span {{item.name}}  -  {{item.quantity}}
 							div.right
 								i.icon-chevron-right
 	

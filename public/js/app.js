@@ -23,8 +23,8 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
     $routeProvider.when('/list/1/additem/1', {templateUrl: 'partials/itemCreate', controller: ItemCtrl});
 
     // Shopping Scenario
-    $routeProvider.when('/shopping', {templateUrl: 'partials/shopping', controller: ListCtrl});
-    $routeProvider.when('/shopping/on', {templateUrl: 'partials/shopping', controller: ListCtrl});
+    $routeProvider.when('/shopping', {templateUrl: 'partials/shopping', controller: ShoppingCtrl});
+    $routeProvider.when('/shopping/on', {templateUrl: 'partials/shopping', controller: ListCtrl})
     $routeProvider.when('/shopping/checkout', {templateUrl: 'partials/shoppingCheckout', controller: ListCtrl});
 
     // Expenditure Scenario

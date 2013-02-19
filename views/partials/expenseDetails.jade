@@ -1,16 +1,16 @@
 header
 	a.header-button.icon(href="/expense")
 		div back
-	h1#header Expense Details
+	h1#header Expense History with Jagdish
 div.stp-content-frame
 	div.stp-content-body.container-fluid
 		.span12
 			ul.row-fluid
-				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+				li.span6(ng-repeat="trip in trips")
 					div.list-container
 						div.row
 							div.left.list-name
-								| Name {{n}}
+								| {{trip.date}} {{trip.Location}} - ${{trip.amount}} 
 							div.right
 								i.icon-chevron-right
 	

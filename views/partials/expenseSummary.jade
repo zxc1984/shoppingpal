@@ -6,18 +6,16 @@ header
 		a.header-menu-button.icon(href="/expense/friends")
 			span
 				i.icon-user.icon-2x
-		a.header-menu-button.icon(href="/list/create")
-			span
-				i.icon-plus.icon-2x
+		
 div.stp-content-frame
 	div.stp-content-body.container-fluid
 		.span12
 			ul.row-fluid
-				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+				li.span6(ng-repeat="expense in userExpense")
 					div.list-container(ng-click="ExpenseDetail()")
 						div.row
 							div.left.list-name
-								| Name {{n}}
+								| {{expense.name}} -- ${{expense.amount}}
 							div.right
 								i.icon-chevron-right
 	

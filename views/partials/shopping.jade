@@ -11,12 +11,12 @@ div.stp-content-frame
 		.span12
 			form
 				ul.row-fluid
-					li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+					li.span6(ng-repeat="item in items")
 						div.list-container
 							div.row
 								div.left.list-name
 									input(type="checkbox") 
-									span Item Name {{n}}
+									span {{item.name}}  -  {{item.quantity}}
 								div.right
 									i.icon-chevron-right
 	
