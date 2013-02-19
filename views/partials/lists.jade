@@ -10,11 +10,11 @@ div.stp-content-frame
 	div.stp-content-body.container-fluid
 		.span12
 			ul.row-fluid
-				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+				li.span6(ng-repeat="list in lists")
 					div.list-container(ng-click="ListDetails()")
 						div.row
 							div.left.list-name
-								| Name {{n}}
+								| {{list.name}}
 							div.right
 								i.icon-chevron-right
 	

@@ -29,4 +29,8 @@ function ListCtrl($scope, $http,$location) {
   $scope.ListDetails = function() {
     $location.path('/list/update/');
   }
+
+   $http.get('/api/list').success(function(data, status, headers, config) {
+      $scope.lists = data;
+    });
 }
