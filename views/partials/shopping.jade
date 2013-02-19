@@ -1,0 +1,22 @@
+header
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
+	h1#header Shopping
+	div.header-menu-bar.right
+		a.header-menu-button.icon(href="/shopping/checkout")
+			span
+				i.icon-shopping-cart.icon-2x
+div.stp-content-frame
+	div.stp-content-body.container-fluid
+		.span12
+			form
+				ul.row-fluid
+					li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+						div.list-container
+							div.row
+								div.left.list-name
+									input(type="checkbox") 
+									span Item Name {{n}}
+								div.right
+									i.icon-chevron-right
+	

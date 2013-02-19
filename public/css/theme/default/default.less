@@ -113,6 +113,10 @@ nav {
     padding: 0 0 0 10px;
     position: relative;
     text-decoration: none;
+    > span {
+      margin:12px;
+    }
+
     &:hover {
       text-decoration: none;
       cursor: pointer;
@@ -255,9 +259,11 @@ header {
     height:43px;
     position: absolute;
     left: auto;
-    right: 5px;
     display: block;
     top: 0px;
+    &.right {
+      right: 5px;
+    }
   }
   .header-menu-button {
     width:43px;
@@ -275,7 +281,6 @@ header {
     }
   }
 }
-
 
 
 .stp-content {
@@ -345,3 +350,7 @@ header {
   text-align: center;
 
 }
+
+.misc-container {width:300px; margin:15px 0;}
+.misc-container > div {padding:15px;}
+.center {margin-left:auto;margin-right:auto;text-align: center}

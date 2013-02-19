@@ -1,9 +1,12 @@
 header
-	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
-		span Menu
+	a.header-button.icon(href="/list/1/")
+			div back
 	h1#header Item Lists
-	div.header-menu-bar
-		a.header-menu-button.icon(href="/list/update")
+	div.header-menu-bar.right
+		a.header-menu-button.icon(href="/list/1/additem/create")
+			span
+				i.icon-plus.icon-2x
+		a.header-menu-button.icon(href="/list/1")
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame
@@ -12,7 +15,7 @@ div.stp-content-frame
 			form
 				ul.row-fluid
 					li.span6(ng-repeat="n in [1,2,3,4,5,6]")
-						div.list-container
+						div.list-container(ng-click="ItemDetails()")
 							div.row
 								div.left.list-name
 									input(type="checkbox") 

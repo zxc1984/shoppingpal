@@ -1,0 +1,16 @@
+header
+	a.header-button.icon(href="/expense")
+		div back
+	h1#header Expense Details
+div.stp-content-frame
+	div.stp-content-body.container-fluid
+		.span12
+			ul.row-fluid
+				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
+					div.list-container
+						div.row
+							div.left.list-name
+								| Name {{n}}
+							div.right
+								i.icon-chevron-right
+	
