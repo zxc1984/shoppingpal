@@ -1,7 +1,7 @@
 header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header Lists
+	h1#header Transaction #1
 	div.header-menu-bar.right
 		a.header-menu-button.icon(href="/list/create")
 			span
@@ -9,6 +9,7 @@ header
 div.stp-content-frame
 	div.stp-content-body.container-fluid
 		.span12
+			This will show the paypal transaction details. View is shared with invoice and payment history
 			ul.row-fluid
 				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
 					div.list-container(ng-click="ListDetails()")

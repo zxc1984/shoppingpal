@@ -81,4 +81,11 @@ function ShoppingCtrl($scope, $http,$location) {
   $http.get('/api/items').success(function(data, status, headers, config) {
     $scope.items = data;
   });
+  $scope.ItemDetails = function() {
+    $location.path('/shopping/itemdetail/1');
+  }
+}
+
+function PaymentCtrl($scope, $http, $location) {
+  
 }

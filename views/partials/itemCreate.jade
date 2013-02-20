@@ -1,7 +1,7 @@
 header
 	a.header-button.icon(href="/list/1/additem")
 			div back
-	h1#header Lists
+	h1#header Edit Item
 	div.header-menu-bar.right
 		a.header-menu-button.icon(href="/list/1/additem")
 			span
@@ -9,7 +9,11 @@ header
 div.stp-content-frame
 	div.stp-content-body.container-fluid
 		.span6
-				div.text-with-remove
-					input(type="text",id="list-name",name="list-name",ng-model="list.name",class="input-block-level", placeholder="List name...")
-					i.icon-remove-circle.clearText(ng-click="clearListName()")
+			div
+				p
+				|	Shows Item details including ability to set the price, description for the item
+				p
+				| Create new item and edit item should share the same view.
+				p
+				| Initial database will be taken from the server, and stored locally for personal reference
 	

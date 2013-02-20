@@ -1,13 +1,11 @@
 form
 	header
-		a.header-button.icon(href="/list")
-			div back
-		h1#header Create List
-		a.header-button.icon.right(href="/list/addFriends")
+		a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+			span Menu
+		h1#header New Payment
+		a.header-button.icon.right(href="/payment/confirmation")
 			div next
 	div.stp-content-frame
 		div.stp-content-body.container-fluid		
 			.span6
-				div.text-with-remove
-					input(type="text",id="list-name",name="list-name",ng-model="list.name",class="input-block-level", placeholder="List name...")
-					i.icon-remove-circle.clearText(ng-click="clearListName()")
+				This page will get user input in amount to pay and friend's paypal account. Proceeding next will bring user to paypal for authentication and authorization. The following page will be confrmation page.
