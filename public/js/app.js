@@ -40,6 +40,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
     $routeProvider.when('/payment/invoice', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
     $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
 
+
     // Default
     $routeProvider.otherwise({redirectTo: '/'});
     $locationProvider.html5Mode(true);
