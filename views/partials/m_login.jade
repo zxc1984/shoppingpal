@@ -3,4 +3,10 @@ form
 		div.stp-content-body
 			div.misc-container.center
 				div
-					span.btn.btn-primary.btn-block(ng-click="login()") Login
+					input(type="text",id="user-email",name="user-email",ng-model="user.email",class="input-block-level", placeholder="Email")
+					input(type="password",id="user-password",name="user-password",ng-model="user.passwird",class="input-block-level", placeholder="Password")
+					span.btn.btn-primary.btn-block(ng-click="register()") Login
+				div
+					a(href="/") Back To Main
+					| &nbsp;| 
+					a(href="/forget-password") Forget Password
