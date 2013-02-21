@@ -23,7 +23,6 @@ function AppCtrl($scope, $http, $location) {
   $scope.login = function() {
     $location.path('/list/');
   };
-
 }
 
 function UtilCtrl() {
