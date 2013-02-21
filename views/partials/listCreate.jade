@@ -1,13 +1,13 @@
-form
-	header
-		a.header-button.icon(href="/list")
-			div back
-		h1#header Create List
-		a.header-button.icon.right(href="/list/addFriends")
-			div next
-	div.stp-content-frame
-		div.stp-content-body.container-fluid		
-			.span6
+header
+	a.header-button.icon(href="/list")
+		div back
+	h1#header Create List
+	a.header-button.icon.right(href="/list/addFriends")
+		div next
+div.stp-content-frame
+	div.stp-content-body.container-fluid		
+		.span6
+			div.non-list-content
 				div.text-with-remove
 					input(type="text",id="list-name",name="list-name",ng-model="list.name",class="input-block-level", placeholder="List name...")
 					i.icon-remove-circle.clearText(ng-click="clearListName()")
