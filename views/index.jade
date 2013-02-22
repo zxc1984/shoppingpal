@@ -23,7 +23,9 @@ block body
           a(href="javascript:void(0)") 
             i.icon-info-sign
             span About Us
-
+    div.loading-overlay(ng-show="loading")
+      i.icon-refresh.icon-spin.icon-2x
+      span.loading-text Loading...
     div.stp-content#content
       header.stp-fake.header
       div.stp-overlay.nav-toggle

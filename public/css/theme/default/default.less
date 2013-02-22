@@ -23,6 +23,7 @@ footer, header, hgroup, menu, nav, section {
 ol, ul {
   list-style: none;
 }
+li {margin:0;}
 blockquote, q {
   quotes: none;
 }
@@ -354,12 +355,10 @@ header {
       }
       .label {
         font-size: 10px;
-        margin-right:12px;
         margin-left:3px;
       }
     }
   }
-  i.show-more { color:#999;}
   &:hover {
     border-color: #b7b7b7;
     background-color: #fefefe;
@@ -387,3 +386,19 @@ header {
   padding:15px;
 }
 .center {margin-left:auto;margin-right:auto;text-align: center}
+.loading-overlay {
+  top:0px;
+  z-index:101;
+  height:100%;
+  width: 100%;
+  position: fixed;
+  text-align: center; 
+  vertical-align: middle;
+  i {
+    margin-top:25%;
+  }
+  .loading-text {
+    margin-left: 12px;
+    font-size: 2em;
+  }
+}
