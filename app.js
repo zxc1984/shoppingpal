@@ -6,8 +6,7 @@
 var express = require('express');
 var app = module.exports = express();
 var routes = require('./routes'),
-  api = require('./routes/api'),
-  list = require('./routes/list');
+ list = require('./routes/list');
 
 
 
@@ -36,8 +35,19 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
+/*
 app.get('/api/:collection',api.findAll);
+app.get('/api/:collection/insert',api.insert);
 app.get('/api/:collection/find/:filter/:key',api.findBy);
+*/
+//LIST API 
+app.get('/api/list',list.findAll);
+app.get('/api/list/:id',list.find);
+app.post('/api/list/',list.insert);
+app.put('/api/list/update/:id',list.update);
+app.delete('/api/list/:id',list.delete);
+
+
 // JSON API
 
 // redirect all others to the index (HTML5 history)
