@@ -43,6 +43,7 @@ MyCtrl2.$inject = [];
 function ListCtrl($scope, $http,$location) {
   $http.get('/api/list').success(function(data, status, headers, config) {
     $scope.lists = data;
+    //$scope.lists = [];
   });
   $http.get('/api/items').success(function(data, status, headers, config) {
     $scope.items = data;
@@ -56,6 +57,9 @@ function ListCtrl($scope, $http,$location) {
   }
   $scope.ListItemDetail = function() {
     $location.path('/list/1/itemdetail/1');
+  }
+  $scope.noList=function() {
+    return ($scope.lists.length == 0);
   }
 }
 function ItemCtrl($scope, $http,$location) {

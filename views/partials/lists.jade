@@ -8,12 +8,26 @@ header
 				i.icon-plus.icon-2x
 div.stp-content-frame
 	div.stp-content-body.container-fluid
-		.span12
+		div.span12
 			ul.row-fluid
 				li.span6(ng-repeat="list in lists")
 					div.list-container(ng-click="ListDetails()")
 						div.row
 							div.left.list-name
-								| {{list.name}}
+								div.list-title {{list.name}}
 							div.right
-								i.icon-chevron-right
+								i.icon-chevron-right.show-more
+							div.right
+								div.list-desc
+									span.label-header Items
+									span.label.label-info
+										span 0 
+										i.icon-tags
+								div.list-desc
+									span.label-header Friends
+									span.label
+										span 0 
+										i.icon-group
+				li.span12(ng-show="noList()")
+					div
+						| Start by creating your list now!

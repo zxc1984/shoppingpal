@@ -13,8 +13,6 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   border: 0;
-  font-size: 14px;
-  font-family: inherit;
   margin: 0;
   padding: 0;
 }
@@ -45,6 +43,7 @@ margin-left: 0;
 
 @bgColor: white;
 @fontColor: #171a21;
+@faintFontColor:#4A4A4A;
 @headerColor: @fontColor;
 @headerGradient: #484848;
 @headerGradientLighter: #565656;
@@ -57,7 +56,6 @@ margin-left: 0;
 body {
   background: @bgColor;
   color: @fontColor;
-  font-family: 'Helvetica Neue', 'Helvetica-Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;
   font-size: 1em;
   font-weight: normal;
   word-wrap: break-word;
@@ -178,7 +176,7 @@ header {
   color: white;
   display: block;
   height: 43px;
-  position: absolute;
+  position: fixed;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -o-transform: translateZ(0);
@@ -290,11 +288,21 @@ header {
   -o-box-sizing:      border-box;
   box-sizing:         border-box;
 }
-.non-list-content {
-  padding: 15px;
-}
+
 .stp-content-panel {
   background: @bgColor;
+}
+.stp-content-body > div {
+  float:none;
+  margin-right: auto;
+  margin-left: auto;
+  padding:15px;
+  @media (max-width: 767px) {
+    padding: 0px;
+    .non-list-content{
+      padding:15px;
+    }
+  }
 }
 .container {
   padding: 54px 10px 10px;
@@ -325,8 +333,33 @@ header {
 .list-container {
   border:1px solid #f0f0f0;
   padding:15px;
-  .row {margin:0;}
-  i { color:#999;}
+  line-height:32px;
+  .row {
+    margin:0;
+    .list-title {
+      font-size: 1.2em;
+    }
+    .list-desc {
+      line-height: 12px;
+      font-size: 0.85em;
+      text-align: right;
+      color:@faintFontColor;
+      i {
+        color:white;
+        font-size:10px;
+      }
+      .label-header{
+        display: inline-block;
+        
+      }
+      .label {
+        font-size: 10px;
+        margin-right:12px;
+        margin-left:3px;
+      }
+    }
+  }
+  i.show-more { color:#999;}
   &:hover {
     border-color: #b7b7b7;
     background-color: #fefefe;
@@ -340,7 +373,6 @@ header {
   }
   
 }
-.list-name span {margin-left:10px;}
 
 #footer {
   top:-60px;
