@@ -55,7 +55,7 @@ exports.findBy = function(req, res) {
 
 // Save
 exports.insert = function(req, res) {
-    qw = {"name":"whatsup"};
+    qw = {"name":"Test"};
     db.collection(req.params.collection).insert(qw, {safe:true}, fn(req, res));
 };
 
