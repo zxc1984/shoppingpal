@@ -6,7 +6,10 @@
 var express = require('express');
 var app = module.exports = express();
 var routes = require('./routes'),
- list = require('./routes/list');
+list = require('./routes/list'),
+item = require('./routes/item'),
+shopping = require('./routes/shopping'),
+expense = require('./routes/expense');
 
 
 
@@ -46,6 +49,10 @@ app.get('/api/list/:id',list.find);
 app.post('/api/list/',list.insert);
 app.put('/api/list/update/:id',list.update);
 app.delete('/api/list/:id',list.delete);
+
+app.get('/api/items',item.findAll);
+app.get('/api/userExpense',expense.findAll);
+app.get('/api/shoppingTrips',shopping.findAll);
 
 
 // JSON API

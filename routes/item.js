@@ -9,11 +9,12 @@ var db = require("mongojs").connect(databaseUrl, database);
 * @name String - name of item
 * @price
 * @brand
-* @unitofMeasure 
+* @unitofMeasure
+* @category 
 * 
 */
 
-var collection = "user";
+var collection = "items";
 var objectId = function (_id) {
     if (_id.length === 24 && parseInt(db.ObjectId(_id).getTimestamp().toISOString().slice(0,4), 10) >= 2010) {
         return db.ObjectId(_id);
