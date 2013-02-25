@@ -45,8 +45,16 @@ exports.findAll = function(req, res) {
 
 
 exports.find = function(req,res) {
-     qw = {"name":"Housemates"};
-    db.collection(collection).find(qw).toArray(fn(req, res));
+    
+     qw = {"name":req.params.id};
+     db.collection(collection).find(qw).toArray(fn(req, res));
+
+     // db.collection('list',function(err,collection){
+     //    collection.findOne({'_id': new BSON.ObjectId(req.params.id)},function (err,item){
+     //        res.send(item);
+     //    });
+     // });
+     
 };
 
 // Create
