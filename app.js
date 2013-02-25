@@ -48,9 +48,17 @@ app.get('/api/list',list.findAll);
 app.get('/api/list/:id',list.find);
 app.post('/api/list/',list.insert);
 app.put('/api/list/update/:id',list.update);
-app.delete('/api/list/:id',list.delete);
+app.del('/api/list/:id',list.delete);
 
+//ItemS API
 app.get('/api/items',item.findAll);
+app.get('/api/list/:id',list.find);
+app.post('/api/list/',list.insert);
+app.put('/api/list/update/:id',list.update);
+app.del('/api/list/:id',list.delete);
+
+
+
 app.get('/api/userExpense',expense.findAll);
 app.get('/api/shoppingTrips',shopping.findAll);
 
