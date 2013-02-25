@@ -6,16 +6,52 @@ header
 		a.header-menu-button.icon(href="/payment/new")
 			span
 				i.icon-credit-card.icon-2x
+
 div.stp-content-frame
-	div.stp-content-body.container-fluid
-		.span12
-			| This view will show summary of expense , then show more details below
-			ul.row-fluid
-				li.span6(ng-repeat="expense in userExpense")
-					div.list-container(ng-click="ExpenseDetail()")
+	div.stp-content-body
+		div.row.dashboard
+			.six.columns.mobile-two
+				.header
+					| I OWE
+				.well.single-value
+					| $100.00
+			.six.columns.mobile-two
+				.header
+					| FRIENDS OWE
+				.well.single-value
+					| $50.00
+		div.row.dashboard.navbox
+			.twelve.columns.mobile-four
+				.mobile-one.two.columns
+					.clickable
+						i.icon-circle-arrow-left.icon-2x
+				.mobile-two.center.eight.columns
+					|Till Today
+				.mobile-one.right.two.columns
+					.clickable
+						i.icon-circle-arrow-right.icon-2x
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| Recent Activity
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="list in [{name:'test1'},{name:'test2'},{name:'test3'},{name:'test4'},{name:'test5'},{name:'test6'}]")
+					div.list-container
 						div.row
-							div.left.list-name
-								| {{expense.name}} -- ${{expense.amount}}
-							div.right
-								i.icon-chevron-right
+							div.mobile-two.columns.six.list-name
+								div.list-title {{list.name}}
+							div.mobile-two.columns.six
+								div.list-desc
+									span.label-header Items
+									span.label.label-info
+										span 0 
+										i.icon-tags
+								div.list-desc
+									span.label-header Friends
+									span.label
+										span 0 
+										i.icon-group
+
 	

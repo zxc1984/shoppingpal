@@ -37,7 +37,7 @@ p a, p a:visited { line-height: inherit; }
 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
 .row .row.collapse { margin: 0; }
 
-.column, .columns { float: left; min-height: 1px; padding: 0 15px; position: relative; }
+.column, .columns { float: left; min-height: 1px; padding: 0px; position: relative; }
 .column.centered, .columns.centered { float: none; margin: 0 auto; }
 
 [class*="column"] + [class*="column"]:last-child { float: right; }
@@ -274,7 +274,7 @@ table.show-for-xlarge, table.show-for-large, table.hide-for-small, table.hide-fo
   .row .mobile-three:last-child { float: right; }
   .row .mobile-three.end { float: left; }
   .row.collapse .mobile-three { padding: 0; }
-  .row .mobile-four { width: 100% !important; float: left; padding: 0 15px; }
+  .row .mobile-four { width: 100% !important; float: left; padding: 0px; }
   .row .mobile-four:last-child { float: right; }
   .row .mobile-four.end { float: left; }
   .row.collapse .mobile-four { padding: 0; }
