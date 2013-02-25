@@ -9,15 +9,16 @@ header
 		a.header-menu-button.icon(href="/list/1/additem")
 			span
 				i.icon-plus.icon-2x
-div.stp-content-frame
-	div.stp-content-body.container
-		.span12
-			ul.row-fluid
-				li.span6(ng-repeat="item in items")
+div.stp-content-frame(ng-init="initListDetail()")
+	div.stp-content-body
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="item in items")
 					div.list-container(ng-click="ListItemDetail()")
 						div.row
-							div.left.list-name
-								| {{item.name}}  -  {{item.quantity}}
-							div.right
-								i.icon-chevron-right
+							div.list-name.mobile-three.columns.nine
+								div.list-title {{item.name}}  -  {{item.quantity}}
+							div.mobile-one.columns.three
+								div.right
+									i.icon-chevron-right
 	

@@ -6,27 +6,26 @@ header
 		a.header-menu-button.icon(href="/list/create")
 			span
 				i.icon-plus.icon-2x
-div.stp-content-frame
+div.stp-content-frame(ng-init="initList()")
 	div.stp-content-body
 		div.row
-			div.columns.twelve
-				ul.block-grid.two-up.mobile
-					li(ng-repeat="list in lists")
-						div.list-container(ng-click="ListDetails()")
-							div.row
-								div.left.list-name
-									div.list-title {{list.name}}
-								div.right
-									div.list-desc
-										span.label-header Items
-										span.label.label-info
-											span 0 
-											i.icon-tags
-									div.list-desc
-										span.label-header Friends
-										span.label
-											span 0 
-											i.icon-group
-					li.span12(ng-show="noList()")
-						div
-							| Start by creating your list now!
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="list in lists")
+					div.list-container(ng-click="ListDetails()")
+						div.row
+							div.mobile-two.columns.six.list-name
+								div.list-title {{list.name}}
+							div.mobile-two.columns.six
+								div.list-desc
+									span.label-header Items
+									span.label.label-info
+										span 0 
+										i.icon-tags
+								div.list-desc
+									span.label-header Friends
+									span.label
+										span 0 
+										i.icon-group
+				li(ng-show="noList()")
+					div
+						| Start by creating your list now!

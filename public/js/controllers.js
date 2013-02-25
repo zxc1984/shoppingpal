@@ -43,15 +43,22 @@ function MyCtrl2() {
 MyCtrl2.$inject = [];
 
 function ListCtrl($scope, $http,$location) {
-  $scope.loading = true;
-  $http.get('/api/list').success(function(data, status, headers, config) {
-    $scope.lists = data;
-    //$scope.lists = [];
-    $scope.loading = false;
-  });
-  $http.get('/api/items').success(function(data, status, headers, config) {
-    $scope.items = data;
-  });
+  //$scope.loading = true;
+  $scope.initList = function() {
+    $scope.loading = true;
+    $http.get('/api/list').success(function(data, status, headers, config) {
+      $scope.lists = data;
+      $scope.loading = false;
+    });
+  }
+
+  $scope.initListDetail = function() {
+    $scope.loading = true;
+    $http.get('/api/items').success(function(data, status, headers, config) {
+      $scope.items = data;
+      $scope.loading = false;
+    });
+  }
   $scope.clearListName = function() {
     if ($scope.list)
       $scope.list.name = "";
@@ -63,7 +70,9 @@ function ListCtrl($scope, $http,$location) {
     $location.path('/list/1/itemdetail/1');
   }
   $scope.noList=function() {
-    return ($scope.lists.length == 0) && !$scope.loading;
+    if ($scope.lists)
+      return ($scope.lists.length == 0) && ($scope.loading == false);
+    return false;
   }
 }
 function ItemCtrl($scope, $http,$location) {

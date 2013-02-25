@@ -7,7 +7,13 @@ header
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame
-	div.stp-content-body.container-fluid
-		.span12
-			| Details about the Item goes here
+	div.stp-content-body
+		.row
+			div.columns.six.mobile-four
+				form
+					input(type="text",name="itemname",placeholder="Item name",value="Detergent",class="input-block-level")
+					
+					textarea(name="itemdesc",placeholder="Description",value="Brand XXX Super Powderful Detergent.",class="input-block-level")
+
+
 	
