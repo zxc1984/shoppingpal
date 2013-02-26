@@ -5,7 +5,7 @@ var db = require("mongojs").connect(databaseUrl, database);
 
 /*fields
 *
-* @_id  - id of list
+* @_id  - id of expense
 * @name String - name of list
 * @owner Id - id of owner
 * @sharedList - array of users who are sharing the list

@@ -1,8 +1,6 @@
 var databaseUrl = "test:test@ds051007.mongolab.com:51007/shoppal"; // "username:password@example.com/mydb"
 var database = ["shoppal"]
 var db = require("mongojs").connect(databaseUrl, database);
-
-
 /*fields
 *
 * @_id  - id of list
@@ -45,20 +43,14 @@ exports.findAll = function(req, res) {
 
 
 exports.find = function(req,res) {
-    
-     qw = {"name":req.params.id};
-     db.collection(collection).find(qw).toArray(fn(req, res));
-
-     // db.collection('list',function(err,collection){
-     //    collection.findOne({'_id': new BSON.ObjectId(req.params.id)},function (err,item){
-     //        res.send(item);
-     //    });
-     // });
-     
+     var id = req.params.id;
+     qw = {"_id":objectId(id)};
+    db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
 // Create
 exports.insert = function(req, res) {
+    console.log("hello");
     qw = {"name":"Insertion"};
     db.collection(collection).insert(qw, {safe:true}, fn(req, res));
 };
@@ -71,7 +63,8 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    qw = {"name":"Updated"};
+   var id = req.params.id;
+    qw = {"_id":objectId(id)};
     db.collection(collection).remove(qw);
 };
 

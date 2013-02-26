@@ -46,7 +46,7 @@ exports.findAll = function(req, res) {
 
 
 exports.find = function(req,res) {
-     qw = {"name":"Housemates"};
+     qw = {"id":"Housemates"};
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
