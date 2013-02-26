@@ -16,19 +16,21 @@ div.stp-content-frame
 								input(type="text",name="friendemail",placeholder="Type list name here...",class="input-block-level firstBox",ng-model="friendemail",maxlength="25")
 								button.btn(type="button",ng-click="friendemail = ''")
 									i.icon-remove
-		.row
-			.column.twelve.mobile-four
-				| cat bar
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| Friends
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="friend in friends | orderBy:['status','email']")
 					div.list-container
 						div.row
-							div.mobile-three.columns.six.list-name
+							div.mobile-two.columns.six.list-name
 								div.email-title {{friend.email}}
-							div.mobile-one.columns.six.nopad.right.text-right
+							div.mobile-two.columns.six.nopad.right.text-right
 								span.email-desc
 									span.label(ng-class="getStatusClass(friend.status)")
 										span {{friend.status}}
-								span.remove
+								span.action(ng-click="alert('remove')")
 									i.icon-remove
