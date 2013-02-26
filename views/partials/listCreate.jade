@@ -1,13 +1,20 @@
 header
 	a.header-button.icon(href="/list")
 		div back
-	h1#header Create List
+	h1#header New List
 	a.header-button.icon.right(href="/list/addFriends")
 		div next
 div.stp-content-frame
-	div.stp-content-body.container-fluid		
-		.span6
-			div.non-list-content
-				div.text-with-remove
-					input(type="text",id="list-name",name="list-name",ng-model="list.name",class="input-block-level", placeholder="List name...")
-					i.icon-remove-circle.clearText(ng-click="clearListName()")
+	div.stp-content-body(ng-init="initNewList()")
+		.row.non-list
+			div.columns.six.mobile-four
+				form
+					label Please provide list name
+					.row
+						div.mobile-four.twelve.columns
+							div.text-count
+								span.right(ng-bind="textCountLeft(newlist.name.length,25)")
+							div.input-append(style="width:90%;")
+								input(type="text",name="listname",placeholder="Type list name here...",class="input-block-level firstBox",ng-model="newlist.name",maxlength="25")
+								button.btn(type="button",style="margin-left:-30px",ng-click="newlist.name = ''")
+									i.icon-remove

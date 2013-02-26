@@ -24,13 +24,12 @@ function AppCtrl($scope, $http, $location) {
   $scope.login = function() {
     $location.path('/list/');
   };
-
-}
-
-function UtilCtrl() {
-  $scope.clearListName = function() {
-    if ($scope.list)
-      $scope.list.name = "";
+  $scope.textCountLeft = function(length,limit) {
+    return parseInt(limit) - parseInt(length);
+  }
+  $scope.clearText = function(expr) {
+    if (expr)
+      expr = "";
   };
 }
 
@@ -47,7 +46,11 @@ function ListCtrl(List,$scope, $http,$location) {
   $scope.initList = function() {
     $scope.loading = true;
     $scope.lists = List.query();
-   
+  }
+  $scope.initNewList = function() {
+    $scope.newlist = {name:''};
+    var test = $('.firstBox');
+    test[0].focus();
   }
 
   $scope.initListDetail = function() {
