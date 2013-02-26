@@ -44,6 +44,7 @@ MyCtrl2.$inject = [];
 function ListCtrl(List,$scope, $http,$location) {
   //$scope.loading = true;
   $scope.friends = [{email:'Kevin@shoppalapp.com',status:'pending'},{email:'vincox@shoppalapp.com',status:'pending'},{email:'Jagdish@shoppalapp.com',status:'accepted'}];
+  $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"]
   $scope.initList = function() {
     $scope.loading = true;
     $scope.lists = List.query();
