@@ -43,6 +43,7 @@ MyCtrl2.$inject = [];
 
 function ListCtrl(List,$scope, $http,$location) {
   //$scope.loading = true;
+  $scope.friends = [{email:'Kevin@shoppalapp.com',status:'pending'},{email:'vincox@shoppalapp.com',status:'pending'},{email:'Jagdish@shoppalapp.com',status:'accepted'}];
   $scope.initList = function() {
     $scope.loading = true;
     $scope.lists = List.query();
@@ -74,6 +75,12 @@ function ListCtrl(List,$scope, $http,$location) {
     if ($scope.lists)
       return ($scope.lists.length == 0) && ($scope.loading == false);
     return false;
+  }
+  $scope.getStatusClass = function(status) {
+    if (status == "accepted")
+    {
+      return "label-success";
+    }
   }
 
    /*
