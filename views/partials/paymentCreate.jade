@@ -1,11 +1,70 @@
-form
-	header
-		a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
-			span Menu
-		h1#header New Payment
-		a.header-button.icon.right(href="/payment/confirmation")
-			div next
-	div.stp-content-frame
-		div.stp-content-body.container-fluid		
-			.span6
-				This page will get user input in amount to pay and friend's paypal account. Proceeding next will bring user to paypal for authentication and authorization. The following page will be confrmation page.
+header
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
+	h1 Payment to Fred
+
+
+div.stp-content-frame
+	div.stp-content-body
+		div.row.dashboard
+			.six.columns.mobile-two
+				.header
+					| Pay Fred
+				.well.single-value
+					h2
+						| $15
+			.six.columns.mobile-two
+				.header
+					br
+				.well.expense-action
+					h3
+						| 26/02/2013
+					.btn.btn-primary.btn-block Pay Now
+		div.row.dashboard.navbox
+			.twelve.columns.mobile-four
+				.mobile-one.two.columns
+					.clickable
+						i.icon-circle-arrow-left.icon-2x
+				.mobile-two.center.eight.columns
+					|Till Today
+				.mobile-one.right.two.columns
+					.clickable
+						i.icon-circle-arrow-right.icon-2x
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| What You Owe:
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$15',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$16',period:'Feb 2013'},{item:'Milk',brand:'Magnolia',amount:'$17',period:'Feb 2013'},{item:'Egg',brand:'NA',amount:'$8',period:'Feb 2013'},{item:'Underwear',brand:'Calvin Klein',amount:'$9',period:'Feb 2013'},{item:'Bread',brand:'Sunshine',amount:'$10',period:'Feb 2013'},{item:'Chili Sauce',brand:'Maggi',amount:'$20',period:'Feb 2013'}]")
+					div.list-container
+						a(href="#")
+							div.row
+								div.mobile-two.columns.six
+									h5
+										small
+											| {{list.brand}}
+									h4
+										| {{list.item}} 
+										small
+											i.icon-search
+									h5
+										small
+											| {{list.period}}
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											h2
+												| {{list.amount}}
+
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											i.icon-user.icon-2x
+											h5
+												small
+													| Pay Now
+											
+
+	
