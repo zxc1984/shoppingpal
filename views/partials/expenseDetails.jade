@@ -1,7 +1,7 @@
 header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header My Expenditures
+	h1#header I Owe
 
 				
 
@@ -18,9 +18,11 @@ div.stp-content-frame
 					br
 				.well.expense-action
 					a.btn.btn-primary.btn-block(href="/expense/friends")
-						| Go to Friends OWE
+						.i.icon-exchange
+							|  Go to Friends OWE
 					.btn.btn-success.btn-block
-						| Pay All
+						.i.icon-bell-alt
+							|  Remind Me
 
 		div.row.dashboard.navbox
 			.twelve.columns.mobile-four
@@ -41,7 +43,7 @@ div.stp-content-frame
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in [{name:'Fred',amount:'$15',period:'Feb 2013'},{name:'Peter',amount:'$16',period:'Feb 2013'},{name:'Maung',amount:'$17',period:'Feb 2013'},{name:'Richard',amount:'$8',period:'Feb 2013'},{name:'Bob',amount:'$9',period:'Dec 2012'},{name:'Alice',amount:'$10',period:'Mar 2013'},{name:'Ah Boy',amount:'$20',period:'Jan 2013'}]")
 					div.list-container
-						a(href="#")
+						a(href="/payment/new")
 							div.row
 								div.mobile-two.columns.six
 									h4

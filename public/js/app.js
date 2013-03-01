@@ -39,6 +39,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','
     $routeProvider.when('/payment/confirmation', {templateUrl: 'partials/paymentConfirmation', controller: PaymentCtrl});
     $routeProvider.when('/payment/invoice', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
     $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
+    $routeProvider.when('/payment/confirmation/paid', {templateUrl: 'partials/paymentFinal', controller: PaymentCtrl});
 
 
     // Default
