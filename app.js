@@ -8,6 +8,7 @@ var app = module.exports = express();
 var routes = require('./routes'),
 list = require('./routes/list'),
 item = require('./routes/item'),
+user = require('./routes/user'),
 shopping = require('./routes/shopping'),
 expense = require('./routes/expense');
 
@@ -57,7 +58,12 @@ app.post('/api/list/',list.insert);
 app.put('/api/list/update/:id',list.update);
 app.del('/api/list/:id',list.delete);
 
-
+//USER API 
+app.get('/api/users',user.findAll);
+app.get('/api/users/:id',user.find);
+app.get('/api/users/:email',user.findByEmail);
+app.post('/api/users/',user.insert);
+app.put('/api/user/update/:id',user.update);
 
 app.get('/api/userExpense',expense.findAll);
 app.get('/api/shoppingTrips',shopping.findAll);
