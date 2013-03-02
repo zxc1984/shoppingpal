@@ -46,7 +46,8 @@ exports.findAll = function(req, res) {
 
 
 exports.find = function(req,res) {
-     qw = {"id":"Housemates"};
+     var id = req.params.id;
+     qw = {"_id":objectId(id)};
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
@@ -63,7 +64,8 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    qw = {"name":"Updated"};
+    var id = req.params.id;
+    qw = {"_id":objectId(id)};
     db.collection(collection).remove(qw);
 };
 
