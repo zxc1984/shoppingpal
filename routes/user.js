@@ -82,15 +82,14 @@ exports.authenticate = function(req,res) {
 };
 // Create
 exports.insert = function(req, res) {
-    qw = {"name":req.body.name,"email":req.body.email,"password":req.body.password};
+    qw = req.body;
     db.collection(collection).insert(qw, {safe:true}, fn(req, res));
 };
 
 exports.update = function(req, res) {
     var id = req.params.id;
-    qw = {"_id":objectId(id)};
-    db.collection(collection).update(qw, update);
-    res.send(update);
+    var qw = req.body;
+    db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
 };
 
 exports.delete = function(req, res) {

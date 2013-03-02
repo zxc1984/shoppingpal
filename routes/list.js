@@ -50,16 +50,14 @@ exports.find = function(req,res) {
 
 // Create
 exports.insert = function(req, res) {
-    console.log("hello");
-    qw = {"name":"Insertion"};
+    qw = req.body;
     db.collection(collection).insert(qw, {safe:true}, fn(req, res));
 };
 
 exports.update = function(req, res) {
-    qw = {"name":"Insertion"};
-    update ={"name":"Updated"};
-    db.collection(collection).update(qw, update);
-    res.send(update);
+    var id = req.params.id;
+    var qw = req.body;
+    db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
 };
 
 exports.delete = function(req, res) {
