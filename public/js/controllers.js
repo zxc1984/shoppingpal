@@ -20,6 +20,7 @@ function AppCtrl($scope, $http, $location) {
     $location.path('/login');
   };
   $scope.register = function(user) {
+    $scope.loading = true;
     console.log(user.email + user.name + user.password);
     $http.post('/api/users/authenticate', user).success(function(data){
       console.log(data._id);
@@ -61,11 +62,13 @@ function ListCtrl(List,$scope, $http,$location) {
   $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"]
   $scope.initList = function() {
     console.log(userId);
+    $scope.lists = List.query();
     $scope.loading = true;
-    
+    /*
     List.get({_id:userId},function(response){
       $scope.lists = response;
     });
+*/
   }
   $scope.initNewList = function() {
     $scope.newlist = {name:''};
