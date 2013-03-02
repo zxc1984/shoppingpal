@@ -50,9 +50,9 @@ exports.find = function(req,res) {
 
 exports.findUserList = function(req,res) {
      var id = req.params.id;
-     console.log("findByUserId" + id);
      qw = {"users":id};
-    db.collection(collection).find(qw).toArray(fn(req, res));
+     proj = {"name": 1, "_id": 1 ,"items" : 1};
+   var trial =  db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
 // Create
 exports.insert = function(req, res) {

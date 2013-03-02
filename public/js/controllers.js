@@ -62,10 +62,8 @@ function ListCtrl(List,$scope, $http,$location) {
   $scope.friends = [{email:'Kevin@shoppalapp.com',status:'pending'},{email:'vincox@shoppalapp.com',status:'pending'},{email:'Jagdish@shoppalapp.com',status:'accepted'}];
   $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"]
   $scope.initList = function() {
-    console.log(userId);
     $scope.loading = true;
     $scope.lists = List.query({"_id":userId});
-
   }
   $scope.initNewList = function() {
     $scope.newlist = {name:''};
