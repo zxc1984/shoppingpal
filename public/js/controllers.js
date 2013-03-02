@@ -22,7 +22,7 @@ function AppCtrl($scope, $http, $location) {
   $scope.register = function(user) {
     $scope.loading = true;
     console.log(user.email + user.name + user.password);
-    $http.post('/api/users/authenticate', user).success(function(data){
+    $http.post('/api/users/register', user).success(function(data){
       console.log(data._id);
     });
     //$location.path('/list/');
