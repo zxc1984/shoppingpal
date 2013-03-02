@@ -64,7 +64,7 @@ app.get('/api/users',user.findAll);
 //app.get('/api/users/:email',user.findByEmail);
 app.post('/api/users/login',user.login)
 app.post('/api/users/register',user.insert);
-app.put('/api/user/update/:id',user.update);
+app.put('/api/users/update/:id',user.update);
 
 app.get('/api/userExpense',expense.findAll);
 app.get('/api/shoppingTrips',shopping.findAll);
