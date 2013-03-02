@@ -48,6 +48,12 @@ exports.find = function(req,res) {
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
+exports.findUserList = function(req,res) {
+     var id = req.params.id;
+     console.log("findByUserId" + id);
+     qw = {"users":id};
+    db.collection(collection).find(qw).toArray(fn(req, res));
+};
 // Create
 exports.insert = function(req, res) {
     console.log("hello");

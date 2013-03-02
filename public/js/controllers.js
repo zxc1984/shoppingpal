@@ -1,6 +1,6 @@
 /* Controllers */
 var st = sidetap();
-var userId = "123";
+var userId = "51300a00ea49e46c04000001";
 function AppCtrl($scope, $http, $location) {
   $scope.loading = false;
   $http({method: 'GET', url: '/api/name'}).
@@ -62,13 +62,9 @@ function ListCtrl(List,$scope, $http,$location) {
   $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"]
   $scope.initList = function() {
     console.log(userId);
-    $scope.lists = List.query();
     $scope.loading = true;
-    /*
-    List.get({_id:userId},function(response){
-      $scope.lists = response;
-    });
-*/
+    $scope.lists = List.query({"_id":userId});
+
   }
   $scope.initNewList = function() {
     $scope.newlist = {name:''};
