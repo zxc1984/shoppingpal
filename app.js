@@ -60,8 +60,9 @@ app.del('/api/list/:id',list.delete);
 
 //USER API 
 app.get('/api/users',user.findAll);
-app.get('/api/users/:id',user.find);
-app.get('/api/users/:email',user.findByEmail);
+//app.get('/api/users/:id',user.find);
+//app.get('/api/users/:email',user.findByEmail);
+app.post('/api/users/login',user.login)
 app.post('/api/users/',user.insert);
 app.put('/api/user/update/:id',user.update);
 

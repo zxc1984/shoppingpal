@@ -4,8 +4,8 @@ form
 			div.misc-container.center
 				div
 					input(type="text",id="user-email",name="user-email",ng-model="user.email",class="input-block-level", placeholder="Email")
-					input(type="password",id="user-password",name="user-password",ng-model="user.passwird",class="input-block-level", placeholder="Password")
-					span.btn.btn-primary.btn-block(ng-click="register()") Login
+					input(type="password",id="user-password",name="user-password",ng-model="user.password",class="input-block-level", placeholder="Password")
+					span.btn.btn-primary.btn-block(ng-click="login(user)") Login
 				div
 					a(href="/") Back To Main
 					| &nbsp;| 

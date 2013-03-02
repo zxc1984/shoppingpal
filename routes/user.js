@@ -36,6 +36,12 @@ var fn = function (req, res) {
     return fn;
 };
 
+
+var findOne = function(qw) {
+    db.collection(collection).findOne(qw,function(err,item) {
+        return item;
+    });
+}
 exports.findAll = function(req, res) {
     console.log("user");
     qw = {};
@@ -55,6 +61,25 @@ exports.findByEmail = function(req,res) {
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
+exports.login = function(req,res) {
+    console.log(JSON.stringify(req.body));
+    qw = {"email":req.body.email,"password":req.body.password};
+   var result = db.collection(collection).findOne(qw, function(err,item){
+        if (item) {
+            res.send({"result":true,"_id":item._id});
+        }else {
+            res.send({"result":false});
+        }
+    });
+   
+};
+
+exports.authenticate = function(req,res) {
+     qw = {"email":"test@gmail.com","password":"1234"};
+    var item = findOne(qw);
+    console.log(item._id);
+   
+};
 // Create
 exports.insert = function(req, res) {
     qw = {"name":req.body.name,"email":req.body.email,"password":req.body.password};
