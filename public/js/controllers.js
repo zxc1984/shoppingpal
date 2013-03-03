@@ -3,7 +3,7 @@ var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
   $scope.loading = false;
-  $scope.user = {"email" :"test@gmail.com", "password" : "1234"};
+  $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
   $http({method: 'GET', url: '/api/name'}).
   success(function(data, status, headers, config) {
     $scope.name = data.name;

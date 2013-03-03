@@ -51,7 +51,7 @@ exports.find = function(req,res) {
 exports.findUserList = function(req,res) {
      var id = req.params.id;
      qw = {"users":id};
-     proj = {"name": 1, "_id": 1 ,"items" : 1};
+     proj = {"name": 1, "_id": 1 ,"numItems" : 1, "numFriends" :1};
    var trial =  db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
 // Create
