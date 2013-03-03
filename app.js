@@ -47,6 +47,7 @@ app.get('/api/:collection/find/:filter/:key',api.findBy);
 //LIST API 
 app.get('/api/list',list.findAll);
 app.get('/api/list/:id',list.findUserList);
+app.get('/api/list/:id/items',list.getListItems);
 app.post('/api/list/',list.insert);
 app.put('/api/list/update/:id',list.update);
 app.del('/api/list/:id',list.delete);

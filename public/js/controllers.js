@@ -2,6 +2,10 @@
 var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
+  var userId = getCookie('UserId',$cookieStore);
+  if(userId != undefined) {
+    $location.path("/list");
+  }
   $scope.loading = false;
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
   $http({method: 'GET', url: '/api/name'}).
@@ -82,8 +86,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
       $location.path("/list");
     }
     $scope.loading = true;
-    $http.get('/api/items').success(function(data, status, headers, config) {
-      $scope.items = data;
+
+    $http.get('/api/list/'+chosenList+'/items').success(function(data, status, headers, config) {
+      $scope.listName = data[0].name;
+      $scope.items = data[0].items;
       $scope.loading = false;
     });
   }
