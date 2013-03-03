@@ -12,7 +12,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     $scope.name = 'Error!'
   });
    $scope.logout = function() {
-    $cookieStore.remove('UserId');
+    removeCookie("UserId",$cookieStore);
     $location.path("/");
   };
   $scope.menuClick = function() {
@@ -34,7 +34,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
   $scope.login = function(user) {
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
-        $cookieStore.put('UserId', data._id);
+        setCookie("UserId",data._id,$cookieStore);
         $location.path("/list");
       } 
     });
@@ -58,6 +58,7 @@ MyCtrl2.$inject = [];
 
 function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //$scope.loading = true;
+  
   var userId = getCookie('UserId',$cookieStore);
   if(userId == undefined) {
     $location.path("/login");
@@ -76,6 +77,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
 
   $scope.initListDetail = function() {
+    var chosenList = getCookie("ListDetail", $cookieStore);
+    if(chosenList == undefined) {
+      $location.path("/list");
+    }
     $scope.loading = true;
     $http.get('/api/items').success(function(data, status, headers, config) {
       $scope.items = data;
@@ -86,8 +91,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     if ($scope.list)
       $scope.list.name = "";
   };
-  $scope.ListDetails = function() {
-    $location.path('/list/1');
+  $scope.ListDetails = function(list_id) {
+    setCookie("ListDetail",list_id, $cookieStore);
+    $location.path('/list/detail');
   }
   $scope.ListItemDetail = function() {
     $location.path('/list/1/itemdetail/1');
@@ -102,6 +108,11 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     {
       return "label-success";
     }
+  }
+
+  $scope.backToList = function() {
+    removeCookie("ListDetail", $cookieStore);
+    $location.path("/list");
   }
 
    /*
@@ -169,4 +180,12 @@ angular.module('myApp.cookie', ['ngCookies']);
 function getCookie(cookie_name, $cookieStore) {
    var cookieValue = $cookieStore.get(cookie_name);
    return cookieValue;
+}
+
+function setCookie(cookie_name, value, $cookieStore) {
+  $cookieStore.put(cookie_name, value);
+}
+
+function removeCookie(cookie_name,$cookieStore) {
+  $cookieStore.remove(cookie_name);
 }
