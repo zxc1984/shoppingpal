@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','$strap.directives']).
+angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.directives','$strap.directives']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {templateUrl: 'partials/m_welcome', controller: MyCtrl1});
     $routeProvider.when('/login', {templateUrl: 'partials/m_login', controller: MyCtrl2});

@@ -1,8 +1,9 @@
 /* Controllers */
 var st = sidetap();
-var userId = "51300a00ea49e46c04000001";
-function AppCtrl($scope, $http, $location) {
+
+function AppCtrl($scope, $http, $location, $cookieStore) {
   $scope.loading = false;
+  $scope.user = {"email" :"test@gmail.com", "password" : "1234"};
   $http({method: 'GET', url: '/api/name'}).
   success(function(data, status, headers, config) {
     $scope.name = data.name;
@@ -10,6 +11,10 @@ function AppCtrl($scope, $http, $location) {
   error(function(data, status, headers, config) {
     $scope.name = 'Error!'
   });
+   $scope.logout = function() {
+    $cookieStore.remove('UserId');
+    $location.path("/");
+  };
   $scope.menuClick = function() {
     st.toggle_nav();
   };
@@ -21,23 +26,17 @@ function AppCtrl($scope, $http, $location) {
   };
   $scope.register = function(user) {
     $scope.loading = true;
-    console.log(user.email + user.name + user.password);
     $http.post('/api/users/register', user).success(function(data){
       $location.path("/login");
-      console.log(data._id);
     });
     //$location.path('/list/');
   };
   $scope.login = function(user) {
-    console.log(user.email + user.name + user.password);
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
-        console.log("logged in" + data._id);
-        userId = data._id;
+        $cookieStore.put('UserId', data._id);
         $location.path("/list");
-      } else {
-        console.log("no such user");
-      }
+      } 
     });
   };
   $scope.textCountLeft = function(length,limit) {
@@ -57,8 +56,13 @@ function MyCtrl2() {
 }
 MyCtrl2.$inject = [];
 
-function ListCtrl(List,$scope, $http,$location) {
+function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //$scope.loading = true;
+  var userId = getCookie('UserId',$cookieStore);
+  if(userId == undefined) {
+    $location.path("/login");
+  }
+
   $scope.friends = [{email:'Kevin@shoppalapp.com',status:'pending'},{email:'vincox@shoppalapp.com',status:'pending'},{email:'Jagdish@shoppalapp.com',status:'accepted'}];
   $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"]
   $scope.initList = function() {
@@ -130,9 +134,7 @@ function ListCtrl(List,$scope, $http,$location) {
    $scope.lists = List.query();
   }
 }
-
-ListCtrl.$inject = ['List','$scope','$http','$location'];
-
+ListCtrl.$inject = ['$scope', '$http', '$location', '$cookieStore', 'List'];
 function ItemCtrl($scope, $http,$location) {
   $scope.ItemDetails = function() {
     $location.path('/list/1/additem/1');
@@ -162,4 +164,9 @@ function ShoppingCtrl($scope, $http,$location) {
 
 function PaymentCtrl($scope, $http, $location) {
   
+}
+angular.module('myApp.cookie', ['ngCookies']);
+function getCookie(cookie_name, $cookieStore) {
+   var cookieValue = $cookieStore.get(cookie_name);
+   return cookieValue;
 }
