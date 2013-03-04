@@ -5,7 +5,7 @@ form
 				div
 					input(type="text",id="user-name",name="user-name",ng-model="user.name",class="input-block-level", placeholder="Name")
 					input(type="text",id="user-email",name="user-email",ng-model="user.email",class="input-block-level", placeholder="Email")
-					input(type="password",id="user-password",name="user-password",ng-model="user.passwird",class="input-block-level", placeholder="Password")
-					span.btn.btn-primary.btn-block(ng-click="register()") Register
+					input(type="password",id="user-password",name="user-password",ng-model="user.password",class="input-block-level", placeholder="Password")
+					span.btn.btn-primary.btn-block(ng-click="register(user)") Register
 				div
 					a(href="/") Back To Main

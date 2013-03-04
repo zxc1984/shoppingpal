@@ -2,10 +2,8 @@ header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
 	h1#header Expense Summary
-	div.header-menu-bar.right
-		a.header-menu-button.icon(href="/payment/new")
-			span
-				i.icon-credit-card.icon-2x
+
+				
 
 div.stp-content-frame
 	div.stp-content-body
@@ -15,11 +13,19 @@ div.stp-content-frame
 					| I OWE
 				.well.single-value
 					| $100.00
+					h5
+						small
+						a(href="expense/details/1")
+							| view details
 			.six.columns.mobile-two
 				.header
 					| FRIENDS OWE
 				.well.single-value
 					| $50.00
+					h5
+						small
+						a(href="/expense/friends")
+							| view details
 		div.row.dashboard.navbox
 			.twelve.columns.mobile-four
 				.mobile-one.two.columns
@@ -37,21 +43,17 @@ div.stp-content-frame
 					| Recent Activity
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{name:'test1'},{name:'test2'},{name:'test3'},{name:'test4'},{name:'test5'},{name:'test6'}]")
+				li(ng-repeat="list in [{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'You',message:'paid $15 to Fred for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $60 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'}]")
 					div.list-container
 						div.row
-							div.mobile-two.columns.six.list-name
-								div.list-title {{list.name}}
-							div.mobile-two.columns.six
-								div.list-desc
-									span.label-header Items
-									span.label.label-info
-										span 0 
-										i.icon-tags
-								div.list-desc
-									span.label-header Friends
-									span.label
-										span 0 
-										i.icon-group
+							div.mobile-three.columns.eight
+								h5
+									| {{list.name}} 
+									small
+										| has {{list.message}}
+							div.mobile-one.columns.four
+								.pay-actions
+									h6
+										| {{list.date}}
 
 	

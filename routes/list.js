@@ -48,18 +48,28 @@ exports.find = function(req,res) {
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
+exports.findUserList = function(req,res) {
+     var id = req.params.id;
+     qw = {"users":id};
+     proj = {"name": 1, "_id": 1 ,"numItems" : 1, "numFriends" :1};
+    db.collection(collection).find(qw,proj).toArray(fn(req, res));
+};
+exports.getListItems = function(req,res) {
+     var id = req.params.id;
+     qw = {"_id":objectId(id)};
+     proj = {"name": 1, "_id": 1 ,"items" : 1};
+    db.collection(collection).find(qw,proj).toArray(fn(req, res));
+};
 // Create
 exports.insert = function(req, res) {
-    console.log("hello");
-    qw = {"name":"Insertion"};
+    qw = req.body;
     db.collection(collection).insert(qw, {safe:true}, fn(req, res));
 };
 
 exports.update = function(req, res) {
-    qw = {"name":"Insertion"};
-    update ={"name":"Updated"};
-    db.collection(collection).update(qw, update);
-    res.send(update);
+    var id = req.params.id;
+    var qw = req.body;
+    db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
 };
 
 exports.delete = function(req, res) {

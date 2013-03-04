@@ -11,7 +11,7 @@ var db = require("mongojs").connect(databaseUrl, database);
 * @password - String password of user
 */
 
-var collection = "user";
+var collection = "users";
 var objectId = function (_id) {
     if (_id.length === 24 && parseInt(db.ObjectId(_id).getTimestamp().toISOString().slice(0,4), 10) >= 2010) {
         return db.ObjectId(_id);
@@ -36,32 +36,65 @@ var fn = function (req, res) {
     return fn;
 };
 
+
+var findOne = function(qw) {
+    db.collection(collection).findOne(qw,function(err,item) {
+        return item;
+    });
+}
 exports.findAll = function(req, res) {
+    console.log("user");
     qw = {};
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
 
 exports.find = function(req,res) {
-     qw = {"name":"Housemates"};
+     var id = req.params.id;
+     qw = {"_id":objectId(id)};
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
+exports.findByEmail = function(req,res) {
+     var email = req.params.email;
+     qw = {"email":objectId(email)};
+    db.collection(collection).find(qw).toArray(fn(req, res));
+};
+
+exports.login = function(req,res) {
+    console.log(JSON.stringify(req.body));
+    qw = {"email":req.body.email,"password":req.body.password};
+   var result = db.collection(collection).findOne(qw, function(err,item){
+        if (item) {
+            res.send({"result":true,"_id":item._id});
+        }else {
+            res.send({"result":false});
+        }
+    });
+   
+};
+
+exports.authenticate = function(req,res) {
+     qw = {"email":"test@gmail.com","password":"1234"};
+    var item = findOne(qw);
+    console.log(item._id);
+   
+};
 // Create
 exports.insert = function(req, res) {
-    qw = {"name":"Insertion"};
+    qw = req.body;
     db.collection(collection).insert(qw, {safe:true}, fn(req, res));
 };
 
 exports.update = function(req, res) {
-    qw = {"name":"Insertion"};
-    update ={"name":"Updated"};
-    db.collection(collection).update(qw, update);
-    res.send(update);
+    var id = req.params.id;
+    var qw = req.body;
+    db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
 };
 
 exports.delete = function(req, res) {
-    qw = {"name":"Updated"};
+    var id = req.params.id;
+    qw = {"_id":objectId(id)};
     db.collection(collection).remove(qw);
 };
 

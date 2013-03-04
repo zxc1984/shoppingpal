@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','$strap.directives']).
+angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.directives','$strap.directives']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {templateUrl: 'partials/m_welcome', controller: MyCtrl1});
     $routeProvider.when('/login', {templateUrl: 'partials/m_login', controller: MyCtrl2});
@@ -13,8 +13,8 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','
     $routeProvider.when('/list', {templateUrl: 'partials/lists', controller: ListCtrl});
     $routeProvider.when('/list/create', {templateUrl: 'partials/listCreate', controller: ListCtrl});
     $routeProvider.when('/list/addFriends', {templateUrl: 'partials/listAddFriends', controller: ListCtrl});
-    $routeProvider.when('/list/1', {templateUrl: 'partials/listDetails', controller: ListCtrl});
-    $routeProvider.when('/list/1/itemdetail/1', {templateUrl: 'partials/listItemDetail', controller: ListCtrl});
+    $routeProvider.when('/list/detail', {templateUrl: 'partials/listDetails', controller: ListCtrl});
+    $routeProvider.when('/list/detail/itemdetail/', {templateUrl: 'partials/listItemDetail', controller: ListCtrl});
     $routeProvider.when('/list/1/option', {templateUrl: 'partials/listSetting', controller: ListCtrl});
     
     // Add Items Scenario
@@ -39,6 +39,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','
     $routeProvider.when('/payment/confirmation', {templateUrl: 'partials/paymentConfirmation', controller: PaymentCtrl});
     $routeProvider.when('/payment/invoice', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
     $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
+    $routeProvider.when('/payment/confirmation/paid', {templateUrl: 'partials/paymentFinal', controller: PaymentCtrl});
 
 
     // Default

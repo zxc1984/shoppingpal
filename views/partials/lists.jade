@@ -11,7 +11,7 @@ div.stp-content-frame(ng-init="initList()")
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in lists")
-					div.list-container.selectable(ng-click="ListDetails()")
+					div.list-container.selectable(ng-click="ListDetails(list._id)")
 						div.row
 							div.mobile-two.columns.six.list-name
 								div.list-title {{list.name}}
@@ -19,12 +19,12 @@ div.stp-content-frame(ng-init="initList()")
 								div.list-desc
 									span.label-header Items
 									span.label.label-info
-										span 0 
+										span {{list.numItems}} 
 										i.icon-tags
 								div.list-desc
 									span.label-header Friends
 									span.label
-										span 0 
+										span {{list.numFriends}}  
 										i.icon-group
 				li(ng-show="noList()")
 					div

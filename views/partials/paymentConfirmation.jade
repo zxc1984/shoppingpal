@@ -1,17 +1,76 @@
-form
-	header
-		div.header-menu-bar
-			a.header-menu-button.icon(href="/payment")
-				span
-					i.icon-remove.icon-2x
-		h1#header Confirm Payment
-		div.header-menu-bar.right
-			a.header-menu-button.icon(href="/payment/invoice")
-				span
-					i.icon-ok.icon-2x
-	div.stp-content-frame
-		div.stp-content-body.container-fluid		
-			.span6
-				div.text-with-remove
-					input(type="text",id="list-name",name="list-name",ng-model="list.name",class="input-block-level", placeholder="List name...")
-					i.icon-remove-circle.clearText(ng-click="clearListName()")
+header
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
+	h1#header Confirm Payment
+
+div.stp-content-frame
+	div.stp-content-body
+		div.row.dashboard
+			.six.columns.mobile-two
+				.header
+					h3(style="text-align:left")
+						| Payment To:
+				.well.single-value
+					i.icon-user.icon-2x
+					h5
+						small
+							| Fred
+					h5
+						small
+						a(href="expense/details/1")
+			.six.columns.mobile-two
+				.header
+					h3
+						small
+							| Amount Paying
+				.well.single-value(style="margin-bottom:2px")
+					h2
+						| $15
+				a.btn.btn-primary.btn-block(href="/payment/confirmation/paid")
+					| Confirm and Pay
+		div.row.dashboard.navbox
+			.twelve.columns.mobile-four
+				.mobile-one.two.columns
+					.clickable
+						i.icon-circle-arrow-left.icon-2x
+				.mobile-two.center.eight.columns
+					|Till Today
+				.mobile-one.right.two.columns
+					.clickable
+						i.icon-circle-arrow-right.icon-2x
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| Items Paying For:
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$10',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$5',period:'Feb 2013'}]")
+					div.list-container
+						a(href="#")
+							div.row
+								div.mobile-two.columns.six
+									h5
+										small
+											| {{list.brand}}
+									h4
+										| {{list.item}} 
+										small
+											i.icon-search
+									h5
+										small
+											| {{list.period}}
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											h2
+												| {{list.amount}}
+
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											i.icon-remove.icon-2x
+											h5
+												small
+													| Remove
+			

@@ -1,44 +1,72 @@
 header
-	a.header-button.icon(href="/expense")
-		div back
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
 	h1#header I Owe
+
+				
+
 div.stp-content-frame
 	div.stp-content-body
-		div.dashboard-txn.row
+		div.row.dashboard
+			.six.columns.mobile-two
+				.header
+					| I OWE
+				.well.single-value
+					| $100.00
+			.six.columns.mobile-two
+				.header
+					br
+				.well.expense-action
+					a.btn.btn-primary.btn-block(href="/expense/friends")
+						.i.icon-exchange
+							|  Go to Friends OWE
+					.btn.btn-success.btn-block
+						.i.icon-bell-alt
+							|  Remind Me
+
+		div.row.dashboard.navbox
+			.twelve.columns.mobile-four
+				.mobile-one.two.columns
+					.clickable
+						i.icon-circle-arrow-left.icon-2x
+				.mobile-two.center.eight.columns
+					|Till Today
+				.mobile-one.right.two.columns
+					.clickable
+						i.icon-circle-arrow-right.icon-2x
+		div.row
+			// My list of activities
 			.twelve.columns.mobile-four
 				div.listHeader
-					.eight.columns
-						| People I Owe Money To
-		div.row.dashboard-txn
+					| Return Money To:
+		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{name:'Fred',amount:'$15'},{name:'Peter',amount:'$16'},{name:'Maung',amount:'$17'},{name:'Richard',amount:'$8'},{name:'Bob',amount:'$9'},{name:'Alice',amount:'$10'}]")
+				li(ng-repeat="list in [{name:'Fred',amount:'$15',period:'Feb 2013'},{name:'Peter',amount:'$16',period:'Feb 2013'},{name:'Maung',amount:'$17',period:'Feb 2013'},{name:'Richard',amount:'$8',period:'Feb 2013'},{name:'Bob',amount:'$9',period:'Dec 2012'},{name:'Alice',amount:'$10',period:'Mar 2013'},{name:'Ah Boy',amount:'$20',period:'Jan 2013'}]")
 					div.list-container
-						div.row
-							div.mobile-two.columns.six
-								h4
-									| {{list.name}} 
-									small
-										i.icon-search
-							div.mobile-one.columns.three
-								.pay-actions
+						a(href="/payment/new")
+							div.row
+								div.mobile-two.columns.six
 									h4
-										| {{list.amount}}
-							div.mobile-one.columns.three
-								.pay-actions
-									i.icon-money
-									h5
+										| {{list.name}} 
 										small
-											| Pay
-		div.row.dashboard-txn
-			.six.columns.mobile-two
-				div.dashboard-txn.pay-box
-					.well
-						| Total to Pay
-						h3
-							| $15.00
-			.six.columns.mobile-two
-				div.dashboard-txn.pay-box
-					a.success.button
-						| Pay Now
+											i.icon-user
+										h5
+											small
+												| for {{list.period}}
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											h4
+												| {{list.amount}}
+												h5
+													small
+														| owed
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											i.icon-money
+											h5
+												small
+													| Pay
 
 	

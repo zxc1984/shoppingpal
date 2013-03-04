@@ -1,21 +1,59 @@
 header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header Transaction #1
-	div.header-menu-bar.right
-		a.header-menu-button.icon(href="/list/create")
-			span
-				i.icon-plus.icon-2x
+	h1#header Payment History
+
 div.stp-content-frame
-	div.stp-content-body.container-fluid
-		.span12
-			This will show the paypal transaction details. View is shared with invoice and payment history
-			ul.row-fluid
-				li.span6(ng-repeat="n in [1,2,3,4,5,6]")
-					div.list-container(ng-click="ListDetails()")
+	div.stp-content-body
+		div.row.dashboard
+			.six.columns.mobile-two
+				.header
+					h2(style="text-align:left")
+						| Fred
+				.well.single-value
+					i.icon-user.icon-2x
+					h5
+						small
+							|user photo
+					h5
+						small
+						a(href="expense/details/1")
+			.six.columns.mobile-two
+				.header
+					h3
+						small
+							| Amount Owed To You
+				.well.single-value(style="margin-bottom:2px")
+					h2
+						| $15
+				a.btn.btn-primary.btn-block(href="/expense/friends")
+					| Return to Payment
+		div.row.dashboard.navbox
+			.twelve.columns.mobile-four
+				.mobile-one.two.columns
+					.clickable
+						i.icon-circle-arrow-left.icon-2x
+				.mobile-two.center.eight.columns
+					|Till Today
+				.mobile-one.right.two.columns
+					.clickable
+						i.icon-circle-arrow-right.icon-2x
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| Payment Activity
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="list in [{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'spent $15 for you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $60 to you for Dec 2012',date:'26/02/2013'},{name:'Fred',message:'spent $15 for you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'}]")
+					div.list-container
 						div.row
-							div.left.list-name
-								| Name {{n}}
-							div.right
-								i.icon-chevron-right
-	
+							div.mobile-three.columns.eight
+								h5
+									| {{list.name}} 
+									small
+										| has {{list.message}}
+							div.mobile-one.columns.four
+								.pay-actions
+									h6
+										| {{list.date}}
