@@ -9,6 +9,7 @@ var routes = require('./routes'),
 list = require('./routes/list'),
 item = require('./routes/item'),
 user = require('./routes/user'),
+unitOfMeasure = require('./routes/unitOfMeasure'),
 shopping = require('./routes/shopping'),
 expense = require('./routes/expense');
 
@@ -67,6 +68,7 @@ app.post('/api/users/login',user.login)
 app.post('/api/users/register',user.insert);
 app.put('/api/users/update/:id',user.update);
 
+app.get('/api/unitOfMeasure',unitOfMeasure.findAll);
 app.get('/api/userExpense',expense.findAll);
 app.get('/api/shoppingTrips',shopping.findAll);
 
