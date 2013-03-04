@@ -23,6 +23,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/public'));
+  app.use(express.cookieParser());
   app.use(app.router);
 });
 
@@ -67,6 +68,7 @@ app.post('/api/users/login',user.login)
 app.post('/api/users/register',user.insert);
 app.put('/api/users/update/:id',user.update);
 
+//EXPENSE API
 app.get('/api/userExpense',expense.findAll);
 app.get('/api/shoppingTrips',shopping.findAll);
 

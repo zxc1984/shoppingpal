@@ -1,11 +1,9 @@
 var databaseUrl = "test:test@ds051007.mongolab.com:51007/shoppal"; // "username:password@example.com/mydb"
 var database = ["shoppal"]
 var db = require("mongojs").connect(databaseUrl, database);
-
-
 /*fields
 *
-* @_id  - id of expense
+* @_id  - id of list
 * @name String - name of list
 * @owner Id - id of owner
 * @sharedList - array of users who are sharing the list
@@ -13,7 +11,7 @@ var db = require("mongojs").connect(databaseUrl, database);
 *     
 */
 
-var collection = "userExpense";
+var collection = "unitOfMeasure";
 var objectId = function (_id) {
     if (_id.length === 24 && parseInt(db.ObjectId(_id).getTimestamp().toISOString().slice(0,4), 10) >= 2010) {
         return db.ObjectId(_id);
@@ -39,20 +37,16 @@ var fn = function (req, res) {
 };
 
 exports.findAll = function(req, res) {
-    
-    var userId = JSON.parse(req.cookies.UserId);
-    qw = {"userId":userId};
-    console.log(qw);
+    qw = {};
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
 
 exports.find = function(req,res) {
-    var id = req.params.id;
-    qw = {"_id":objectId(id)};
+     var id = req.params.id;
+     qw = {"_id":objectId(id)};
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
-
 // Create
 exports.insert = function(req, res) {
     qw = req.body;
@@ -66,7 +60,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    var id = req.params.id;
+   var id = req.params.id;
     qw = {"_id":objectId(id)};
     db.collection(collection).remove(qw);
 };

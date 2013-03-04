@@ -22,7 +22,8 @@ div.stp-content-frame
 							span.btn(ng-click="item.qty= item.qty - 1")
 								i.icon-minus
 						div.columns.six.mobile-two.center
-							div.well.well-small {{item.qty}}
+							div.well.well-small {{item.qty}} 
+								ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
 						div.columns.three.mobile-one.left
 							span.btn(ng-click="item.qty= item.qty + 1")
 								i.icon-plus

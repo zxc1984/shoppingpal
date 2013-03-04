@@ -2,19 +2,9 @@
 var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
-  var userId = getCookie('UserId',$cookieStore);
-  if(userId != undefined) {
-    $location.path("/list");
-  }
+  
   $scope.loading = false;
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
-  $http({method: 'GET', url: '/api/name'}).
-  success(function(data, status, headers, config) {
-    $scope.name = data.name;
-  }).
-  error(function(data, status, headers, config) {
-    $scope.name = 'Error!'
-  });
    $scope.logout = function() {
     removeCookie("UserId",$cookieStore);
     $location.path("/");
@@ -62,7 +52,8 @@ MyCtrl2.$inject = [];
 
 function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //$scope.loading = true;
-  
+  //http://localhost:3000/api/unitOfMeasure
+  $scope.unitOfMeasure = [{"singular":"loaf","plural":"loaves"},{"singular":"KG","plural":"KGs"}];
   var userId = getCookie('UserId',$cookieStore);
   if(userId == undefined) {
     $location.path("/login");
@@ -96,6 +87,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   $scope.initListItemDetail = function() {
     var chosenItem = getCookie("ListItemDetail", $cookieStore);
     console.log("chosen" + chosenItem);
+
     if(chosenItem == undefined) {
       $location.path("/list/detail");
     }
