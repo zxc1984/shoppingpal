@@ -19,12 +19,12 @@ div.stp-content-frame
 
 					div.quantity-control.row
 						div.columns.three.mobile-one.right
-							span.btn(ng-click="count= count - 1")
+							span.btn(ng-click="item.qty= item.qty - 1")
 								i.icon-minus
 						div.columns.six.mobile-two.center
-							div.well.well-small {{count || 0}}
+							div.well.well-small {{item.qty}}
 						div.columns.three.mobile-one.left
-							span.btn(ng-click="count= count + 1")
+							span.btn(ng-click="item.qty= item.qty + 1")
 								i.icon-plus
 
 
