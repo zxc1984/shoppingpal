@@ -18,14 +18,15 @@ div.stp-content-frame
 					input(type="text",class="input-block-level",placeholder="Type category here...",ng-model="item.category", bs-typeahead="typeahead")
 
 					div.quantity-control.row
-						div.columns.three.mobile-one.right
+						div.columns.three.mobile-one.text-right
 							span.btn(ng-click="count= count - 1")
 								i.icon-minus
 						div.columns.six.mobile-two.center
 							div.well.well-small {{count || 0}}
-						div.columns.three.mobile-one.left
+						div.columns.three.mobile-one.text-left
 							span.btn(ng-click="count= count + 1")
 								i.icon-plus
+					span.btn.btn-danger.btn-block delete item
 
 
 			
