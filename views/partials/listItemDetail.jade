@@ -1,5 +1,5 @@
 header
-	a.header-button.icon(href="/list/detail/")
+	a.header-button.icon(href="javascript:void(0)")(ng-click="backToListDetail()")
 			div back
 	h1#header Spin Washing Machine Powder
 	div.header-menu-bar.right
@@ -7,11 +7,11 @@ header
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame
-	div.stp-content-body
+	div.stp-content-body(ng-init="initListItemDetail()")
 		form
 			.row.non-list
 				div.columns.six.mobile-four
-					input(type="text",name="itemname",placeholder="Item name",value="Detergent",class="input-block-level")
+					input(type="text",name="itemname",placeholder="Item name",value="{{item.name}}",class="input-block-level")
 					
 					textarea(name="itemdesc",placeholder="Description",value="Brand XXX Super Powderful Detergent.",class="input-block-level",rows="3")
 

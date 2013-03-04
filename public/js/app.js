@@ -14,7 +14,7 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
     $routeProvider.when('/list/create', {templateUrl: 'partials/listCreate', controller: ListCtrl});
     $routeProvider.when('/list/addFriends', {templateUrl: 'partials/listAddFriends', controller: ListCtrl});
     $routeProvider.when('/list/detail', {templateUrl: 'partials/listDetails', controller: ListCtrl});
-    $routeProvider.when('/list/1/itemdetail/1', {templateUrl: 'partials/listItemDetail', controller: ListCtrl});
+    $routeProvider.when('/list/detail/itemdetail/', {templateUrl: 'partials/listItemDetail', controller: ListCtrl});
     $routeProvider.when('/list/1/option', {templateUrl: 'partials/listSetting', controller: ListCtrl});
     
     // Add Items Scenario

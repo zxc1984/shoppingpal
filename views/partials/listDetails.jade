@@ -17,9 +17,9 @@ div.stp-content-frame(ng-init="initListDetail()")
 					div.list-container
 						div.row
 							div.mobile-two.columns.six.list-name
-								div.item-title {{item.id}}
+								div.item-title {{item.name}}
 							div.mobile-two.columns.six.nopad.right.text-right
-								span.item-desc {{item.qty}}
-								span.action(ng-click="ListItemDetail()")
+								span.item-desc {{item.qty}} {{item.unitOfMeasure}}
+								span.action(ng-click="ListItemDetail(item)")
 									i.icon-edit
 	

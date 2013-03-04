@@ -93,6 +93,14 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
       $scope.loading = false;
     });
   }
+  $scope.initListItemDetail = function() {
+    var chosenItem = getCookie("ListItemDetail", $cookieStore);
+    console.log("chosen" + chosenItem);
+    if(chosenItem == undefined) {
+      $location.path("/list/detail");
+    }
+   $scope.item = chosenItem;
+  }
   $scope.clearListName = function() {
     if ($scope.list)
       $scope.list.name = "";
@@ -101,8 +109,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     setCookie("ListDetail",list_id, $cookieStore);
     $location.path('/list/detail');
   }
-  $scope.ListItemDetail = function() {
-    $location.path('/list/1/itemdetail/1');
+  $scope.ListItemDetail = function(item) {
+    setCookie("ListItemDetail",item, $cookieStore);
+    $location.path('/list/detail/itemdetail/');
   }
   $scope.noList=function() {
     if ($scope.lists)
@@ -119,6 +128,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   $scope.backToList = function() {
     removeCookie("ListDetail", $cookieStore);
     $location.path("/list");
+  }
+  $scope.backToListDetail = function() {
+    removeCookie("ListItemDetail", $cookieStore);
+    $location.path("/list/detail");
   }
 
    /*
