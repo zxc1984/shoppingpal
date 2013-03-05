@@ -40,6 +40,20 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     if (expr)
       expr = "";
   };
+
+  $scope.shareType = "individual";
+  $scope.classShareType = function(type) {
+    if ($scope.shareType == 'individual' && $scope.shareType == type)
+      return "active btn-primary";
+    if ($scope.shareType == 'share' && $scope.shareType == type)
+      return "active btn-primary";
+  }
+  $scope.toggleShareType = function() {
+    if ($scope.shareType == 'individual')
+      $scope.shareType = 'share';
+    else
+      $scope.shareType = 'individual';
+  }
 }
 
 function MyCtrl1() {}
@@ -53,6 +67,8 @@ MyCtrl2.$inject = [];
 function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //$scope.loading = true;
   //http://localhost:3000/api/unitOfMeasure
+  $scope.categories = [{name:'bread',value:'bread'},{name:'drinks',value:'drinks'},{name:'frozen shits',value:'frozen shits'}];
+
   $scope.unitOfMeasure = [{"singular":"loaf","plural":"loaves"},{"singular":"KG","plural":"KGs"}];
   var userId = getCookie('UserId',$cookieStore);
   if(userId == undefined) {
