@@ -86,12 +86,12 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
   $scope.initListItemDetail = function() {
     var chosenItem = getCookie("ListItemDetail", $cookieStore);
-    console.log("chosen" + chosenItem);
+    console.log("chosen" + JSON.stringify(chosenItem));
 
     if(chosenItem == undefined) {
       $location.path("/list/detail");
     }
-   $scope.item = chosenItem;
+   $scope.item = chosenItem.item;
   }
   $scope.clearListName = function() {
     if ($scope.list)
@@ -101,8 +101,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     setCookie("ListDetail",list_id, $cookieStore);
     $location.path('/list/detail');
   }
-  $scope.ListItemDetail = function(item) {
-    setCookie("ListItemDetail",item, $cookieStore);
+  $scope.ListItemDetail = function(item,index) {
+    console.log("index" + index);
+    setCookie("ListItemDetail",{"item":item,"index":index}, $cookieStore);
     $location.path('/list/detail/itemdetail/');
   }
   $scope.noList=function() {
@@ -128,6 +129,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
 
   $scope.saveListItemDetail= function(item) {
     console.log("Saved item" + JSON.stringify(item));
+    //$http.put()
   }
 
    /*
