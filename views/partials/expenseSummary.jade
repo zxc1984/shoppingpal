@@ -43,14 +43,14 @@ div.stp-content-frame
 					| Recent Activity
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'You',message:'paid $15 to Fred for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $60 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'}]")
+				li(ng-repeat="list in userExpense")
 					div.list-container
 						div.row
 							div.mobile-three.columns.eight
 								h5
-									| {{list.name}} 
+									| {{list.payer}} 
 									small
-										| has {{list.message}}
+										| has paid {{list.payee}} ${{list.amount}} for {{list.period}}
 							div.mobile-one.columns.four
 								.pay-actions
 									h6

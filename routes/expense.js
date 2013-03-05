@@ -39,7 +39,6 @@ var fn = function (req, res) {
 };
 
 exports.findAll = function(req, res) {
-    
     var userId = JSON.parse(req.cookies.UserId);
     qw = {"userId":userId};
     console.log(qw);
