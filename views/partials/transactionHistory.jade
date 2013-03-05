@@ -1,27 +1,28 @@
 header
-	a.header-button.icon(href="/expense/details/1")
+	a.header-button.icon(href="/payment/details/1")
 		div Back
 		span Menu
-	h1 Payment to Fred
-
+	h1#header Transaction History
 
 div.stp-content-frame
 	div.stp-content-body
 		div.row.dashboard
 			.six.columns.mobile-two
 				.header
-					| Pay Fred
+					h3
+						| Payment To:
 				.well.single-value
-					h2
-						| $15
+					i.icon-user.icon-2x
+					h4
+						| You
 			.six.columns.mobile-two
 				.header
-					br
-				.well.expense-action
 					h3
-						| 26/02/2013
-					a.btn.btn-primary.btn-block(href="/payment/confirmation")
-						| Pay Now
+						| Paid By:
+				.well.single-value
+					i.icon-user.icon-2x
+					h4
+						| Fred
 		div.row.dashboard.navbox
 			.twelve.columns.mobile-four
 				.mobile-one.two.columns
@@ -36,14 +37,14 @@ div.stp-content-frame
 			// My list of activities
 			.twelve.columns.mobile-four
 				div.listHeader
-					| What You Owe:
+					| Items Paying For:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$10',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$5',period:'Feb 2013'},{item:'Spread',brand:'Nutella',amount:'$5',period:'Dec 2012',type:'Shared'}]")
+				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$10',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$5',period:'Feb 2013'}]")
 					div.list-container
 						a(href="#")
 							div.row
-								div.mobile-two.columns.ten
+								div.mobile-two.columns.six
 									h5
 										small
 											| {{list.brand}}
@@ -54,10 +55,16 @@ div.stp-content-frame
 									h5
 										small
 											| {{list.period}}
-								div.mobile-two.columns.two
+								div.mobile-one.columns.three
 									.pay-actions
-											h2(style="text-align:right; vertical-align:middle")
+										center
+											h2
 												| {{list.amount}}
-											
 
-	
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											i.icon-remove.icon-2x
+											h5
+												small
+													| Remove
