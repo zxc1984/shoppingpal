@@ -11,18 +11,16 @@ div.stp-content-frame
 				.header
 					h2(style="text-align:left")
 						| Fred
-				.well.single-value
-					i.icon-user
-						|  user photo
+				img.img-polaroid(src="http://userserve-ak.last.fm/serve/_/72551712/Fred+Salazar+tzcvvrfbf7izn0mr28ew3pz5jcy42t.jpg")
 			.six.columns.mobile-two
 				.header
 					h3
 						small
 							| Amount Owed To You
-				.well.single-value
+				.span.single-value(style="vertical-align:middle")
 					h2(style="font-size:40pt; padding:3px")
 						| $15
-		div.row.dashboard.navbox
+		div.row.dashboard.navbox(style="padding:10px")
 			.twelve.columns.mobile-four
 				.mobile-one.two.columns
 					.clickable
@@ -40,7 +38,7 @@ div.stp-content-frame
 					| Payment Activity
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'spent $15 for you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $60 to you for Dec 2012',date:'26/02/2013'},{name:'Fred',message:'spent $15 for you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'}]")
+				li(ng-repeat="list in [{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'spent $15 for you for Jan 2013',date:'26/02/2013'}]")
 					div.list-container
 						a(href="/payment/transaction")
 							div.row
