@@ -1,5 +1,6 @@
 header
-	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+	a.header-button.icon(href="/expense/details/1")
+		div Back
 		span Menu
 	h1 Payment to Fred
 
@@ -38,11 +39,11 @@ div.stp-content-frame
 					| What You Owe:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$15',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$16',period:'Feb 2013'},{item:'Milk',brand:'Magnolia',amount:'$17',period:'Feb 2013'},{item:'Egg',brand:'NA',amount:'$8',period:'Feb 2013'},{item:'Underwear',brand:'Calvin Klein',amount:'$9',period:'Feb 2013'},{item:'Bread',brand:'Sunshine',amount:'$10',period:'Feb 2013'},{item:'Chili Sauce',brand:'Maggi',amount:'$20',period:'Feb 2013'}]")
+				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$10',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$5',period:'Feb 2013'},{item:'Spread',brand:'Nutella',amount:'$5',period:'Dec 2012',type:'Shared'}]")
 					div.list-container
 						a(href="#")
 							div.row
-								div.mobile-two.columns.six
+								div.mobile-two.columns.ten
 									h5
 										small
 											| {{list.brand}}
@@ -53,19 +54,10 @@ div.stp-content-frame
 									h5
 										small
 											| {{list.period}}
-								div.mobile-one.columns.three
+								div.mobile-two.columns.two
 									.pay-actions
-										center
-											h2
+											h2(style="text-align:right; vertical-align:middle")
 												| {{list.amount}}
-
-								div.mobile-one.columns.three
-									.pay-actions
-										center
-											i.icon-money.icon-2x
-											h5
-												small
-													| Pay Now
 											
 
 	
