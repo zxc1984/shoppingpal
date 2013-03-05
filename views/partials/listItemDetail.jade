@@ -1,9 +1,9 @@
 header
 	a.header-button.icon(href="javascript:void(0)")(ng-click="backToListDetail()")
 			div back
-	h1#header Spin Washing Machine Powder
+	h1#header {{item.name}}
 	div.header-menu-bar.right
-		a.header-menu-button.icon(href="/list/detail")
+		a.header-menu-button.icon(href="javascript:void(0)")(ng-click="saveListItemDetail(item)")
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame
@@ -11,9 +11,9 @@ div.stp-content-frame
 		form
 			.row.non-list
 				div.columns.six.mobile-four
-					input(type="text",name="itemname",placeholder="Item name",value="{{item.name}}",class="input-block-level")
-					
-					textarea(name="itemdesc",placeholder="Description",value="Brand XXX Super Powderful Detergent.",class="input-block-level",rows="3")
+					input(type="text",name="itemname",placeholder="Item name",ng-model="item.name",class="input-block-level")
+					textarea(name="itemdesc",placeholder="Description",ng-model="item.description",class="input-block-level",rows="3")
+					input(type="text",class="input-block-level",placeholder="Type category here...",ng-model="item.category")
 
 					
 					select.select-block-level

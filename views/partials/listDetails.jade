@@ -17,7 +17,7 @@ div.stp-content-frame(ng-init="initListDetail()")
 					div.list-container
 						div.row
 							div.mobile-two.columns.six.list-name
-								div.item-title {{item.name}}
+								div.item-title {{item.brand}} {{item.name}}
 							div.mobile-two.columns.six.nopad.right.text-right
 								span.item-desc {{item.qty}} 
 									ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")

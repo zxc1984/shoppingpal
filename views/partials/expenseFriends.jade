@@ -3,8 +3,6 @@ header
 		span Menu
 	h1#header Friends Owe
 
-				
-
 div.stp-content-frame
 	div.stp-content-body
 		div.row.dashboard
@@ -15,9 +13,9 @@ div.stp-content-frame
 					a.btn.btn-primary.btn-block(href="/expense/details/1")
 						.i.icon-exchange
 							|  Go to I OWE
-					.btn.btn-success.btn-block
-						.i.icon-bell-alt
-							|  Remind All
+					a.btn.btn-success.btn-block(href="/expense")
+						.i.icon-money
+							|  Expenditures
 			.six.columns.mobile-two
 				.header
 					| FRIENDS OWE
@@ -42,7 +40,7 @@ div.stp-content-frame
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in [{name:'Fred',amount:'$15',period:'Feb 2013'},{name:'Peter',amount:'$16',period:'Feb 2013'},{name:'Maung',amount:'$17',period:'Feb 2013'},{name:'Richard',amount:'$8',period:'Feb 2013'},{name:'Bob',amount:'$9',period:'Feb 2013'},{name:'Alice',amount:'$10',period:'Feb 2013'},{name:'Ah Boy',amount:'$20',period:'Feb 2013'}]")
 					div.list-container
-						a(href="/payment/invoice")
+						a(href="/payment/details/1")
 							div.row
 								div.mobile-two.columns.six
 									h4

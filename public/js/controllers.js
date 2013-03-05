@@ -142,6 +142,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
+  $scope.saveListItemDetail= function(item) {
+    console.log("Saved item" + JSON.stringify(item));
+  }
+
    /*
   $scope.create = function($event) {
     Item.create({object:c});   
