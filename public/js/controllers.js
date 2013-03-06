@@ -180,6 +180,17 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
 }
 ListCtrl.$inject = ['$scope', '$http', '$location', '$cookieStore', 'List'];
 function ItemCtrl($scope, $http,$location) {
+  $scope.selectedItem = ['banana'];
+  $scope.isSelected = function(name) {
+    var className = "icon-check-empty";
+    $.each($scope.selectedItem, function(index,item) {
+      if (item == name) {
+        className = "icon-check";
+        return;
+      }
+    });
+    return className;
+  }
   $scope.ItemDetails = function() {
     $location.path('/list/1/additem/1');
   }

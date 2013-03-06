@@ -12,13 +12,25 @@ header
 div.stp-content-frame(ng-init="initListDetail()")
 	div.stp-content-body
 		div.row
+			div.columns.twelve.centered.mobile-four.text-center
+				.well.well-small.no-bottom-margin.well-darker
+					span.btn.btn-info.btn-long
+						i.icon-shopping-cart
+						| &nbsp;&nbsp;Shop for this List
+		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in items")
 					div.list-container
 						div.row
-							div.mobile-two.columns.six.list-name
-								div.item-title {{item.brand}} {{item.name}}
-							div.mobile-two.columns.six.nopad.right.text-right
+							div.mobile5-three.columns.six.list-name.tight
+								div.row
+									div.two.columns.mobile5-one
+										span.badge.badge-info.badge-large
+											i.icon-user
+									div.item-title.ten.columns.mobile5-four
+										{{item.brand}} {{item.name}}
+							
+							div.mobile5-two.columns.six.nopad.right.text-right
 								span.item-desc {{item.qty}} 
 									ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
 								span.action(ng-click="ListItemDetail(item,$index)")
