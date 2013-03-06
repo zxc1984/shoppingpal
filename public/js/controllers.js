@@ -148,6 +148,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     //$http.put()
   }
 
+  $scope.StartShopping = function() {
+    $location.path("/shopping/on");
+  }
+
    /*
   $scope.create = function($event) {
     Item.create({object:c});   
