@@ -196,6 +196,7 @@ function ItemCtrl($scope, $http,$location) {
   }
 }
 function ExpenseCtrl($scope, $http, $location) {
+  console.log("aa");
   $scope.ExpenseDetail = function() {
     $location.path('/expense/details/1');
   }
@@ -204,6 +205,10 @@ function ExpenseCtrl($scope, $http, $location) {
   });
     $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
     $scope.trips = data;
+  });
+    
+    $http.get('/api/iOwe').success(function(data, status, headers, config) {
+    $scope.iOweLists = data;
   });
    
 }

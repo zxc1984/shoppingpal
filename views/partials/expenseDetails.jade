@@ -41,13 +41,13 @@ div.stp-content-frame
 					| Return Money To:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{name:'Fred',amount:'$15',period:'Feb 2013'},{name:'Peter',amount:'$16',period:'Feb 2013'},{name:'Maung',amount:'$17',period:'Feb 2013'},{name:'Richard',amount:'$8',period:'Feb 2013'},{name:'Bob',amount:'$9',period:'Dec 2012'},{name:'Alice',amount:'$10',period:'Mar 2013'},{name:'Ah Boy',amount:'$20',period:'Jan 2013'}]")
+				li(ng-repeat="list in iOweLists")
 					div.list-container
 						a(href="/payment/new")
 							div.row
 								div.mobile-two.columns.six
 									h4
-										| {{list.name}} 
+										| {{list.payee.name}} 
 										small
 											i.icon-user
 										h5
@@ -57,7 +57,7 @@ div.stp-content-frame
 									.pay-actions
 										center
 											h4
-												| {{list.amount}}
+												| $20
 												h5
 													small
 														| owed
@@ -68,5 +68,7 @@ div.stp-content-frame
 											h5
 												small
 													| Pay
+
+													ul.block-grid.two-up.mobile
 
 	
