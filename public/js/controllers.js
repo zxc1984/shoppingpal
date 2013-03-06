@@ -210,6 +210,10 @@ function ExpenseCtrl($scope, $http, $location) {
     $http.get('/api/iOwe').success(function(data, status, headers, config) {
     $scope.iOweLists = data;
   });
+
+    $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
+    $scope.friendsOweLists = data;
+  });
    
 }
 
