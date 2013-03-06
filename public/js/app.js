@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.directives','$strap.directives']).
+angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.directives']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {templateUrl: 'partials/m_welcome', controller: MyCtrl1});
     $routeProvider.when('/login', {templateUrl: 'partials/m_login', controller: MyCtrl2});
@@ -24,7 +24,7 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
 
     // Shopping Scenario
     $routeProvider.when('/shopping', {templateUrl: 'partials/shopping', controller: ShoppingCtrl});
-    $routeProvider.when('/shopping/on', {templateUrl: 'partials/shopping', controller: ShoppingCtrl});
+    $routeProvider.when('/shopping/on', {templateUrl: 'partials/startShopping', controller: ShoppingCtrl});
     $routeProvider.when('/shopping/checkout', {templateUrl: 'partials/shoppingCheckout', controller: ShoppingCtrl});
     $routeProvider.when('/shopping/itemdetail/1', {templateUrl: 'partials/shoppingItemDetail', controller: ShoppingCtrl});
 

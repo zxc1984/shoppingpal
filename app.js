@@ -11,9 +11,8 @@ item = require('./routes/item'),
 user = require('./routes/user'),
 shopping = require('./routes/shopping'),
 expense = require('./routes/expense');
-
-
-
+iOwe = require('./routes/iOwe');
+friendsOwe = require('./routes/friendsOwe');
 
 // Configuration
 
@@ -72,6 +71,11 @@ app.put('/api/users/update/:id',user.update);
 app.get('/api/userExpense',expense.findAll);
 app.get('/api/shoppingTrips',shopping.findAll);
 
+//iOwe API
+app.get('/api/iOwe',iOwe.findAll);
+
+//friendsOwe API
+app.get('/api/friendsOwe',friendsOwe.findAll);
 
 // JSON API
 

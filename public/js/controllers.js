@@ -40,6 +40,20 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     if (expr)
       expr = "";
   };
+
+  $scope.shareType = "individual";
+  $scope.classShareType = function(type) {
+    if ($scope.shareType == 'individual' && $scope.shareType == type)
+      return "active btn-primary";
+    if ($scope.shareType == 'share' && $scope.shareType == type)
+      return "active btn-primary";
+  }
+  $scope.toggleShareType = function() {
+    if ($scope.shareType == 'individual')
+      $scope.shareType = 'share';
+    else
+      $scope.shareType = 'individual';
+  }
 }
 
 function MyCtrl1() {}
@@ -53,6 +67,8 @@ MyCtrl2.$inject = [];
 function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //$scope.loading = true;
   //http://localhost:3000/api/unitOfMeasure
+  $scope.categories = [{name:'bread',value:'bread'},{name:'drinks',value:'drinks'},{name:'frozen shits',value:'frozen shits'}];
+
   $scope.unitOfMeasure = [{"singular":"loaf","plural":"loaves"},{"singular":"KG","plural":"KGs"}];
   var userId = getCookie('UserId',$cookieStore);
   if(userId == undefined) {
@@ -86,12 +102,12 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
   $scope.initListItemDetail = function() {
     var chosenItem = getCookie("ListItemDetail", $cookieStore);
-    console.log("chosen" + chosenItem);
+    console.log("chosen" + JSON.stringify(chosenItem));
 
     if(chosenItem == undefined) {
       $location.path("/list/detail");
     }
-   $scope.item = chosenItem;
+   $scope.item = chosenItem.item;
   }
   $scope.clearListName = function() {
     if ($scope.list)
@@ -101,8 +117,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     setCookie("ListDetail",list_id, $cookieStore);
     $location.path('/list/detail');
   }
-  $scope.ListItemDetail = function(item) {
-    setCookie("ListItemDetail",item, $cookieStore);
+  $scope.ListItemDetail = function(item,index) {
+    console.log("index" + index);
+    setCookie("ListItemDetail",{"item":item,"index":index}, $cookieStore);
     $location.path('/list/detail/itemdetail/');
   }
   $scope.noList=function() {
@@ -128,6 +145,11 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
 
   $scope.saveListItemDetail= function(item) {
     console.log("Saved item" + JSON.stringify(item));
+    //$http.put()
+  }
+
+  $scope.StartShopping = function() {
+    $location.path("/shopping/on");
   }
 
    /*
@@ -162,11 +184,23 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
 }
 ListCtrl.$inject = ['$scope', '$http', '$location', '$cookieStore', 'List'];
 function ItemCtrl($scope, $http,$location) {
+  $scope.selectedItem = ['banana'];
+  $scope.isSelected = function(name) {
+    var className = "icon-check-empty";
+    $.each($scope.selectedItem, function(index,item) {
+      if (item == name) {
+        className = "icon-check";
+        return;
+      }
+    });
+    return className;
+  }
   $scope.ItemDetails = function() {
     $location.path('/list/1/additem/1');
   }
 }
 function ExpenseCtrl($scope, $http, $location) {
+  console.log("aa");
   $scope.ExpenseDetail = function() {
     $location.path('/expense/details/1');
   }
@@ -175,6 +209,14 @@ function ExpenseCtrl($scope, $http, $location) {
   });
     $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
     $scope.trips = data;
+  });
+    
+    $http.get('/api/iOwe').success(function(data, status, headers, config) {
+    $scope.iOweLists = data;
+  });
+
+    $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
+    $scope.friendsOweLists = data;
   });
    
 }

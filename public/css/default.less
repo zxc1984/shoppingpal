@@ -423,12 +423,16 @@ header {
     }
     .email-title, .item-title {
       display: inline-block;
-      margin-top:12px;
       font-size:0.8em;
+      line-height: 16px;
+      word-wrap:break-word;
+      padding: 0 5px;
     }
-    .item-title {
-      margin-top:6px;
+    .email-title {
+      line-height: 12px;
+      padding: 16px 0;
     }
+
     .list-desc, .email-desc, .item-desc {
       line-height: 12px;
       font-size: 0.85em;
@@ -512,9 +516,12 @@ form {
   }
 }
 
-  .form-box {
-    padding:15px !important;
-  }
+.form-box {
+  padding:15px !important;
+}
+select.select-block-level {
+  width:100%;
+}
 
 #footer {
   top:-60px;
@@ -524,6 +531,16 @@ form {
 
 }
 
+.stp-content-footer {
+  width: 100%;
+  background-color: black;
+  position: fixed;
+  bottom:0;
+}
+.buffer {
+  height:50px;
+  width: 100%;
+}
 .misc-container {width:100%;max-width: 300px; margin:15px 0;}
 .misc-container div {
   padding:15px;
@@ -531,18 +548,17 @@ form {
 .nopad {padding:0 !important;}
 .center {margin-left:auto;margin-right:auto;text-align: center}
 .loading-overlay {
-  top:0px;
-  z-index:101;
-  height:100%;
-  width: 100%;
+  top:25%;
   position: fixed;
   text-align: center; 
   vertical-align: middle;
-  i {
-    margin-top:25%;
-  }
   .loading-text {
     margin-left: 12px;
     font-size: 2em;
   }
 }
+.top-margin {margin-top:16px;}
+.no-bottom-margin {margin-bottom:0px !important;}
+.btn-long {width:280px;}
+.well-darker {background-color: #e5e5e5; border: 1px solid #d1d1d1;}
+.tight {padding:0 !important; margin:0 !important;}

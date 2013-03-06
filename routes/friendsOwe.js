@@ -2,18 +2,7 @@ var databaseUrl = "test:test@ds051007.mongolab.com:51007/shoppal"; // "username:
 var database = ["shoppal"]
 var db = require("mongojs").connect(databaseUrl, database);
 
-
-/*fields
-*
-* @_id  - id of expense
-* @name String - name of list
-* @owner Id - id of owner
-* @sharedList - array of users who are sharing the list
-* @itemsAdded - array = {items:"hajaha",user:"hahaha",qty:"1"}  
-*     
-*/
-
-var collection = "userExpense";
+var collection = "friendsOwe";
 var objectId = function (_id) {
     if (_id.length === 24 && parseInt(db.ObjectId(_id).getTimestamp().toISOString().slice(0,4), 10) >= 2010) {
         return db.ObjectId(_id);

@@ -9,6 +9,12 @@ header
 div.stp-content-frame(ng-init="initList()")
 	div.stp-content-body
 		div.row
+			div.columns.twelve.centered.mobile-four.text-center
+				.well.well-small.no-bottom-margin
+					span.btn.btn-info.btn-long(ng-click="StartShopping()")
+						i.icon-shopping-cart
+						| &nbsp;&nbsp;Start Shopping
+		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in lists")
 					div.list-container.selectable(ng-click="ListDetails(list._id)")
@@ -26,6 +32,7 @@ div.stp-content-frame(ng-init="initList()")
 									span.label
 										span {{list.numFriends}}  
 										i.icon-group
+				li.buffer
 				li(ng-show="noList()")
 					div
 						| Start by creating your list now!
