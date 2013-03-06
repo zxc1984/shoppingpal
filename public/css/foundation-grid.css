@@ -285,6 +285,10 @@ table.show-for-xlarge, table.show-for-large, table.hide-for-small, table.hide-fo
   .push-three-mobile { left: 75%; }
   .pull-three-mobile { right: 75%; }  
     /* Mobile 5-column Grid */
+  .row .mobile5-half { width: 10% !important; float: left; padding: 0 10px; }
+  .row .mobile5-half:last-child { float: right; }
+  .row .mobile5-half.end { float: left; }
+  .row.collapse .mobile5-one { padding: 0; }
   .row .mobile5-one { width: 20% !important; float: left; padding: 0 10px; }
   .row .mobile5-one:last-child { float: right; }
   .row .mobile5-one.end { float: left; }

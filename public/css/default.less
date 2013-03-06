@@ -418,8 +418,13 @@ header {
   vertical-align: middle-text;
   .row {
     margin:0;
+    &.list-name-box { margin-top:5px;}
+    .list-name, .list-info {padding: 0 10px;}
     .list-title {
       font-size: 1em;
+      i {
+        vertical-align: middle;
+      }
     }
     .email-title, .item-title {
       display: inline-block;
@@ -431,6 +436,9 @@ header {
     .email-title {
       line-height: 12px;
       padding: 16px 0;
+    }
+    .item-title {
+      margin-top: 2px;
     }
 
     .list-desc, .email-desc, .item-desc {

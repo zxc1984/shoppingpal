@@ -149,7 +149,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
 
   $scope.StartShopping = function() {
-    $location.path("/shopping/on");
+    $location.path("/shopping/");
   }
 
    /*
@@ -221,7 +221,35 @@ function ExpenseCtrl($scope, $http, $location) {
    
 }
 
-function ShoppingCtrl($scope, $http,$location) {
+function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
+  var userId = getCookie('UserId',$cookieStore);
+  $scope.lists = [];
+  $scope.selectedLists = [];
+  if(userId == undefined) {
+    $location.path("/login");
+  }
+  $scope.initList = function() {
+    $scope.loading = true;
+    $scope.lists = List.query({"_id":userId});
+  }
+  $scope.listIsSelected = function(id) {
+    for (var i = 0; i < $scope.selectedLists.length; i++) {
+      if ($scope.selectedLists[i] == id) {
+        return "icon-check";
+      } 
+    }
+    return "icon-check-empty";
+  }
+  $scope.toggleSelect = function(id) {
+
+    for (var i = 0; i < $scope.selectedLists.length; i++) {
+      if ($scope.selectedLists[i] == id) {
+        $scope.selectedLists.splice(i, 1);
+      }
+    }
+    $scope.selectedLists.push(id);
+  }
+
   $http.get('/api/items').success(function(data, status, headers, config) {
     $scope.items = data;
   });
