@@ -3,6 +3,7 @@ var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
   
+  $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"}];
   $scope.loading = false;
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
    $scope.logout = function() {
@@ -69,7 +70,6 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //http://localhost:3000/api/unitOfMeasure
   $scope.categories = [{name:'bread',value:'bread'},{name:'drinks',value:'drinks'},{name:'frozen shits',value:'frozen shits'}];
 
-  $scope.unitOfMeasure = [{"singular":"loaf","plural":"loaves"},{"singular":"KG","plural":"KGs"}];
   var userId = getCookie('UserId',$cookieStore);
   if(userId == undefined) {
     $location.path("/login");
@@ -148,8 +148,12 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     //$http.put()
   }
 
-  $scope.StartShopping = function() {
+  $scope.SelectShoppingLists = function() {
     $location.path("/shopping/");
+  }
+
+  $scope.StartShopping = function() {
+    $location.path("/shopping/on");
   }
 
    /*
@@ -225,12 +229,18 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   var userId = getCookie('UserId',$cookieStore);
   $scope.lists = [];
   $scope.selectedLists = [];
+  $scope.selectedItems = [];
+
+  $scope.items = [];
   if(userId == undefined) {
     $location.path("/login");
   }
   $scope.initList = function() {
     $scope.loading = true;
     $scope.lists = List.query({"_id":userId});
+  }
+  $scope.initListDetail = function() {
+    $scope.items = [{"id":"51239233e4b029c335f08541","name":"Gardenia White Bread","qty":1,"unitOfMeasure":0},{"_id":"5123925be4b029c335f08545","name":"Spin Washing Machine Powder","qty":5,"unitOfMeasure":1}];
   }
   $scope.listIsSelected = function(id) {
     for (var i = 0; i < $scope.selectedLists.length; i++) {
@@ -250,10 +260,25 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     }
     $scope.selectedLists.push(id);
   }
+  $scope.itemIsSelected = function(id) {
+    for (var i = 0; i < $scope.selectedItems.length; i++) {
+      if ($scope.selectedItems[i] == id) {
+        return "icon-check";
+      } 
+    }
+    return "";
+  }
+  $scope.toggleSelectItem = function(id) {
 
-  $http.get('/api/items').success(function(data, status, headers, config) {
-    $scope.items = data;
-  });
+    for (var i = 0; i < $scope.selectedItems.length; i++) {
+      if ($scope.selectedItems[i] == id) {
+        $scope.selectedItems.splice(i, 1);
+        return;
+      }
+    }
+    $scope.selectedItems.push(id);
+  }
+
   $scope.ItemDetails = function() {
     $location.path('/shopping/itemdetail/1');
   }

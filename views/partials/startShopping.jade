@@ -6,7 +6,7 @@ header
 		a.header-menu-button.icon(href="/shopping/checkout")
 			span
 				i.icon-ok.icon-2x
-div.stp-content-frame
+div.stp-content-frame(ng-init="initListDetail()")
 	div.stp-content-body
 		.row.non-list
 			div.columns.six.mobile-four
@@ -25,12 +25,20 @@ div.stp-content-frame
 					| Cat 1
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="n in ['apple','orange','pear','banana','papaya','pineapple']")
-					div.list-container.selectable(ng-click="ItemScopeChanger()")
-						div.row
-							div.mobile-three.columns.nine.list-name
-								i.icon-check-empty
-								div.item-title {{n}}
-							div.columns.three.mobile-one.text-right
-								i.icon-chevron-right
-	
+				li(ng-repeat="item in items")
+					div.list-container(ng-click="toggleSelectItem(item.id)")
+						div.row.list-name-box
+							div.mobile5-three.columns.six.list-name
+								div.item-title
+									{{item.brand}} {{item.name}} 
+							
+							div.mobile5-two.columns.six.text-right
+								div.item-check
+									i.icon-2x(ng-class="itemIsSelected(item.id)")
+								div.qty-desc
+									div.left.qty-box
+										div.item-desc2 {{item.qty}}
+										div.uom 
+											ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
+									div.left.icon-box
+										i.icon-group
