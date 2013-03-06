@@ -240,11 +240,12 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     }
     return "icon-check-empty";
   }
-  $scope.toggleSelect = function(id) {
+  $scope.toggleSelectList = function(id) {
 
     for (var i = 0; i < $scope.selectedLists.length; i++) {
       if ($scope.selectedLists[i] == id) {
         $scope.selectedLists.splice(i, 1);
+        return;
       }
     }
     $scope.selectedLists.push(id);
