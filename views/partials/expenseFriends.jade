@@ -40,13 +40,12 @@ div.stp-content-frame
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in friendsOweLists")
 					div.list-container
-						a(href="/payment/details/1")
 							div.row
 								div.mobile-two.columns.six
 									h4
 										| {{list.payer.name}} 
 										small
-											i.icon-user
+											a.i.icon-user(href="/payment/details/1")
 										h5
 											small
 												| {{list.period}}
@@ -63,7 +62,7 @@ div.stp-content-frame
 
 										center
 											i.icon-envelope
-											h5
+											a.h5(ng-click="")
 												small
 													| Remind
 
