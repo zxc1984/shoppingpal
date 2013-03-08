@@ -60,6 +60,14 @@ exports.getListItems = function(req,res) {
      proj = {"name": 1, "_id": 1 ,"items" : 1};
     db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
+
+exports.getSpecificListItems = function(req,res) {
+     var id = req.params.id;
+     qw = {$set:{"items":[{
+"id": "51239233e4b029c335f08541","name": "Gardenia White Breads","qty": 1,"unitOfMeasure": 0}]}};
+     proj = {"name": 1, "_id": 1 ,"items" : 1};
+    db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
+};
 // Create
 exports.insert = function(req, res) {
     qw = req.body;

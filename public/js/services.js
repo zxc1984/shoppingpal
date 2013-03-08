@@ -14,7 +14,7 @@ angular.module('myApp.List',['ngResource']).factory('List',['$resource', '$http'
 				}, {
 					get:    {method:'GET',isArray:false},
 					create: {method:'POST', isArray:false},
-					update: {method:'PUT', isArray:false},
+					update: {method:'PUT', isArray:false, params:{update:true}},
 					remove: {method:'DELETE',isArray:false}
 				});
 	}

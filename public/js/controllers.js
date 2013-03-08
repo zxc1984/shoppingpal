@@ -107,7 +107,8 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     if(chosenItem == undefined) {
       $location.path("/list/detail");
     }
-   $scope.item = chosenItem.item;
+   $scope.item = chosenItem.items[chosenItem.index];
+   $scope.items = chosenItem.items;
   }
   $scope.clearListName = function() {
     if ($scope.list)
@@ -117,9 +118,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     setCookie("ListDetail",list_id, $cookieStore);
     $location.path('/list/detail');
   }
-  $scope.ListItemDetail = function(item,index) {
+  $scope.ListItemDetail = function(items,index) {
     console.log("index" + index);
-    setCookie("ListItemDetail",{"item":item,"index":index}, $cookieStore);
+    setCookie("ListItemDetail",{"items":items,"index":index}, $cookieStore);
     $location.path('/list/detail/itemdetail/');
   }
   $scope.noList=function() {
@@ -143,8 +144,14 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
-  $scope.saveListItemDetail= function(item) {
-    console.log("Saved item" + JSON.stringify(item));
+  $scope.saveListItemDetail= function(items) {
+    console.log("Saved item" + JSON.stringify(items));
+    list_id = getCookie("ListDetail", $cookieStore);
+    console.log("list id" + list_id);
+    var qw = {"items":"lala"};
+    $http.put("/api/list/512b39164e7ce4601100000e",qw).success(function(response) {
+        console.log(response);
+    });
     //$http.put()
   }
 

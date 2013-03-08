@@ -33,6 +33,6 @@ div.stp-content-frame(ng-init="initListDetail()")
 							div.mobile5-two.columns.six.right.text-right
 								span.item-desc {{item.qty}} 
 									ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
-								span.action(ng-click="ListItemDetail(item,$index)")
+								span.action(ng-click="ListItemDetail(items,$index)")
 									i.icon-edit
 	
