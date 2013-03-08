@@ -9,7 +9,7 @@ div.stp-content-frame
 		div.row.dashboard
 			.six.columns.mobile-two
 				.header
-					h3(style="text-align:left")
+					h4(style="text-align:left")
 						| Payment To:
 				.well.single-value
 					i.icon-user.icon-2x
@@ -21,24 +21,16 @@ div.stp-content-frame
 						a(href="expense/details/1")
 			.six.columns.mobile-two
 				.header
-					h3
+					h4
 						small
 							| Amount Paying
 				.well.single-value(style="margin-bottom:2px")
 					h2
 						| $15
 				a.btn.btn-primary.btn-block(href="/payment/confirmation/paid")
-					| Confirm and Pay
-		div.row.dashboard.navbox
-			.twelve.columns.mobile-four
-				.mobile-one.two.columns
-					.clickable
-						i.icon-circle-arrow-left.icon-2x
-				.mobile-two.center.eight.columns
-					|Till Today
-				.mobile-one.right.two.columns
-					.clickable
-						i.icon-circle-arrow-right.icon-2x
+					i.icon-check
+					|  Confirm & Pay
+
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
@@ -47,24 +39,18 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$10',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$5',period:'Feb 2013'}]")
-					div.list-container
-						a(href="#")
+					div.list-container.selectable(style="padding: 5px")
 							div.row
 								div.mobile-two.columns.six
-									h5
-										small
-											| {{list.brand}}
 									h4
 										| {{list.item}} 
-										small
-											i.icon-search
 									h5
 										small
 											| {{list.period}}
 								div.mobile-one.columns.three
 									.pay-actions
 										center
-											h2
+											h3
 												| {{list.amount}}
 
 								div.mobile-one.columns.three

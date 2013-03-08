@@ -293,7 +293,11 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
 }
 
 function PaymentCtrl($scope, $http, $location) {
-  
+  var todayDate = new Date();
+  var todayMonth = todayDate.getMonth();
+  var todayDay = todayDate.getDate();
+  var todayYear = todayDate.getFullYear();
+  $scope.today = todayDay + '/' + todayMonth + '/' + todayYear;
 }
 angular.module('myApp.cookie', ['ngCookies']);
 function getCookie(cookie_name, $cookieStore) {
@@ -307,4 +311,8 @@ function setCookie(cookie_name, value, $cookieStore) {
 
 function removeCookie(cookie_name,$cookieStore) {
   $cookieStore.remove(cookie_name);
+}
+
+function getTodayDate(){
+  
 }

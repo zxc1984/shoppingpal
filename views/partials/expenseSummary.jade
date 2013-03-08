@@ -1,7 +1,7 @@
 header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header Expense Summary
+	h1#header My Expense Summary
 
 				
 
@@ -11,31 +11,23 @@ div.stp-content-frame
 			.six.columns.mobile-two
 				.header
 					| I OWE
-				.well.single-value
+				.well.single-value.selectable
 					| $100.00
 					h5
 						small
 						a(href="expense/details/1")
-							| view details
+							i.icon-eye-open
+							|  view details
 			.six.columns.mobile-two
 				.header
 					| FRIENDS OWE
-				.well.single-value
+				.well.single-value.selectable
 					| $50.00
 					h5
 						small
 						a(href="/expense/friends")
-							| view details
-		div.row.dashboard.navbox
-			.twelve.columns.mobile-four
-				.mobile-one.two.columns
-					.clickable
-						i.icon-circle-arrow-left.icon-2x
-				.mobile-two.center.eight.columns
-					|Till Today
-				.mobile-one.right.two.columns
-					.clickable
-						i.icon-circle-arrow-right.icon-2x
+							i.icon-eye-open
+							|  view details
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
@@ -44,16 +36,12 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in userExpense")
-					div.list-container
+					div.list-container.selectable(ng-click="",style="padding:5px")
 						div.row.expense-row
-							div.mobile-three.columns.eight
+							div.mobile5-five.columns.eight
 								h5
 									| {{list.payer}} 
 									small
-										| has paid {{list.payee}} ${{list.amount}} for {{list.period}}
-							div.mobile-one.columns.four
-								.pay-actions
-									h6
-										| {{list.date}}
+										| has paid {{list.payee}} ${{list.amount}} for {{list.period}} on {{list.date}}
 
 	
