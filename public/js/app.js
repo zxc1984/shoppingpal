@@ -27,6 +27,7 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
     $routeProvider.when('/shopping/on', {templateUrl: 'partials/startShopping', controller: ShoppingCtrl});
     $routeProvider.when('/shopping/checkout', {templateUrl: 'partials/shoppingCheckout', controller: ShoppingCtrl});
     $routeProvider.when('/shopping/itemdetail/1', {templateUrl: 'partials/shoppingItemDetail', controller: ShoppingCtrl});
+    $routeProvider.when('/shopping/trips', {templateUrl: 'partials/shoppingTripHistory', controller: ShoppingCtrl});
 
     // Expenditure Scenario
     $routeProvider.when('/expense', {templateUrl: 'partials/expenseSummary', controller: ExpenseCtrl});
