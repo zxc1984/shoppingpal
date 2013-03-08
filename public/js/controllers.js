@@ -107,7 +107,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     if(chosenItem == undefined) {
       $location.path("/list/detail");
     }
-   $scope.item = chosenItem.items[chosenItem.index];
+   $scope.item = chosenItem.item;
    $scope.index = chosenItem.index;
   }
   $scope.clearListName = function() {
@@ -118,9 +118,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     setCookie("ListDetail",list_id, $cookieStore);
     $location.path('/list/detail');
   }
-  $scope.ListItemDetail = function(items,index) {
+  $scope.ListItemDetail = function(item,index) {
     console.log("index" + index);
-    setCookie("ListItemDetail",{"items":items,"index":index}, $cookieStore);
+    setCookie("ListItemDetail",{"item":item,"index":index}, $cookieStore);
     $location.path('/list/detail/itemdetail/');
   }
   $scope.noList=function() {
@@ -148,13 +148,12 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     var qw = {};
     var name = 'items.'+ index;
     qw[name] = item;
-    console.log("Query" + JSON.stringify(qw));
     list_id = getCookie("ListDetail", $cookieStore);
-    console.log("list id" + list_id + " item_id" + item.id);
     $http.put("/api/list/"+list_id+"/items/",qw).success(function(response) {
-        console.log(response);
+       if(response.ok == 1) {
+        alert("Successfully Updated Mother Fucker");
+       }
     });
-    //$http.put()
   }
 
   $scope.SelectShoppingLists = function() {
