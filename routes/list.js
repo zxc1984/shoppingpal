@@ -63,10 +63,11 @@ exports.getListItems = function(req,res) {
 
 exports.getSpecificListItems = function(req,res) {
      var id = req.params.id;
-     qw = {$set:{"items":[{
-"id": "51239233e4b029c335f08541","name": "Gardenia White Breads","qty": 1,"unitOfMeasure": 0}]}};
-     proj = {"name": 1, "_id": 1 ,"items" : 1};
-    db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
+     var item = req.body;
+     //console.log("Entry"+entry+"Selected ID" + id + JSON.stringify(item));
+     var select = {"_id":objectId(id)};
+     var qw = {$set:item};
+    db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
 };
 // Create
 exports.insert = function(req, res) {

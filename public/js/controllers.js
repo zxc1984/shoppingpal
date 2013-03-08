@@ -144,12 +144,13 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
-  $scope.saveListItemDetail= function(items) {
-    console.log("Saved item" + JSON.stringify(items));
+  $scope.saveListItemDetail= function(item) {
+    var index = 2;
+    console.log("Saved item" + JSON.stringify(item));
     list_id = getCookie("ListDetail", $cookieStore);
-    console.log("list id" + list_id);
-    var qw = {"items":"lala"};
-    $http.put("/api/list/512b39164e7ce4601100000e",qw).success(function(response) {
+    console.log("list id" + list_id + " item_id" + item.id);
+    var qw = {"items."+index:item};
+    $http.put("/api/list/"+list_id+"/items/",qw).success(function(response) {
         console.log(response);
     });
     //$http.put()
