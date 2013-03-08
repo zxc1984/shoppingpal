@@ -108,6 +108,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
       $location.path("/list/detail");
     }
    $scope.item = chosenItem.item;
+   $scope.index = chosenItem.index;
   }
   $scope.clearListName = function() {
     if ($scope.list)
@@ -143,9 +144,16 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
-  $scope.saveListItemDetail= function(item) {
-    console.log("Saved item" + JSON.stringify(item));
-    //$http.put()
+  $scope.saveListItemDetail= function(item,index) {
+    var qw = {};
+    var name = 'items.'+ index;
+    qw[name] = item;
+    list_id = getCookie("ListDetail", $cookieStore);
+    $http.put("/api/list/"+list_id+"/items/",qw).success(function(response) {
+       if(response.ok == 1) {
+        alert("Successfully Updated Mother Fucker");
+       }
+    });
   }
 
   $scope.SelectShoppingLists = function() {

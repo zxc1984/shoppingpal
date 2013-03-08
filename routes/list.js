@@ -60,6 +60,15 @@ exports.getListItems = function(req,res) {
      proj = {"name": 1, "_id": 1 ,"items" : 1};
     db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
+
+exports.getSpecificListItems = function(req,res) {
+     var id = req.params.id;
+     var item = req.body;
+     //console.log("Entry"+entry+"Selected ID" + id + JSON.stringify(item));
+     var select = {"_id":objectId(id)};
+     var qw = {$set:item};
+    db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
+};
 // Create
 exports.insert = function(req, res) {
     qw = req.body;
