@@ -15,6 +15,12 @@ time, mark, audio, video {
   border: 0;
   margin: 0;
   padding: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -41,11 +47,13 @@ p { padding-bottom:12px;}
 @bgColor: white;
 @fontColor: #171a21;
 @faintFontColor:#4A4A4A;
-@headerColor: @fontColor;
-@headerGradient: #484848;
-@headerGradientLighter: #565656;
+@headerColor: rgb(51, 53, 58);
+@headerGradient: rgb(74, 77, 83);
+@headerGradientLighter: rgb(119, 119, 119);
 @headerFontColor: @bgColor;
 @highlightColor: #e9f3fc;
+@barColor: #3b86c4;
+@barColorHighlight: rgb(76, 153, 218);
 
 /*
   Sidetap Default Theme
@@ -139,6 +147,7 @@ nav {
 .nav-header { 
   background-color: @headerGradient;
   line-height: 14px;
+  color:#fafafa;
 }
 
 .background-gradient(@headColor,@headGradientColor) {
@@ -489,7 +498,8 @@ header {
       }
       .label-header{
         display: inline-block;
-        
+        font-size: 0.9em;
+        letter-spacing:-0.07em;
       }
       .label {
         font-size: 10px;
@@ -500,6 +510,8 @@ header {
     .email-desc {margin-right:5px;}
     .action {
       border-left: 1px solid #ccc;
+      box-shadow: 1px 0 0 rgba(255, 255, 255, 0.11);
+
       padding:12px;
       display:inline-block;
       margin-top:8px;
