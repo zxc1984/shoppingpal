@@ -260,23 +260,27 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     }
     $scope.selectedLists.push(id);
   }
-  $scope.itemIsSelected = function(id) {
-    for (var i = 0; i < $scope.selectedItems.length; i++) {
-      if ($scope.selectedItems[i] == id) {
-        return "icon-check";
-      } 
-    }
-    return "icon-check-empty";
+  $scope.changeQuantityTest = function(item) {
+    item.qty += 1;
   }
-  $scope.toggleSelectItem = function(id) {
-
-    for (var i = 0; i < $scope.selectedItems.length; i++) {
-      if ($scope.selectedItems[i] == id) {
-        $scope.selectedItems.splice(i, 1);
-        return;
-      }
+  $scope.itemIsSelected = function(item) {
+    return item.selected
+  }
+  $scope.toggleSelectItem = function(item) {
+    if (item.selected) {
+      if (item.selected == 0)
+        item.selected = 1;
+      else
+        item.selected = 0;
+    } else {
+      item.selected = 1;
     }
-    $scope.selectedItems.push(id);
+  }
+  $scope.getSelectedItemClass = function(item) {
+    if (item.selected && item.selected == 1) {
+      return "selected";
+    }
+    return "";
   }
 
   $scope.ItemDetails = function() {
