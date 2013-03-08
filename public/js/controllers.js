@@ -274,7 +274,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
         return "icon-check";
       } 
     }
-    return "";
+    return "icon-check-empty";
   }
   $scope.toggleSelectItem = function(id) {
 
