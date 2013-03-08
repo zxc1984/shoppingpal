@@ -108,7 +108,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
       $location.path("/list/detail");
     }
    $scope.item = chosenItem.items[chosenItem.index];
-   $scope.items = chosenItem.items;
+   $scope.index = chosenItem.index;
   }
   $scope.clearListName = function() {
     if ($scope.list)
@@ -144,12 +144,13 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
-  $scope.saveListItemDetail= function(item) {
-    var index = 2;
-    console.log("Saved item" + JSON.stringify(item));
+  $scope.saveListItemDetail= function(item,index) {
+    var qw = {};
+    var name = 'items.'+ index;
+    qw[name] = item;
+    console.log("Query" + JSON.stringify(qw));
     list_id = getCookie("ListDetail", $cookieStore);
     console.log("list id" + list_id + " item_id" + item.id);
-    var qw = {"items."+index:item};
     $http.put("/api/list/"+list_id+"/items/",qw).success(function(response) {
         console.log(response);
     });
