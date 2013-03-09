@@ -36,11 +36,11 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
 
     // payment scenario
     $routeProvider.when('/payment/', {templateUrl: 'partials/paymentSummary', controller: PaymentCtrl});
-    $routeProvider.when('/payment/new', {templateUrl: 'partials/paymentCreate', controller: PaymentCtrl});
-    $routeProvider.when('/payment/confirmation', {templateUrl: 'partials/paymentConfirmation', controller: PaymentCtrl});
-    $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: PaymentCtrl});
-    $routeProvider.when('/payment/confirmation/paid', {templateUrl: 'partials/paymentFinal', controller: PaymentCtrl});
-    $routeProvider.when('/payment/transaction', {templateUrl: 'partials/transactionHistory', controller: PaymentCtrl});
+    $routeProvider.when('/payment/new/:id', {templateUrl: 'partials/paymentCreate', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/confirmation/:id', {templateUrl: 'partials/paymentConfirmation', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/confirmation/paid', {templateUrl: 'partials/paymentFinal', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/transaction/:id', {templateUrl: 'partials/transactionHistory', controller: ExpenseCtrl});
 
     // Default
     $routeProvider.otherwise({redirectTo: '/'});

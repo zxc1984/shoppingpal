@@ -36,12 +36,12 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in userExpense")
-					div.list-container.selectable(ng-click="",style="padding:5px")
+					div.list-container.selectable(ng-click="linkToTransHistory(list._id)",style="padding:5px")
 						div.row.expense-row
 							div.mobile5-five.columns.eight
 								h5
 									| {{list.payer}} 
 									small
-										| has paid {{list.payee}} ${{list.amount}} for {{list.period}} on {{list.date}}
+										| has paid {{list.payee}} ${{list.amount}} to you for {{list.period}} on {{list.date}}
 
 	

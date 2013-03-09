@@ -31,8 +31,7 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in iOweLists")
-					div.list-container.selectable
-						a(href="/payment/new")
+					div.list-container.selectable(ng-click="linkToiOweDetails(list._id)",style="padding:5px")
 							div.row
 								div.mobile5-three.columns.six(style="padding:5px")
 									h4

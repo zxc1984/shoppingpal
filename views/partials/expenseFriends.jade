@@ -31,7 +31,7 @@ div.stp-content-frame
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in friendsOweLists")
 					div.list-container.selectable
-							div.row
+							div.row(ng-click="linkToFriendsOweDetails(list._id)")
 								div.mobile-two.columns.six
 									h4
 										| {{list.payer.name}} 
