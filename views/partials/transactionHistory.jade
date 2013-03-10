@@ -4,7 +4,7 @@ header
 		span Menu
 	h1#header Transaction History
 
-div.stp-content-frame
+div.stp-content-frame(ng-init="getTransactionDetails()")
 	div.stp-content-body
 		div.row.dashboard
 			.six.columns.mobile-two
@@ -14,7 +14,7 @@ div.stp-content-frame
 				.well.single-value
 					i.icon-user.icon-2x
 					h4
-						| You
+						| {{transactionDetails[0].payee}}
 			.six.columns.mobile-two
 				.header
 					h3
@@ -22,7 +22,7 @@ div.stp-content-frame
 				.well.single-value
 					i.icon-user.icon-2x
 					h4
-						| Fred
+						| {{transactionDetails[0].payer}}
 		div.row.dashboard.navbox
 			.twelve.columns.mobile-four
 				.mobile-one.two.columns
@@ -40,14 +40,14 @@ div.stp-content-frame
 					| Items Paying For:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$10',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$5',period:'Feb 2013'}]")
+				li(ng-repeat="list in transactionDetails")
 					div.list-container
 						a(href="#")
 							div.row
 								div.mobile-two.columns.six
 									h5
 										small
-											| {{list.brand}}
+											| {{list.payer}}
 									h4
 										| {{list.item}} 
 										small

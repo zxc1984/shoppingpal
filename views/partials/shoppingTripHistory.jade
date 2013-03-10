@@ -25,16 +25,16 @@ div.stp-content-frame
 
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{payer:'Tom',shop:'Shop&Save',amount:'15',period:'10/2/2013',date:'8/3/2013'},{payer:'Dick',shop:'NTUC',amount:'15',period:'10/2/2013',date:'8/3/2013'},{payer:'Kevin',shop:'NTUC',amount:'15',period:'10/2/2013',date:'8/3/2013'}]")
+				li(ng-repeat="trip in trips | filter:tripFilter")
 					div.list-container
 						div.row.expense-row
 							div.mobile5-four.columns.eight
 								h5
-									| &nbsp;{{list.payer}} 
+									| &nbsp;{{trip.name}} 
 									small
-										| spent ${{list.amount}} at {{list.shop}}
+										| spent ${{trip.amount}} at {{trip.Location}}
 							div.mobile5-one.columns.four
 								.pay-actions
 									h6
 										small
-											| {{list.date}}
+											| {{trip.date}}

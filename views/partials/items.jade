@@ -16,7 +16,6 @@ div.stp-content-frame
 				form
 					.row
 						div.mobile-four.twelve.columns.form-box
-
 							div.input-append(style="width:90%;")
 								input(type="text",name="friendemail",placeholder="Category/Item...",class="input-block-level firstBox",ng-model="friendemail",maxlength="25")
 								button.btn(type="button",ng-click="friendemail = ''")
@@ -32,7 +31,7 @@ div.stp-content-frame
 					div.list-container.selectable(ng-click="ItemScopeChanger()")
 						div.row
 							div.mobile-three.columns.nine.list-name
-								i.icon-check-empty
+								i(ng-class="isSelected(n)")
 								div.item-title {{n}}
 							div.columns.three.mobile-one.text-right
 								i.icon-chevron-right

@@ -20,7 +20,7 @@ div.stp-content-frame
 				.header
 					| FRIENDS OWE
 				.well.single-value
-					| $50.00
+					| ${{friendsOweListTotalAmount}}
 
 		div.row
 			// My list of activities
@@ -30,14 +30,16 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in friendsOweLists")
-					div.list-container.selectable(ng-click="")
-							div.row
+					div.list-container.selectable
+							div.row(ng-click="linkToFriendsOweDetails(list._id)")
 								div.mobile-two.columns.six
 									h4
 										| {{list.payer.name}} 
+										small
+											a.i.icon-user(href="/payment/details/1")
 										h5
 											small
-												| {{list.period}}
+												| {{list.payer.period}}
 								div.mobile-one.columns.three
 									.pay-actions
 										center

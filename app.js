@@ -70,15 +70,19 @@ app.put('/api/users/update/:id',user.update);
 
 //EXPENSE API
 app.get('/api/userExpense',expense.findAll);
+app.get('/api/userExpense/:id',expense.find);
+
+//SHOPPING API
 app.get('/api/shoppingTrips',shopping.findAll);
+app.get('/api/shoppingTrips/:id',shopping.find);
 
 //iOwe API
 app.get('/api/iOwe',iOwe.findAll);
+app.get('/api/iOwe/:id',iOwe.find);
 
 //friendsOwe API
 app.get('/api/friendsOwe',friendsOwe.findAll);
-
-// JSON API
+app.get('/api/friendsOwe/:id',friendsOwe.find);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
