@@ -57,7 +57,7 @@ exports.findUserList = function(req,res) {
 exports.getListItems = function(req,res) {
      var id = req.params.id;
      qw = {"_id":objectId(id)};
-     proj = {"name": 1, "_id": 1 ,"items" : 1};
+     proj = {"name": 1, "_id": 1 ,"items" : 1, "numItems":1};
     db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
 
@@ -72,7 +72,8 @@ exports.updateListSettings = function(req,res) {
      var id = req.params.id;
      var user = req.body;
      var select = {"_id":objectId(id)};
-     var qw = {$set:{"name":user.name, "users":user.users}};
+     console.log(user.users.length);
+     var qw = {$set:{"name":user.name,"numFriends":user.users.length, "users":user.users}};
     db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
      //console.log(qw);
      //res.send({"ok":1});
@@ -107,7 +108,8 @@ exports.insert = function(req, res) {
 exports.update = function(req, res) {
     var id = req.params.id;
     var qw = req.body;
-    db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
+    console.log(qw);
+    db.collection(collection).update({"_id":objectId(id)}, {$set:qw}, {safe:true}, fn(req, res));
 };
 
 exports.delete = function(req, res) {

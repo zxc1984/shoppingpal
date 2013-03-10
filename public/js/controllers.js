@@ -99,6 +99,21 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $http.get('/api/list/'+chosenList+'/items').success(function(data, status, headers, config) {
       $scope.listName = data[0].name;
       $scope.items = data[0].items;
+      $scope.numItems = data[0].numItems;
+      if($scope.numItems != $scope.items.length) {
+        console.log("not equal" + $scope.numItems + $scope.items.length);
+        $scope.numItems = $scope.items.length;
+        list_id = getCookie("ListDetail", $cookieStore);
+        $http.put("/api/list/"+list_id,{"numItems":$scope.numItems}).success(function(response) {
+           if(response.ok == 1) {
+            console.log("Successfully Updated");
+           }else{
+             console.log("Something went wrong");
+           }
+        });
+      } else {
+        console.log("equal");
+      }
       $scope.loading = false;
     });
   }
@@ -157,7 +172,6 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   $scope.saveListSetting = function(listSetting) {
     var qw = {"users":listSetting};
     list_id = getCookie("ListDetail", $cookieStore);
-    console.log(qw);
     $http.put("/api/list/"+list_id+"/settings/",listSetting).success(function(response) {
        if(response.ok == 1) {
         console.log("Successfully Updated");
