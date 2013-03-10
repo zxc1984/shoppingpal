@@ -30,13 +30,11 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in friendsOweLists")
-					div.list-container.selectable
+					div.list-container.selectable(ng-click="")
 							div.row
 								div.mobile-two.columns.six
 									h4
 										| {{list.payer.name}} 
-										small
-											a.i.icon-user(href="/payment/details/1")
 										h5
 											small
 												| {{list.period}}

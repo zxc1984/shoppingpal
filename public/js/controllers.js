@@ -294,7 +294,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
 
 function PaymentCtrl($scope, $http, $location) {
   var todayDate = new Date();
-  var todayMonth = todayDate.getMonth();
+  var todayMonth = todayDate.getMonth() + 1;
   var todayDay = todayDate.getDate();
   var todayYear = todayDate.getFullYear();
   $scope.today = todayDay + '/' + todayMonth + '/' + todayYear;
