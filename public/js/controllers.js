@@ -240,11 +240,12 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
 
   */
 
-  $scope.delete = function($event,list) {
+  $scope.delete = function(listSetting) {
     //console.log(list.name);
-    List.remove({_id:list._id},function(response){
+    List.remove({_id:listSetting._id},function(response){
     });
    $scope.lists = List.query();
+   $location.path("/list");
   }
 }
 ListCtrl.$inject = ['$scope', '$http', '$location', '$cookieStore', 'List'];
