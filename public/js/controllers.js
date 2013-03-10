@@ -258,7 +258,6 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
         for (var i = 0; i < $scope.transItems.length; i++) {
             $scope.transItemsTotalAmount += $scope.transItems[i].amount;
         }
-        console.log("total " + $scope.transItemsTotalAmount);
     });
   }
     
@@ -292,6 +291,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
       for (var i = 0; i < data[0].items.length; i++) {
           if ($scope.iOweItems[i].status == "paid"){
             $scope.iOweItems.splice(i,1);
+            i--;
           }
       }
 
@@ -299,7 +299,6 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
         for (var i = 0; i < $scope.iOweItems.length; i++) {
             $scope.iOweTotalAmount += $scope.iOweItems[i].amount;
         }
-        console.log("total " + $scope.iOweTotalAmount);
 
       $scope.iOweName = data[0].payee.name;
       $scope.iOwePeriod = data[0].period;
@@ -328,6 +327,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
       for (var i = 0; i < data[0].items.length; i++) {
           if ($scope.friendsOweItems[i].status == "paid"){
             $scope.friendsOweItems.splice(i,1);
+            i--;
           }
       }
 
@@ -336,7 +336,6 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
         for (var i = 0; i < $scope.friendsOweItems.length; i++) {
             $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].amount;
         }
-        console.log("total " + $scope.friendsOweTotalAmount);
     });
   } 
     
@@ -403,6 +402,20 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   $scope.ItemDetails = function() {
     $location.path('/shopping/itemdetail/1');
   }
+
+  $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
+    var userId = getCookie('UserId',$cookieStore);
+    $scope.trips = data;
+
+    $scope.myTrips = function(item) {
+        return item.userId == userId;
+    }
+
+    $scope.friendsTrips = function(item) {
+        return item.userId != userId;
+    }
+
+  });
 }
 
 function PaymentCtrl($scope, $http, $location) {
