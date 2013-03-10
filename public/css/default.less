@@ -455,6 +455,18 @@ header {
       padding: 16px 0;
     }
     .item-title {
+      &.large:first-letter{
+        font-size: 1.2em;
+        text-transform: uppercase;
+      }
+      &.uom {
+        font-style: italic;
+        color: #3b86c4;
+        font-size: 0.8em;
+      }
+    }
+    .checkbox {
+      margin-top:15px;
     }
 
     .qty-desc {
@@ -615,11 +627,15 @@ header {
     float: right;
     margin-top: 4px;
     z-index: 999;
+    margin-right: 3px;
   }
   input {
+    clear: both;
     border-radius: 3px;
     border-top-right-radius: 0px;
     text-align: right;
+    width: 120px;
+    float: right;
   }
 
 }
@@ -658,6 +674,20 @@ form {
   .quantity-control {
     .well-small {
       padding:5px;
+    }
+  }
+  .btn-group {
+    margin: 0 auto 10px;
+    width: 100%;
+    text-align: center;
+  }
+  .input-prepend {
+    // Override bootstrap default
+    span.add-on {
+      height:30px;
+    }
+    input {
+      height: 30px;
     }
   }
 }

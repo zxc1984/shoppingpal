@@ -164,6 +164,16 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/shopping/on");
   }
 
+  $scope.getSharedStatus = function(item) {
+    if (item.status) {
+      if (item.status == "individual") 
+        return "icon-user";
+      else
+        return "icon-group";
+    }
+    return "icon-user";
+  }
+
    /*
   $scope.create = function($event) {
     Item.create({object:c});   
@@ -197,19 +207,30 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
 ListCtrl.$inject = ['$scope', '$http', '$location', '$cookieStore', 'List'];
 function ItemCtrl($scope, $http,$location) {
   $scope.selectedItem = ['banana'];
-  $scope.isSelected = function(name) {
-    var className = "icon-check-empty";
-    $.each($scope.selectedItem, function(index,item) {
-      if (item == name) {
-        className = "icon-check";
-        return;
-      }
-    });
-    return className;
+  $scope.itemList = [{name:'apple',unitOfMeasure:1, price:5},{name:'orange',unitOfMeasure:1, price:5},{name:'pear',unitOfMeasure:1, price:5},{name:'banana',unitOfMeasure:1, price:5},{name:'papaya',unitOfMeasure:1, price:5},{name:'pineapple',unitOfMeasure:1, price:5},{name:'Bread',unitOfMeasure:0, price:5}];
+  $scope.isSelected = function(item) {
+    if (item.selected == 1)
+        return "icon-check";
+    return "icon-check-empty";
   }
   $scope.ItemDetails = function() {
     $location.path('/list/1/additem/1');
   }
+  $scope.ToggleSelect = function(item) {
+    if (item.selected) {
+      if (item.selected == 0) {
+        item.selected = 1;
+      } else {
+        item.selected = 0;
+      }
+    } else
+      item.selected = 1;
+  }
+
+  $scope.getUnitOfMeasure = function(uom) {
+    uom = parseInt(uom);
+    return $scope.unitOfMeasure[uom].singular;
+  } 
 }
 
 function ExpenseCtrl($scope, $http, $location,$routeParams) {
