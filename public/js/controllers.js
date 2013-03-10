@@ -42,12 +42,13 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
       expr = "";
   };
 
-  $scope.shareType = "individual";
-  $scope.classShareType = function(type) {
-    if ($scope.shareType == 'individual' && $scope.shareType == type)
+ // $scope.shareType = "individual";
+  $scope.classShareType = function() {
+    if ($scope.shareType == 'individual')
       return "active btn-primary";
-    if ($scope.shareType == 'share' && $scope.shareType == type)
+    if ($scope.shareType == 'share')
       return "active btn-primary";
+    return "";
   }
   $scope.toggleShareType = function() {
     if ($scope.shareType == 'individual')
@@ -109,6 +110,8 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     }
    $scope.item = chosenItem.item;
    $scope.index = chosenItem.index;
+   $scope.shareType = chosenItem.item.shareType;
+   console.log($scope.shareType);
   }
   $scope.clearListName = function() {
     if ($scope.list)
@@ -144,14 +147,18 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
-  $scope.saveListItemDetail= function(item,index) {
+  $scope.saveListItemDetail= function(item,index,shareType) {
     var qw = {};
+    item.shareType = $scope.shareType;
     var name = 'items.'+ index;
     qw[name] = item;
     list_id = getCookie("ListDetail", $cookieStore);
+    console.log(item);
     $http.put("/api/list/"+list_id+"/items/",qw).success(function(response) {
        if(response.ok == 1) {
-        alert("Successfully Updated Mother Fucker");
+        console.log("Successfully Updated");
+       }else{
+         console.log("Something went wrong");
        }
     });
   }
