@@ -12,7 +12,7 @@ div.stp-content-frame
 				.header
 					| I OWE
 				.well.single-value
-					| $100.00
+					| ${{iOweListTotalAmount}}
 			.six.columns.mobile-two
 				.header
 					br
@@ -43,7 +43,7 @@ div.stp-content-frame
 									.pay-actions
 										center
 											h4
-												| {{list.amount}}
+												| ${{list.payee.amount}}
 												h5
 													small
 														| owed

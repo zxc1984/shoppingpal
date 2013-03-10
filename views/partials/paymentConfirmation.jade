@@ -26,7 +26,7 @@ div.stp-content-frame(ng-init="getFriendsOweDetails()")
 							| Amount Paying
 				.well.single-value(style="margin-bottom:2px")
 					h2
-						| $15
+						| ${{friendsOweTotalAmount}}
 				a.btn.btn-primary.btn-block(href="/payment/confirmation/paid")
 					i.icon-check
 					|  Confirm & Pay
