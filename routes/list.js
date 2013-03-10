@@ -50,7 +50,7 @@ exports.find = function(req,res) {
 
 exports.findUserList = function(req,res) {
      var id = req.params.id;
-     qw = {"users":id};
+     qw = {"users._id":id};
      proj = {"name": 1, "_id": 1 ,"numItems" : 1, "numFriends" :1};
     db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
@@ -61,7 +61,23 @@ exports.getListItems = function(req,res) {
     db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
 
-exports.getSpecificListItems = function(req,res) {
+exports.getListSettings = function(req,res) {
+     var id = req.params.id;
+     qw = {"_id":objectId(id)};
+     proj = {"name": 1, "_id": 1 ,"users" : 1};
+    db.collection(collection).find(qw,proj).toArray(fn(req, res));
+};
+
+exports.updateListSettings = function(req,res) {
+     var id = req.params.id;
+     var user = req.body;
+     var select = {"_id":objectId(id)};
+     var qw = {$set:{"name":user.name, "users":user.users}};
+    db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
+     //console.log(qw);
+     //res.send({"ok":1});
+};
+exports.updateSpecificListItems = function(req,res) {
      var id = req.params.id;
      var item = req.body;
      //console.log("Entry"+entry+"Selected ID" + id + JSON.stringify(item));

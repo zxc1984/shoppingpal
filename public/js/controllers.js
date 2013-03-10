@@ -114,6 +114,12 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
    $scope.shareType = chosenItem.item.shareType;
    console.log($scope.shareType);
   }
+  $scope.initListSettings = function() {
+    list_id = getCookie("ListDetail", $cookieStore);
+    $http.get("/api/list/"+list_id+"/settings/").success(function(response){
+      $scope.listSetting = response[0];
+    });
+  }
   $scope.clearListName = function() {
     if ($scope.list)
       $scope.list.name = "";
@@ -148,6 +154,18 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
+  $scope.saveListSetting = function(listSetting) {
+    var qw = {"users":listSetting};
+    list_id = getCookie("ListDetail", $cookieStore);
+    console.log(qw);
+    $http.put("/api/list/"+list_id+"/settings/",listSetting).success(function(response) {
+       if(response.ok == 1) {
+        console.log("Successfully Updated");
+       }else{
+         console.log("Something went wrong");
+       }
+    });
+  }
   $scope.saveListItemDetail= function(item,index,shareType) {
     var qw = {};
     item.shareType = $scope.shareType;

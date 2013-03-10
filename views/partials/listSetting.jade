@@ -3,11 +3,11 @@ header
 		div back
 	h1#header List Option
 	div.header-menu-bar.right
-		a.header-menu-button.icon(href="/list/detail")
+		a.header-menu-button.icon(href="javascript:void(0)")(ng-click="saveListSetting(listSetting)")
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame
-	div.stp-content-body
+	div.stp-content-body(ng-init="initListSettings()")
 		form
 			.row.non-list
 				div.columns.six.mobile-four
@@ -15,10 +15,10 @@ div.stp-content-frame
 					.row
 						div.mobile-four.twelve.columns
 							div.text-count
-								span.right(ng-bind="textCountLeft(newlist.name.length,25)")
+								span.right(ng-bind="textCountLeft(listSetting.name.length,25)")
 							div.input-append(style="width:90%;")
-								input(type="text",name="listname",placeholder="Type list name here...",class="input-block-level firstBox",ng-model="newlist.name",maxlength="25")
-								button.btn(type="button",ng-click="newlist.name = ''")
+								input(type="text",name="name",placeholder="Type list name here...",class="input-block-level firstBox",maxlength="25",,ng-model="listSetting.name")
+								button.btn(type="button",ng-click="listSetting.name = ''")
 									i.icon-remove
 			div.row
 				// My list of activities
@@ -42,14 +42,14 @@ div.stp-content-frame
 						| Friends List
 			div.row
 				ul.block-grid.two-up.mobile
-					li(ng-repeat="friend in friends | orderBy:['status','email']")
+					li(ng-repeat="user in listSetting.users")
 						div.list-container
 							div.row
 								div.mobile-two.columns.six.list-name
-									div.email-title {{friend.email}}
+									div.email-title {{user.name}} - {{user.email}}
 								div.mobile-two.columns.six.nopad.right.text-right
 									span.email-desc
-										span.label(ng-class="getStatusClass(friend.status)")
-											span {{friend.status}}
+										span.label(ng-class="getStatusClass(user.status)")
+											span {{user.status}}
 									span.action(ng-click="alert('remove')")
 										i.icon-remove
