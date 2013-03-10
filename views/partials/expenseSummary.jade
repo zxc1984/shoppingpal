@@ -12,7 +12,7 @@ div.stp-content-frame
 				.header
 					| I OWE
 				.well.single-value.selectable
-					| $100.00
+					| ${{iOweListTotalAmount}}
 					h5
 						small
 						a(href="expense/details/1")
@@ -22,7 +22,7 @@ div.stp-content-frame
 				.header
 					| FRIENDS OWE
 				.well.single-value.selectable
-					| $50.00
+					| ${{friendsOweListTotalAmount}}
 					h5
 						small
 						a(href="/expense/friends")
@@ -35,13 +35,13 @@ div.stp-content-frame
 					| Recent Activity
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in userExpense")
+				li(ng-repeat="list in userExpenseItems")
 					div.list-container.selectable(ng-click="linkToTransHistory(list._id)",style="padding:5px")
 						div.row.expense-row
 							div.mobile5-five.columns.eight
 								h5
-									| {{list.payer}} 
+									| {{list.boughtFor}} 
 									small
-										| has paid {{list.payee}} ${{list.amount}} to you for {{list.period}} on {{list.date}}
+										| has paid {{list.buyer}} ${{list.amount}} on {{list.paidDate}}.
 
 	

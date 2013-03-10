@@ -213,8 +213,6 @@ function ItemCtrl($scope, $http,$location) {
 }
 
 function ExpenseCtrl($scope, $http, $location,$routeParams) {
-  
-  $scope.transactionDetails = [];
 
   var todayDate = new Date();
   var todayMonth = todayDate.getMonth() + 1;
@@ -234,11 +232,18 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
     var id = $routeParams.id;
     $http.get('/api/userExpense/' + id).success(function(data, status, headers, config) {
       $scope.transactionDetails = data;
+      $scope.transItems = data[0].items;
+      $scope.transItemsTotalAmount = 0;
+        for (var i = 0; i < $scope.transItems.length; i++) {
+            $scope.transItemsTotalAmount += $scope.transItems[i].amount;
+        }
+        console.log("total " + $scope.transItemsTotalAmount);
     });
   }
     
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
     $scope.userExpense = data;
+    $scope.userExpenseItems = data[0].items;
   });
 
   $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
@@ -247,6 +252,11 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
     
   $http.get('/api/iOwe').success(function(data, status, headers, config) {
     $scope.iOweLists = data;
+    $scope.iOweListTotalAmount = 0;
+    
+    for (var i = 0; i < data.length; i++) {
+          $scope.iOweListTotalAmount += data[i].payee.amount;
+      }
   });
 
   $scope.linkToiOweDetails = function(id) {
@@ -257,6 +267,19 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
       var id = $routeParams.id;
       $http.get('/api/iOwe/' + id).success(function(data, status, headers, config) {
       $scope.iOweItems = data[0].items;
+
+      for (var i = 0; i < data[0].items.length; i++) {
+          if ($scope.iOweItems[i].status == "paid"){
+            $scope.iOweItems.splice(i,1);
+          }
+      }
+
+      $scope.iOweTotalAmount = 0;
+        for (var i = 0; i < $scope.iOweItems.length; i++) {
+            $scope.iOweTotalAmount += $scope.iOweItems[i].amount;
+        }
+        console.log("total " + $scope.iOweTotalAmount);
+
       $scope.iOweName = data[0].payee.name;
       $scope.iOwePeriod = data[0].period;
       
@@ -265,6 +288,11 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
 
   $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
     $scope.friendsOweLists = data;
+    $scope.friendsOweListTotalAmount = 0;
+    
+    for (var i = 0; i < data.length; i++) {
+          $scope.friendsOweListTotalAmount += data[i].payer.amount;
+      }
   });
 
   $scope.linkToFriendsOweDetails = function(id) {
@@ -275,25 +303,21 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
       var id = $routeParams.id;
       $http.get('/api/friendsOwe/' + id).success(function(data, status, headers, config) {
       $scope.friendsOweItems = data[0].items;
+
+      for (var i = 0; i < data[0].items.length; i++) {
+          if ($scope.friendsOweItems[i].status == "paid"){
+            $scope.friendsOweItems.splice(i,1);
+          }
+      }
+
       $scope.friendsOweName = data[0].payer.name;
-      
-    });
-  }
-
-    /*
-     $scope.totalTransactionAmount = function(){
-
-      //console.log("my trans " + JSON.stringify($scope.transactionDetails);
-      console.log($scope.transactionDetails.items[0].amount)
-        var total = 0;
-        for (var i = 0; i < $scope.transactionDetails.length; i++) {
-            total += $scope.transactionDetails.items[i].amount;
-            console.log($scope.transactionDetails.items[i].amount);
+      $scope.friendsOweTotalAmount = 0;
+        for (var i = 0; i < $scope.friendsOweItems.length; i++) {
+            $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].amount;
         }
-        return total;
-    }
-    */
-    
+        console.log("total " + $scope.friendsOweTotalAmount);
+    });
+  } 
     
 }
 
