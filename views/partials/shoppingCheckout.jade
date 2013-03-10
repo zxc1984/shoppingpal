@@ -1,15 +1,42 @@
-form
-	header
-		a.header-button.icon(href="/shopping")
-			div back
-		h1#header Shopping Checkout
-		div.header-menu-bar.right
-			a.header-menu-button.icon(href="/expense")
-				span
-					i.icon-ok.icon-2x
-	div.stp-content-frame
-		div.stp-content-body.container-fluid		
-			.span6
-				div.text-with-remove
-					input(type="text",id="list-name",name="list-name",ng-model="list.name",class="input-block-level", placeholder="List name...")
-					i.icon-remove-circle.clearText(ng-click="clearListName()")
+header
+	h1#header Shopping Checkout
+div.stp-content-frame(ng-init="initListDetail()")
+	div.stp-content-body
+		.row.non-list.dashboard
+			.six.columns.mobile-two
+				.header
+					| Calculated Total
+				.well.single-value
+					| $50.00
+			.six.columns.mobile-two
+				.header
+					Actual Total ($)
+				.well.expense-action
+					div(style="margin-bottom:15px;")
+						input(class="input-block-level text-right", value="50")
+					a.btn.btn-primary.btn-block(href="/expense")
+						.i.icon-save
+							|  Save
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| Cart Items
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="item in items")
+					div.list-container(ng-click="toggleSelectItem(item.id)")
+						div.row.list-name-box(ng-class="getSelectedItemClass(item)")
+							div.mobile5-three.columns.eight.list-name
+								div.item-title {{item.name}}
+								div.item-desc2
+									span {{item.qty}}
+									span.uom
+										ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
+									span.status
+										i.icon-group
+							div.mobile5-two.columns.columns
+								div.update-box.text-right
+									div.update-header.label item total ($)
+									div
+										input(class="input-block-level")

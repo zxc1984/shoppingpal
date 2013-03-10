@@ -16,7 +16,6 @@ div.stp-content-frame
 				form
 					.row
 						div.mobile-four.twelve.columns.form-box
-
 							div.input-append(style="width:90%;")
 								input(type="text",name="friendemail",placeholder="Category/Item...",class="input-block-level firstBox",ng-model="friendemail",maxlength="25")
 								button.btn(type="button",ng-click="friendemail = ''")
@@ -28,12 +27,16 @@ div.stp-content-frame
 					| Cat 1
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="n in ['apple','orange','pear','banana','papaya','pineapple']")
-					div.list-container.selectable(ng-click="ItemScopeChanger()")
+				li(ng-repeat="n in itemList")
+					div.list-container.selectable(ng-click="ToggleSelect(n)")
 						div.row
-							div.mobile-three.columns.nine.list-name
-								i.icon-check-empty
-								div.item-title {{n}}
-							div.columns.three.mobile-one.text-right
-								i.icon-chevron-right
+							div.mobile5-four.columns.nine.list-name
+								
+								div.item-title.large {{n.name}}
+								br
+								div.item-title.uom
+									{{n.price | currency:"$"}} / {{getUnitOfMeasure(n.unitOfMeasure)}}
+							div.columns.three.mobile5-one.text-right
+								div.checkbox
+									i(ng-class="isSelected(n)").icon-large
 	

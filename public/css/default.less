@@ -421,12 +421,22 @@ header {
 }
 
 .list-container {
-  border-top:1px solid #f0f0f0;
-  border-bottom:1px solid #f0f0f0;
+  border-top:1px solid #d7dbdf;
+  border-bottom:1px solid #d7dbdf;
   vertical-align: middle-text;
   .row {
     margin:0;
     .list-name, .list-info {padding:12px 10px;}
+    &.selected {
+      .list-name {
+        .item-title {
+          text-decoration: line-through;
+        }
+        text-decoration: line-through;
+      }
+      background-color: #888;
+      color: white;
+    }
     .list-title {
       font-size: 1em;
       i {
@@ -445,7 +455,20 @@ header {
       padding: 16px 0;
     }
     .item-title {
+      &.large:first-letter{
+        font-size: 1.2em;
+        text-transform: uppercase;
+      }
+      &.uom {
+        font-style: italic;
+        color: #3b86c4;
+        font-size: 0.8em;
+      }
     }
+    .checkbox {
+      margin-top:15px;
+    }
+
     .qty-desc {
       -webkit-box-shadow: inset 5px 0px 5px 2px rgba(0, 0, 0, 0.5);
          -moz-box-shadow: inset 5px 0px 5px 2px rgba(0, 0, 0, 0.5);
@@ -483,6 +506,37 @@ header {
           margin-top: 5px;
         }
     }
+    .item-desc2 {
+      -webkit-box-shadow: inset -5px 0px 5px 2px rgba(0, 0, 0, 0.5);
+         -moz-box-shadow: inset -5px 0px 5px 2px rgba(0, 0, 0, 0.5);
+           -o-box-shadow: inset -5px 0px 5px 2px rgba(0, 0, 0, 0.5);
+              box-shadow: inset -5px 0px 5px 2px rgba(0, 0, 0, 0.5);
+      -webkit-border-top-right-radius: 4px;
+      -webkit-border-bottom-right-radius: 4px;
+         -moz-border-top-right-radius: 4px;
+         -moz-border-bottom-right-radius: 4px;
+           -o-border-top-right-radius: 4px;
+           -o-border-bottom-right-radius: 4px;
+              border-top-right-radius: 4px;
+              border-bottom-right-radius: 4px;
+      margin-left: -10px;
+      background-color:#666;
+      color:white;
+      padding:5px 5px 5px 15px;
+      font-weight: 100;
+      font-size: 1.2em;
+
+
+      > span {
+        margin-right: 8px;
+        &.status {
+          font-size: 0.7em;  
+          float: right;
+          text-align: right;
+        }
+      }
+    }
+
     .item-check {
       display:inline-block;
       margin-top:15px;
@@ -511,8 +565,7 @@ header {
     .action {
       border-left: 1px solid #ccc;
       box-shadow: 1px 0 0 rgba(255, 255, 255, 0.11);
-
-      padding:12px;
+      text-align: center;
       display:inline-block;
       margin-top:8px;
       &:hover {
@@ -522,19 +575,26 @@ header {
         background-color: @headerGradientLighter;
         color:white;
       }
+
+      i {
+        display: block;
+        margin: 0 auto;
+      }
+      .small {font-size: 0.7em;font-weight: 200;margin-top: -5px;}
+      div {
+      margin:12px 12px 0;}
     }
   }
   &.selectable {
-    padding:15px 0;
     &:hover {
       border-color: #b7b7b7;
-      background-color: #fefefe;
+      background-color: #f6f6f6;
       cursor: pointer;
-      .innerShadow(5px,#dadada);
+      //.innerShadow(5px,#dadada);
     }
     &:active {
-      background-color: #ededed;
-      .innerShadow(5px,#c0c0c0);
+      background-color: #f6f6f6;
+      //.innerShadow(5px,#c0c0c0);
     }
 
   }
@@ -552,6 +612,32 @@ header {
       background-color: #ededed;
       .innerShadow(5px,#c0c0c0);
     }
+}
+
+.update-box {
+  padding: 5px;
+  margin-top:5px;
+  .update-header {
+    letter-spacing: -0.07em;
+    font-size: 0.75em;
+    color:white;
+    font-weight: 100;
+    border-bottom-left-radius:0px;  
+    border-bottom-right-radius:0px;  
+    float: right;
+    margin-top: 4px;
+    z-index: 999;
+    margin-right: 3px;
+  }
+  input {
+    clear: both;
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    text-align: right;
+    width: 120px;
+    float: right;
+  }
+
 }
 
 .expense-row {
@@ -588,6 +674,20 @@ form {
   .quantity-control {
     .well-small {
       padding:5px;
+    }
+  }
+  .btn-group {
+    margin: 0 auto 10px;
+    width: 100%;
+    text-align: center;
+  }
+  .input-prepend {
+    // Override bootstrap default
+    span.add-on {
+      height:30px;
+    }
+    input {
+      height: 30px;
     }
   }
 }
