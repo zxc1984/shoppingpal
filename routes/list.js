@@ -69,6 +69,19 @@ exports.getSpecificListItems = function(req,res) {
      var qw = {$set:item};
     db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
 };
+exports.deleteSpecificListItems = function(req,res) {
+     var id = req.params.id;
+     var item = req.params.entry;
+     //console.log("Entry"+entry+"Selected ID" + id + JSON.stringify(item));
+     var select = {"_id":objectId(id)};
+     var qw = {};
+     var name = "items." + item;
+     qw[name] = 1;
+    console.log(qw);
+     var qw1 = {$pull:{"items":null}};
+    db.collection(collection).update(select, {$unset:qw}, {safe:true},function(err,response){});
+    db.collection(collection).update(select, qw1, {safe:true},fn(req, res));
+};
 // Create
 exports.insert = function(req, res) {
     qw = req.body;

@@ -164,6 +164,23 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     });
   }
 
+  $scope.deleteListItem= function(item,index) {
+    var qw = {};
+    var name = 'items.'+ index;
+    qw[name] = 1;
+    list_id = getCookie("ListDetail", $cookieStore);
+    console.log(qw);
+    $http.delete("/api/list/"+list_id+"/items/"+index).success(function(response) {
+       if(response.ok == 1) {
+        console.log("Successfully Deleted");
+        removeCookie("ListItemDetail", $cookieStore);
+        $location.path("/list/detail");
+       }else{
+         console.log("Something went wrong");
+       }
+    });
+  }
+
   $scope.SelectShoppingLists = function() {
     $location.path("/shopping/");
   }

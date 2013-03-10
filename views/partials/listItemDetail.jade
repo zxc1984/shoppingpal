@@ -29,7 +29,7 @@ div.stp-content-frame
 							span.btn(ng-click="item.qty= item.qty + 1")
 								i.icon-plus
 					span.btn.btn-success.btn-block save
-					span.btn.btn-danger.btn-block delete
+					span.btn.btn-danger.btn-block(ng-click="deleteListItem(item,index)") delete
 
 			
 
