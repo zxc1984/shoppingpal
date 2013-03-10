@@ -2,7 +2,8 @@ header
 	a.header-button.icon(href="/expense/details/1")
 		div Back
 		span Menu
-	h1 Payment to Fred
+	h1(ng-init="getiOweDetails()")
+		| Payment to {{iOweName}}
 
 
 div.stp-content-frame
@@ -10,7 +11,7 @@ div.stp-content-frame
 		div.row.dashboard
 			.six.columns.mobile-two
 				.header
-					| Pay Fred
+					| Pay {{iOweName}}
 				.well.single-value
 					h2
 						| $15
@@ -19,19 +20,9 @@ div.stp-content-frame
 					br
 				.well.expense-action
 					h3
-						| 26/02/2013
+						| {{today}}
 					a.btn.btn-primary.btn-block(href="/payment/confirmation")
 						| Pay Now
-		div.row.dashboard.navbox
-			.twelve.columns.mobile-four
-				.mobile-one.two.columns
-					.clickable
-						i.icon-circle-arrow-left.icon-2x
-				.mobile-two.center.eight.columns
-					|Till Today
-				.mobile-one.right.two.columns
-					.clickable
-						i.icon-circle-arrow-right.icon-2x
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
@@ -39,25 +30,18 @@ div.stp-content-frame
 					| What You Owe:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{item:'Fish',brand:'NA',amount:'$10',period:'Feb 2013'},{item:'Chicken',brand:'NA',amount:'$5',period:'Feb 2013'},{item:'Spread',brand:'Nutella',amount:'$5',period:'Dec 2012',type:'Shared'}]")
-					div.list-container
-						a(href="#")
+				li(ng-repeat="item in iOweItems")
 							div.row
 								div.mobile-two.columns.ten
-									h5
-										small
-											| {{list.brand}}
 									h4
-										| {{list.item}} 
-										small
-											i.icon-search
+										| {{item.name}} 
 									h5
 										small
-											| {{list.period}}
+											| {{iOwePeriod}}
 								div.mobile-two.columns.two
 									.pay-actions
-											h2(style="text-align:right; vertical-align:middle")
-												| {{list.amount}}
+											h3(style="text-align:right; vertical-align:middle")
+												| ${{item.amount}}
 											
 
 	

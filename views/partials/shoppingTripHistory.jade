@@ -1,0 +1,40 @@
+header
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
+	h1#header Shopping Trips Made
+
+div.stp-content-frame
+	div.stp-content-body
+		div.row
+			.six.columns.mobile-two(style="padding:10px")
+				span(style="vertical-align: middle")
+					center
+						a.btn.btn-success.btn-block
+							i.icon-user
+								|  MY TRIPS
+			.six.columns.mobile-two(style="padding:10px")
+				span(style="vertical-align: middle")
+					center
+						a.btn.btn-primary.btn-block
+							i.icon-group
+								|  FRIEND'S TRIPS
+		div.row
+			.twelve.columns.mobile-four
+				div.listHeader
+					| All Trips Made:
+
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="list in [{payer:'Tom',shop:'Shop&Save',amount:'15',period:'10/2/2013',date:'8/3/2013'},{payer:'Dick',shop:'NTUC',amount:'15',period:'10/2/2013',date:'8/3/2013'},{payer:'Kevin',shop:'NTUC',amount:'15',period:'10/2/2013',date:'8/3/2013'}]")
+					div.list-container
+						div.row.expense-row
+							div.mobile5-four.columns.eight
+								h5
+									| &nbsp;{{list.payer}} 
+									small
+										| spent ${{list.amount}} at {{list.shop}}
+							div.mobile5-one.columns.four
+								.pay-actions
+									h6
+										small
+											| {{list.date}}

@@ -218,26 +218,90 @@ function ItemCtrl($scope, $http,$location) {
     $location.path('/list/1/additem/1');
   }
 }
-function ExpenseCtrl($scope, $http, $location) {
-  console.log("aa");
+
+function ExpenseCtrl($scope, $http, $location,$routeParams) {
+  
+  $scope.transactionDetails = [];
+
+  var todayDate = new Date();
+  var todayMonth = todayDate.getMonth() + 1;
+  var todayDay = todayDate.getDate();
+  var todayYear = todayDate.getFullYear();
+  $scope.today = todayDay + '/' + todayMonth + '/' + todayYear;
+
   $scope.ExpenseDetail = function() {
     $location.path('/expense/details/1');
   }
-   $http.get('/api/userExpense').success(function(data, status, headers, config) {
+
+  $scope.linkToTransHistory = function(id) {
+    $location.path("/payment/transaction/" + id);
+  }
+
+  $scope.getTransactionDetails = function(){   
+    var id = $routeParams.id;
+    $http.get('/api/userExpense/' + id).success(function(data, status, headers, config) {
+      $scope.transactionDetails = data;
+    });
+  }
+    
+  $http.get('/api/userExpense').success(function(data, status, headers, config) {
     $scope.userExpense = data;
   });
-    $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
+
+  $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
     $scope.trips = data;
   });
     
-    $http.get('/api/iOwe').success(function(data, status, headers, config) {
+  $http.get('/api/iOwe').success(function(data, status, headers, config) {
     $scope.iOweLists = data;
   });
 
-    $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
+  $scope.linkToiOweDetails = function(id) {
+    $location.path("/payment/new/" + id);
+  }
+
+  $scope.getiOweDetails = function(){   
+      var id = $routeParams.id;
+      $http.get('/api/iOwe/' + id).success(function(data, status, headers, config) {
+      $scope.iOweItems = data[0].items;
+      $scope.iOweName = data[0].payee.name;
+      $scope.iOwePeriod = data[0].period;
+      
+    });
+  }
+
+  $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
     $scope.friendsOweLists = data;
   });
-   
+
+  $scope.linkToFriendsOweDetails = function(id) {
+    $location.path("/payment/confirmation/" + id);
+  }
+
+  $scope.getFriendsOweDetails = function(){   
+      var id = $routeParams.id;
+      $http.get('/api/friendsOwe/' + id).success(function(data, status, headers, config) {
+      $scope.friendsOweItems = data[0].items;
+      $scope.friendsOweName = data[0].payer.name;
+      
+    });
+  }
+
+    /*
+     $scope.totalTransactionAmount = function(){
+
+      //console.log("my trans " + JSON.stringify($scope.transactionDetails);
+      console.log($scope.transactionDetails.items[0].amount)
+        var total = 0;
+        for (var i = 0; i < $scope.transactionDetails.length; i++) {
+            total += $scope.transactionDetails.items[i].amount;
+            console.log($scope.transactionDetails.items[i].amount);
+        }
+        return total;
+    }
+    */
+    
+    
 }
 
 function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
@@ -314,4 +378,8 @@ function setCookie(cookie_name, value, $cookieStore) {
 
 function removeCookie(cookie_name,$cookieStore) {
   $cookieStore.remove(cookie_name);
+}
+
+function getTodayDate(){
+  
 }
