@@ -23,17 +23,6 @@ div.stp-content-frame
 					a.btn.btn-success.btn-block(href="/expense")
 						.i.icon-money
 							|  Expenditures
-
-		div.row.dashboard.navbox
-			.twelve.columns.mobile-four
-				.mobile-one.two.columns
-					.clickable
-						i.icon-circle-arrow-left.icon-2x
-				.mobile-two.center.eight.columns
-					|Till Today
-				.mobile-one.right.two.columns
-					.clickable
-						i.icon-circle-arrow-right.icon-2x
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
@@ -42,26 +31,23 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in iOweLists")
-					div.list-container
-						a(href="/payment/new")
+					div.list-container.selectable(ng-click="linkToiOweDetails(list._id)",style="padding:5px")
 							div.row
-								div.mobile-two.columns.six
+								div.mobile5-three.columns.six(style="padding:5px")
 									h4
 										| {{list.payee.name}} 
-										small
-											i.icon-user
 										h5
 											small
 												| for {{list.period}}
-								div.mobile-one.columns.three
+								div.mobile5-one.columns.three
 									.pay-actions
 										center
 											h4
-												| $20
+												| {{list.amount}}
 												h5
 													small
 														| owed
-								div.mobile-one.columns.three
+								div.mobile5-one.columns.three
 									.pay-actions
 										center
 											i.icon-money

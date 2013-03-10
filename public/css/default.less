@@ -588,6 +588,20 @@ header {
   }
 }
 
+.well.selectable {
+    padding:15px 0;
+    &:hover {
+      border-color: #b7b7b7;
+      background-color: #fefefe;
+      cursor: pointer;
+      .innerShadow(5px,#dadada);
+    }
+    &:active {
+      background-color: #ededed;
+      .innerShadow(5px,#c0c0c0);
+    }
+}
+
 .expense-row {
   padding: 5px 0;
 }
