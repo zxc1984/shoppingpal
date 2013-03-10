@@ -27,6 +27,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     //$location.path('/list/');
   };
   $scope.login = function(user) {
+     $scope.loading = true;
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
         setCookie("UserId",data._id,$cookieStore);

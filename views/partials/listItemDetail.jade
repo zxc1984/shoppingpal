@@ -13,11 +13,10 @@ div.stp-content-frame
 				div.columns.six.mobile-four
 					input(type="text",name="itemname",placeholder="Item name",ng-model="item.name",class="input-block-level")
 					textarea(name="itemdesc",placeholder="Description",ng-model="item.description",class="input-block-level",rows="3")
-					input(type="text",class="input-block-level",placeholder="Type category here...",ng-model="item.category")
+					input(type="text",class="input-block-level",placeholder="Type category here...")
 
 					
-					select.select-block-level
-						option(ng-repeat="cat in categories", value="{{cat.value}}") {{cat.name}}
+					select.select-block-level(ng-model="item.category", ng-options="cat for cat in typeahead")
 					div.btn-group(ng-model="radioValue", bs-buttons-radio)
 						button(type="button", class="btn", value="left", ng-class="classShareType('individual')",ng-click="toggleShareType()") Individual
 						button(type="button", class="btn", value="middle", ng-class="classShareType('share')",ng-click="toggleShareType()") Shared
