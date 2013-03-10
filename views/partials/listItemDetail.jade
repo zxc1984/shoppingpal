@@ -28,7 +28,7 @@ div.stp-content-frame
 						div.columns.three.mobile-one.text-left
 							span.btn(ng-click="item.qty= item.qty + 1")
 								i.icon-plus
-					span.btn.btn-success.btn-block save
+					span.btn.btn-success.btn-block(ng-click="saveListItemDetail(item,index)") save
 					span.btn.btn-danger.btn-block(ng-click="deleteListItem(item,index)") delete
 
 			
