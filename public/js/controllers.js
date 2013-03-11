@@ -84,9 +84,13 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $scope.lists = List.query({"_id":userId});
   }
   $scope.initNewList = function() {
-    $scope.newlist = {name:''};
+    $scope.listSetting = {name:'',users:[],items:[],numFriends:0,numItems:0,};
     var test = $('.firstBox');
     test[0].focus();
+  }
+   $scope.initNewListFriends = function() {
+    listSetting = getCookie("listSetting", $cookieStore);
+    $scope.listSetting = listSetting;
   }
 
   $scope.initListDetail = function() {
@@ -133,7 +137,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     list_id = getCookie("ListDetail", $cookieStore);
     $http.get("/api/list/"+list_id+"/settings/").success(function(response){
       $scope.listSetting = response[0];
+      console.log(JSON.stringify($scope.listSetting));
     });
+
   }
   $scope.clearListName = function() {
     if ($scope.list)
@@ -178,6 +184,29 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
        }else{
          console.log("Something went wrong");
        }
+    });
+  }
+
+  $scope.newListAddFriends= function(listSetting) {
+    $location.path("/list/addFriends");
+    setCookie("listSetting",listSetting, $cookieStore);
+    //console.log(JSON.stringify($scope.listSetting));
+  }
+
+  $scope.createNewList= function(listSetting) {
+    var userId = getCookie('UserId',$cookieStore);
+    var own = {"_id":userId};
+    listSetting.users.push(own);
+    console.log(listSetting.users.length);
+    listSetting.numFriends = listSetting.users.length;
+    console.log(JSON.stringify(listSetting));
+    $http.post("/api/list/",listSetting).success(function(response) {
+      if(response.error) {
+        console.log(response.error);
+      } else{
+        removeCookie("listSetting", $cookieStore);
+        $location.path("/list");
+      }
     });
   }
 

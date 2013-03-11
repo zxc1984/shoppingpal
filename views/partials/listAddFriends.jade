@@ -2,10 +2,10 @@ header
 	a.header-button.icon(href="/list/create")
 		div back
 	h1#header Add Friends
-	a.header-button.icon.right(href="/list/")
+	a.header-button.icon.right(href="javascript:void(0)")(ng-click="createNewList(listSetting)")
 		div create
 div.stp-content-frame
-	div.stp-content-body
+	div.stp-content-body(ng-init="initNewListFriends()")	
 		.row.non-list
 			div.columns.six.mobile-four
 				form
@@ -16,6 +16,8 @@ div.stp-content-frame
 								input(type="text",name="friendemail",placeholder="Type friend's email here...",class="input-block-level firstBox",ng-model="friendemail",maxlength="25")
 								button.btn(type="button",ng-click="friendemail = ''")
 									i.icon-remove
+							button.btn(type="button",ng-click="addFriendToList(friendemail)") 
+								i.icon-ok
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
@@ -23,7 +25,7 @@ div.stp-content-frame
 					| Friends
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="friend in friends | orderBy:['status','email']")
+				li(ng-repeat="friend in listSetting.users")
 					div.list-container
 						div.row
 							div.mobile-two.columns.six.list-name
@@ -32,5 +34,5 @@ div.stp-content-frame
 								span.email-desc
 									span.label(ng-class="getStatusClass(friend.status)")
 										span {{friend.status}}
-								span.action(ng-click="alert('remove')")
+								span.action(ng-click="deleteFriendFromList($index)")
 									i.icon-remove

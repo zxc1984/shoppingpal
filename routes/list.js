@@ -102,6 +102,7 @@ exports.deleteSpecificListItems = function(req,res) {
 // Create
 exports.insert = function(req, res) {
     qw = req.body;
+    console.log(qw);
     db.collection(collection).insert(qw, {safe:true}, fn(req, res));
 };
 
