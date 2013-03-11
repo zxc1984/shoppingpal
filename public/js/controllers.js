@@ -185,6 +185,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     var qw = {"email" : friendEmail};
     $scope.listSetting.users.push(qw);
     console.log(JSON.stringify($scope.listSetting));
+    $scope.friendemail ="";
   }
   $scope.deleteFriendFromList = function(index) {
     $scope.listSetting.users.splice(index,1);
