@@ -13,7 +13,7 @@ div.stp-content-frame(ng-init="initList()")
 				li(ng-repeat="list in lists")
 					div.list-container.selectable(ng-click="toggleSelectList(list._id)")
 						div.row
-							div.mobile5-two.columns.six.list-name
+							div.mobile5-three.columns.six.list-name
 								div.list-title
 									i.icon-2x(ng-class="listIsSelected(list._id)")
 									span {{list.name}}
@@ -25,6 +25,6 @@ div.stp-content-frame(ng-init="initList()")
 										i.icon-tags
 								div.list-desc
 									span.label-header Friends
-									span.label
+									span.label.label-success
 										span {{list.numFriends}}  
 										i.icon-group
