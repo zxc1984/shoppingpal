@@ -26,7 +26,7 @@ div.stp-content-frame(ng-init="initListDetail()")
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in items")
-					div.list-container(ng-click="toggleSelectItem(item.id)")
+					div.list-container(ng-click="toggleSelectItem(item._id)")
 						div.row.list-name-box(ng-class="getSelectedItemClass(item)")
 							div.mobile5-three.columns.eight.list-name
 								div.item-title {{item.name}}

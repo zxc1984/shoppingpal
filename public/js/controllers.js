@@ -470,15 +470,21 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     //$scope.items = [{"id":"51239233e4b029c335f08541","name":"Gardenia White Bread","qty":1,"unitOfMeasure":0},{"_id":"5123925be4b029c335f08545","name":"Spin Washing Machine Powder","qty":5,"unitOfMeasure":1}];
     var allItems = getCookie("allItems", $cookieStore);
     var items = [];
-    console.log(JSON.stringify(allItems[0].items));
+    var test = {};
     for(var i = 0; i < allItems.length; i++) {
       for(var j = 0; j < allItems[i].items.length; j++) {
         //console.log(JSON.stringify(allItems[i].items));
-        items.push(allItems[i].items[j]);
+        if(test[allItems[i].items[j]._id] == undefined) {
+          test[allItems[i].items[j]._id] = {"qty":0,"_id":allItems[i].items[j]._id,"name":allItems[i].items[j].name,'unitOfMeasure':allItems[i].items[j].unitOfMeasure};
+        }
+        test[allItems[i].items[j]._id].qty = test[allItems[i].items[j]._id].qty + allItems[i].items[j].qty;
       }
     }
+    for(var obj in test){
+      items.push(test[obj]);
+    }
+    //console.log(items);
     $scope.items = items;
-    console.log(JSON.stringify(items));
   }
   $scope.listIsSelected = function(id) {
     for (var i = 0; i < $scope.selectedLists.length; i++) {
