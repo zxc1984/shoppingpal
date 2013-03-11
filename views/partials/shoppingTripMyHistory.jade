@@ -1,15 +1,16 @@
 header
-	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+	a.header-button.icon(href="/shopping/trips")
+		div Back
 		span Menu
-	h1#header Shopping Trips Made
+	h1#header My Trips
 
-div.stp-content-frame
+iv.stp-content-frame
 	div.stp-content-body
 		div.row
 			.six.columns.mobile-two(style="padding:10px")
 				span(style="vertical-align: middle")
 					center
-						a.btn.btn-success.btn-block(href="/shopping/my")
+						a.btn.btn-success.btn-block.disabled
 							i.icon-user
 								|  MY TRIPS
 			.six.columns.mobile-two(style="padding:10px")
@@ -22,10 +23,9 @@ div.stp-content-frame
 			.twelve.columns.mobile-four
 				div.listHeader
 					| All Trips Made:
-
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="trip in trips | filter:tripFilter")
+				li(ng-repeat="trip in trips | filter:myTrips")
 					div.list-container.selectable
 						div.row.expense-row
 							div.mobile5-four.columns.eight
@@ -38,3 +38,4 @@ div.stp-content-frame
 									h6
 										small
 											| {{trip.date}}
+

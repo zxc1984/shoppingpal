@@ -30,9 +30,14 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in friendsOweLists")
+<<<<<<< HEAD
+					div.list-container.selectable(ng-click="")
+							div.row
+=======
 					div.list-container.selectable
 							div.row(ng-click="linkToFriendsOweDetails(list._id)")
-								div.mobile-three.columns.six
+>>>>>>> e07d3cf0a00533fdebee38b8bd318a542db66754
+								div.mobile-two.columns.six
 									h4
 										| {{list.payer.name}} 
 										h5
@@ -46,5 +51,12 @@ div.stp-content-frame
 											h5
 												small
 													| to collect
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											i.icon-envelope
+											a.h5(ng-click="")
+												small
+													| Remind
 
 	

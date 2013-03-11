@@ -61,6 +61,17 @@ exports.getListItems = function(req,res) {
     db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
 
+exports.getAllItems = function(req,res) {
+    var ids = req.body;
+    console.log(JSON.stringify(ids));
+    for(var i = 0; i < ids.length; i++) {
+        ids[i] = objectId(ids[i]);
+    }
+    var qw = {'_id': { $in: ids}};
+    proj = {"_id": 1 ,"items" : 1};
+    db.collection(collection).find(qw,proj).toArray(fn(req, res));
+}
+
 exports.getListSettings = function(req,res) {
      var id = req.params.id;
      qw = {"_id":objectId(id)};
@@ -72,7 +83,6 @@ exports.updateListSettings = function(req,res) {
      var id = req.params.id;
      var user = req.body;
      var select = {"_id":objectId(id)};
-     console.log(user.users.length);
      var qw = {$set:{"name":user.name,"numFriends":user.users.length, "users":user.users}};
     db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
      //console.log(qw);
@@ -94,7 +104,6 @@ exports.deleteSpecificListItems = function(req,res) {
      var qw = {};
      var name = "items." + item;
      qw[name] = 1;
-    console.log(qw);
      var qw1 = {$pull:{"items":null}};
     db.collection(collection).update(select, {$unset:qw}, {safe:true},function(err,response){});
     db.collection(collection).update(select, qw1, {safe:true},fn(req, res));
@@ -102,7 +111,6 @@ exports.deleteSpecificListItems = function(req,res) {
 // Create
 exports.insert = function(req, res) {
     qw = req.body;
-    console.log(qw);
     db.collection(collection).insert(qw, {safe:true}, fn(req, res));
 };
 

@@ -56,6 +56,7 @@ app.get('/api/list/:id/items',list.getListItems);
 app.put('/api/list/:id/items/',list.updateSpecificListItems);
 app.del('/api/list/:id/items/:entry',list.deleteSpecificListItems);
 
+app.post('/api/Shopinglist/',list.getAllItems)
 app.post('/api/list/',list.insert);
 app.put('/api/list/:id',list.update);
 app.del('/api/list/:id',list.delete);
@@ -77,7 +78,7 @@ app.put('/api/users/update/:id',user.update);
 
 //EXPENSE API
 app.get('/api/userExpense',transactions.findAll);
-app.get('/api/userExpense/:id',expense.find);
+app.get('/api/userExpense/:id',transactions.find);
 
 //TRANSACTION API
 app.get('/api/transactions',transactions.findall);

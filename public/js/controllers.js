@@ -57,6 +57,14 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     else
       $scope.shareType = 'individual';
   }
+
+  $scope.backToList = function() {
+    removeCookie("ListDetail", $cookieStore);
+    removeCookie("allItems", $cookieStore);
+    removeCookie("ListItemDetail", $cookieStore);
+    removeCookie("listSetting", $cookieStore);
+    $location.path("/list");
+  }
 }
 
 function MyCtrl1() {}
@@ -98,6 +106,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     if(chosenList == undefined) {
       $location.path("/list");
     }
+    $scope.list_id = chosenList;
     $scope.loading = true;
 
     $http.get('/api/list/'+chosenList+'/items').success(function(data, status, headers, config) {
@@ -166,10 +175,6 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     }
   }
 
-  $scope.backToList = function() {
-    removeCookie("ListDetail", $cookieStore);
-    $location.path("/list");
-  }
   $scope.backToListDetail = function() {
     removeCookie("ListItemDetail", $cookieStore);
     $location.path("/list/detail");
@@ -257,8 +262,14 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/shopping/");
   }
 
-  $scope.StartShopping = function() {
-    $location.path("/shopping/on");
+  $scope.StartShopping = function(list_id) {
+    console.log(list_id)
+    var selected = [list_id];
+    $http.post("/api/Shopinglist/", selected).success(function(data, status, headers, config) {
+      setCookie("allItems",data, $cookieStore);
+      $location.path("/shopping/on");
+     });
+    //$location.path("/shopping/on");
   }
 
   $scope.getSharedStatus = function(item) {
@@ -270,6 +281,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     }
     return "icon-user";
   }
+
 
    /*
   $scope.create = function($event) {
@@ -351,11 +363,12 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     var id = $routeParams.id;
     $http.get('/api/userExpense/' + id).success(function(data, status, headers, config) {
       $scope.transactionDetails = data;
+      $scope.transPayer = data[0].payer.name;
+      $scope.transPayee = data[0].payee.name;
+      $scope.transDate = data[0].date;
       $scope.transItems = data[0].items;
-      $scope.transItemsTotalAmount = 0;
-        for (var i = 0; i < $scope.transItems.length; i++) {
-            $scope.transItemsTotalAmount += $scope.transItems[i].amount;
-        }
+      console.log($scope.transItems);
+      $scope.transItemsTotalAmount = data.total;
     });
   }
 
@@ -457,7 +470,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   $scope.lists = [];
   $scope.selectedLists = [];
   $scope.selectedItems = [];
-
   $scope.items = [];
   if(userId == undefined) {
     $location.path("/login");
@@ -467,7 +479,23 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     $scope.lists = List.query({"_id":userId});
   }
   $scope.initListDetail = function() {
-    $scope.items = [{"id":"51239233e4b029c335f08541","name":"Gardenia White Bread","qty":1,"unitOfMeasure":0},{"_id":"5123925be4b029c335f08545","name":"Spin Washing Machine Powder","qty":5,"unitOfMeasure":1}];
+    //$scope.items = [{"id":"51239233e4b029c335f08541","name":"Gardenia White Bread","qty":1,"unitOfMeasure":0},{"_id":"5123925be4b029c335f08545","name":"Spin Washing Machine Powder","qty":5,"unitOfMeasure":1}];
+    var allItems = getCookie("allItems", $cookieStore);
+    var items = [];
+    var test = {};
+    for(var i = 0; i < allItems.length; i++) {
+      for(var j = 0; j < allItems[i].items.length; j++) {
+        //console.log(JSON.stringify(allItems[i].items));
+        if(test[allItems[i].items[j]._id] == undefined) {
+          test[allItems[i].items[j]._id] = {"qty":0,"_id":allItems[i].items[j]._id,"name":allItems[i].items[j].name,'unitOfMeasure':allItems[i].items[j].unitOfMeasure};
+        }
+        test[allItems[i].items[j]._id].qty = test[allItems[i].items[j]._id].qty + allItems[i].items[j].qty;
+      }
+    }
+    for(var obj in test){
+      items.push(test[obj]);
+    }
+    $scope.items = items;
   }
   $scope.listIsSelected = function(id) {
     for (var i = 0; i < $scope.selectedLists.length; i++) {
@@ -494,14 +522,31 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     return item.selected
   }
   $scope.toggleSelectItem = function(item) {
+   // console.log("item" + item);
     if (item.selected) {
-      if (item.selected == 0)
+      if (item.selected == 0) {
         item.selected = 1;
-      else
+        $scope.selectedItems.push(item);
+      }else{
         item.selected = 0;
+        for (var i = 0; i < $scope.selectedItems.length; i++) {
+          if ($scope.selectedItems[i]._id == item._id) {
+            $scope.selectedItems.splice(i, 1);
+            return;
+          }
+        } 
+      }     
     } else {
       item.selected = 1;
+      $scope.selectedItems.push(item);
     }
+  }
+
+  $scope.proceedToCheckout = function() {
+   // console.log(JSON.stringify(items));
+    //console.log(JSON.stringify($scope.selectedItems));
+    setCookie("selectedItems",$scope.selectedItems, $cookieStore);
+    $location.path("/shopping/checkout");
   }
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
@@ -527,6 +572,14 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     }
 
   });
+
+  $scope.shoppingMode = function() {
+     console.log($scope.selectedLists);
+     $http.post("/api/Shopinglist/",$scope.selectedLists).success(function(data, status, headers, config) {
+      setCookie("allItems",data, $cookieStore);
+      $location.path("/shopping/on");
+     });
+  }
 }
 
 function PaymentCtrl($scope, $http, $location) {
