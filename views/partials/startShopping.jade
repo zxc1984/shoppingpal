@@ -1,9 +1,9 @@
 header
-	a.header-button.icon(href="/list/detail/")
+	a.header-button.icon(href="javascript:void(0)")(ng-click="backToList()")
 			div back
 	h1#header Start Shopping
 	div.header-menu-bar.right
-		a.header-menu-button.icon(href="/shopping/checkout")
+		a.header-menu-button.icon(href="javascript:void(0)")(ng-click="proceedToCheckout()")
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame(ng-init="initListDetail()")
@@ -26,7 +26,7 @@ div.stp-content-frame(ng-init="initListDetail()")
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in items")
-					div.list-container(ng-click="toggleSelectItem(item._id)")
+					div.list-container
 						div.row.list-name-box(ng-class="getSelectedItemClass(item)")
 							div.mobile5-three.columns.eight.list-name
 								div.item-title {{item.name}}

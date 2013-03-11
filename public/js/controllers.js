@@ -57,6 +57,14 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     else
       $scope.shareType = 'individual';
   }
+
+  $scope.backToList = function() {
+    removeCookie("ListDetail", $cookieStore);
+    removeCookie("allItems", $cookieStore);
+    removeCookie("ListItemDetail", $cookieStore);
+    removeCookie("listSetting", $cookieStore);
+    $location.path("/list");
+  }
 }
 
 function MyCtrl1() {}
@@ -98,6 +106,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     if(chosenList == undefined) {
       $location.path("/list");
     }
+    $scope.list_id = chosenList;
     $scope.loading = true;
 
     $http.get('/api/list/'+chosenList+'/items').success(function(data, status, headers, config) {
@@ -166,10 +175,6 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     }
   }
 
-  $scope.backToList = function() {
-    removeCookie("ListDetail", $cookieStore);
-    $location.path("/list");
-  }
   $scope.backToListDetail = function() {
     removeCookie("ListItemDetail", $cookieStore);
     $location.path("/list/detail");
@@ -257,8 +262,14 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/shopping/");
   }
 
-  $scope.StartShopping = function() {
-    $location.path("/shopping/on");
+  $scope.StartShopping = function(list_id) {
+    console.log(list_id)
+    var selected = [list_id];
+    $http.post("/api/Shopinglist/", selected).success(function(data, status, headers, config) {
+      setCookie("allItems",data, $cookieStore);
+      $location.path("/shopping/on");
+     });
+    //$location.path("/shopping/on");
   }
 
   $scope.getSharedStatus = function(item) {
@@ -270,6 +281,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     }
     return "icon-user";
   }
+
 
    /*
   $scope.create = function($event) {
@@ -483,7 +495,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     for(var obj in test){
       items.push(test[obj]);
     }
-    //console.log(items);
     $scope.items = items;
   }
   $scope.listIsSelected = function(id) {
@@ -511,14 +522,31 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     return item.selected
   }
   $scope.toggleSelectItem = function(item) {
+   // console.log("item" + item);
     if (item.selected) {
-      if (item.selected == 0)
+      if (item.selected == 0) {
         item.selected = 1;
-      else
+        $scope.selectedItems.push(item);
+      }else{
         item.selected = 0;
+        for (var i = 0; i < $scope.selectedItems.length; i++) {
+          if ($scope.selectedItems[i]._id == item._id) {
+            $scope.selectedItems.splice(i, 1);
+            return;
+          }
+        } 
+      }     
     } else {
       item.selected = 1;
+      $scope.selectedItems.push(item);
     }
+  }
+
+  $scope.proceedToCheckout = function() {
+   // console.log(JSON.stringify(items));
+    //console.log(JSON.stringify($scope.selectedItems));
+    setCookie("selectedItems",$scope.selectedItems, $cookieStore);
+    $location.path("/shopping/checkout");
   }
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
