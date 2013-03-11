@@ -77,7 +77,7 @@ app.put('/api/users/update/:id',user.update);
 
 //EXPENSE API
 app.get('/api/userExpense',transactions.findAll);
-app.get('/api/userExpense/:id',expense.find);
+app.get('/api/userExpense/:id',transactions.find);
 
 //TRANSACTION API
 app.get('/api/transactions',transactions.findall);

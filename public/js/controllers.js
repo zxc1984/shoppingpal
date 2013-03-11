@@ -351,11 +351,12 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     var id = $routeParams.id;
     $http.get('/api/userExpense/' + id).success(function(data, status, headers, config) {
       $scope.transactionDetails = data;
+      $scope.transPayer = data[0].payer.name;
+      $scope.transPayee = data[0].payee.name;
+      $scope.transDate = data[0].date;
       $scope.transItems = data[0].items;
-      $scope.transItemsTotalAmount = 0;
-        for (var i = 0; i < $scope.transItems.length; i++) {
-            $scope.transItemsTotalAmount += $scope.transItems[i].amount;
-        }
+      console.log($scope.transItems);
+      $scope.transItemsTotalAmount = data.total;
     });
   }
 

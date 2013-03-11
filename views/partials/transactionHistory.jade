@@ -14,7 +14,7 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 				.well.single-value
 					i.icon-user.icon-2x
 					h4
-						| {{transactionDetails[0].payee}}
+						| {{transPayee}}
 			.six.columns.mobile-two
 				.header
 					h3
@@ -22,7 +22,7 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 				.well.single-value
 					i.icon-user.icon-2x
 					h4
-						| {{transactionDetails[0].payer}}
+						| {{transPayer}}
 		div.row.dashboard.navbox
 			.twelve.columns.mobile-four
 				.mobile-one.two.columns
@@ -40,31 +40,28 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 					| Items Paying For:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in transactionDetails")
+				li(ng-repeat="list in transItems")
 					div.list-container
 						a(href="#")
 							div.row
 								div.mobile-two.columns.six
-									h5
-										small
-											| {{list.payer}}
 									h4
-										| {{list.item}} 
+										| {{list.name}} 
 										small
-											i.icon-search
+											
 									h5
 										small
-											| {{list.period}}
+											| Paid on {{transDate}}
 								div.mobile-one.columns.three
 									.pay-actions
 										center
 											h2
-												| {{list.amount}}
+												| ${{list.amount}}
 
 								div.mobile-one.columns.three
 									.pay-actions
 										center
-											i.icon-remove.icon-2x
-											h5
+											//i.icon-remove.icon-2x
+											h4
 												small
-													| Remove
+													| Qty: {{list.qty}} 
