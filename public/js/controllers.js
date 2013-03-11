@@ -44,18 +44,22 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
   };
 
  // $scope.shareType = "individual";
-  $scope.classShareType = function() {
-    if ($scope.shareType == 'individual')
+  $scope.classShareType = function(type) {
+    if (type == 'individual')
       return "active btn-primary";
-    if ($scope.shareType == 'share')
+    if (type == 'share')
       return "active btn-primary";
     return "";
   }
-  $scope.toggleShareType = function() {
-    if ($scope.shareType == 'individual')
-      $scope.shareType = 'share';
+  $scope.toggleShareType = function(item,type) {
+    if (item.shareType) {
+      if (item.shareType == 'individual')
+        item.shareType = 'share';
+      else
+        item.shareType = 'individual';
+    } 
     else
-      $scope.shareType = 'individual';
+      item.shareType = type;
   }
 
   $scope.backToList = function() {
@@ -139,7 +143,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     }
    $scope.item = chosenItem.item;
    $scope.index = chosenItem.index;
-   $scope.shareType = chosenItem.item.shareType;
+   if (chosenItem.item.shareType) 
+    $scope.item.shareType = chosenItem.item.shareType;
+   else
+    $scope.item.shareType = "individual";
    console.log($scope.shareType);
   }
   $scope.initListSettings = function() {
