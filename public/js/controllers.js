@@ -331,7 +331,7 @@ function ItemCtrl($scope, $http,$location) {
   } 
 }
 
-function ExpenseCtrl($scope, $http, $location,$routeParams) {
+function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
   var todayDate = new Date();
   var todayMonth = todayDate.getMonth() + 1;
@@ -358,12 +358,25 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
         }
     });
   }
-    
+
+  $http.get('/api/userExpense').success(function(data, status, headers, config) {
+    var userId = getCookie('UserId',$cookieStore);
+    $scope.transactions = data;
+    console.log($scope.transactions[0].payer.userId);
+        for (var i = 0; i < $scope.transactions.length; i++) {
+          if ($scope.transactions[i].payer.userId != userId && $scope.transactions[i].payee.userId != userId){
+            $scope.transactions.splice(i,1);
+            i--;
+          }
+      }
+  });
+  
+  /*  
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
     $scope.userExpense = data;
     $scope.userExpenseItems = data[0].items;
   });
-
+  */
   $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
     $scope.trips = data;
   });
@@ -375,6 +388,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
     for (var i = 0; i < data.length; i++) {
           $scope.iOweListTotalAmount += data[i].payee.amount;
       }
+
   });
 
   $scope.linkToiOweDetails = function(id) {
@@ -400,7 +414,6 @@ function ExpenseCtrl($scope, $http, $location,$routeParams) {
 
       $scope.iOweName = data[0].payee.name;
       $scope.iOwePeriod = data[0].period;
-      
     });
   }
 

@@ -11,6 +11,7 @@ item = require('./routes/item'),
 user = require('./routes/user'),
 shopping = require('./routes/shopping'),
 expense = require('./routes/expense');
+transactions = require('./routes/transactions');
 iOwe = require('./routes/iOwe');
 friendsOwe = require('./routes/friendsOwe');
 
@@ -75,8 +76,11 @@ app.post('/api/users/register',user.insert);
 app.put('/api/users/update/:id',user.update);
 
 //EXPENSE API
-app.get('/api/userExpense',expense.findAll);
+app.get('/api/userExpense',transactions.findAll);
 app.get('/api/userExpense/:id',expense.find);
+
+//TRANSACTION API
+app.get('/api/transactions',transactions.findall);
 
 //SHOPPING API
 app.get('/api/shoppingTrips',shopping.findAll);

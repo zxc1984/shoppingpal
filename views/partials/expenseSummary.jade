@@ -35,13 +35,14 @@ div.stp-content-frame
 					| Recent Activities
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in userExpenseItems")
+				li(ng-repeat="list in transactions")
 					div.list-container.selectable(ng-click="linkToTransHistory(list._id)",style="padding:5px")
 						div.row.expense-row
 							div.mobile5-five.columns.eight
 								h5
-									| {{list.boughtFor}} 
+									| {{list.payer.name}} 
 									small
-										| has paid {{list.buyer}} ${{list.amount}} on {{list.paidDate}}.
+										| has paid {{list.payee.name}} ${{list.total}} on {{list.date}}.
+
 
 	
