@@ -180,6 +180,17 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
        }
     });
   }
+
+  $scope.addFriendToList = function(friendEmail) {
+    var qw = {"email" : friendEmail};
+    $scope.listSetting.users.push(qw);
+    console.log(JSON.stringify($scope.listSetting));
+  }
+  $scope.deleteFriendToList = function(friendEmail) {
+    var qw = {"email" : friendEmail};
+    $scope.listSetting.users.pull(qw);
+    console.log(JSON.stringify($scope.listSetting));
+  }
   $scope.saveListItemDetail= function(item,index,shareType) {
     var qw = {};
     item.shareType = $scope.shareType;

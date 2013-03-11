@@ -35,7 +35,7 @@ div.stp-content-frame
 									input(type="text",name="friendemail",placeholder="Type Friends Email...",class="input-block-level firstBox",ng-model="friendemail",maxlength="50")
 									button.btn(type="button",ng-click="friendemail = ''") 
 										i.icon-remove
-								button.btn(type="button",ng-click="friendemail = ''") 
+								button.btn(type="button",ng-click="addFriendToList(friendemail)") 
 									i.icon-ok
 			div.row
 				// My list of activities
