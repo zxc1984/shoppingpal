@@ -1,7 +1,8 @@
 header
-	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+	a.header-button.icon(href="/shopping/trips")
+		div Back
 		span Menu
-	h1#header Shopping Trips Made
+	h1#header Friends' Trips
 
 div.stp-content-frame
 	div.stp-content-body
@@ -15,14 +16,13 @@ div.stp-content-frame
 			.six.columns.mobile-two(style="padding:10px")
 				span(style="vertical-align: middle")
 					center
-						a.btn.btn-primary.btn-block(href="/shopping/friends")
+						a.btn.btn-primary.btn-block.disabled(href="/shopping/friends")
 							i.icon-group
 								|  FRIEND'S TRIPS
 		div.row
 			.twelve.columns.mobile-four
 				div.listHeader
-					| All Trips Made:
-
+					| Trips Made by Friends:
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="trip in trips | filter:tripFilter")
@@ -38,3 +38,4 @@ div.stp-content-frame
 									h6
 										small
 											| {{trip.date}}
+

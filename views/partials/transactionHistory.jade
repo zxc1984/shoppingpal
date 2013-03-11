@@ -1,8 +1,7 @@
 header
-	a.header-button.icon(href="/payment/details/1")
-		div Back
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header Transaction History
+	h1#header Payment History
 
 div.stp-content-frame(ng-init="getTransactionDetails()")
 	div.stp-content-body
@@ -10,7 +9,7 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 			.six.columns.mobile-two
 				.header
 					h3
-						| Payment To:
+						| Paid To:
 				.well.single-value
 					i.icon-user.icon-2x
 					h4
@@ -23,16 +22,7 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 					i.icon-user.icon-2x
 					h4
 						| {{transactionDetails[0].payer}}
-		div.row.dashboard.navbox
-			.twelve.columns.mobile-four
-				.mobile-one.two.columns
-					.clickable
-						i.icon-circle-arrow-left.icon-2x
-				.mobile-two.center.eight.columns
-					|Till Today
-				.mobile-one.right.two.columns
-					.clickable
-						i.icon-circle-arrow-right.icon-2x
+
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four

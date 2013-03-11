@@ -38,16 +38,22 @@ div.stp-content-frame
 					| Payment Activity
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in [{name:'Fred',message:'paid $15 to you for Jan 2013',date:'26/02/2013'},{name:'Fred',message:'spent $15 for you for Jan 2013',date:'26/02/2013'}]")
+				li(ng-repeat="list in transactionDetails")
 					div.list-container
-						a(href="/payment/transaction")
 							div.row
-								div.mobile-three.columns.eight
+								div.mobile-three.columns.six
 									h5
-										| {{list.name}} 
 										small
-											| has {{list.message}}
-								div.mobile-one.columns.four
+											| {{list.payer}}
+									h4
+										| {{list.item}} 
+										small
+											i.icon-search
+									h5
+										small
+											| {{list.period}}
+								div.mobile-one.columns.three
 									.pay-actions
-										h6
-											| {{list.date}}
+										center
+											h2
+												| {{list.amount}}
