@@ -62,11 +62,7 @@ app.put('/api/list/:id',list.update);
 app.del('/api/list/:id',list.delete);
 
 //ItemS API
-app.get('/api/items',item.findAll);
-app.get('/api/list/:id',list.findUserList);
-app.post('/api/list/',list.insert);
-app.put('/api/list/:id',list.update);
-app.del('/api/list/:id',list.delete);
+app.get('/api/items/grouped',item.findAllGrouped);
 
 //USER API 
 app.get('/api/users',user.findAll);

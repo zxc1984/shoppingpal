@@ -44,7 +44,22 @@ exports.findAll = function(req, res) {
     db.collection(collection).find(qw).toArray(fn(req, res));
 };
 
+exports.findAllGrouped = function(req, res) {
+    qw = {};
+    db.collection(collection).find(qw).toArray(function(err,response){
+        console.log(response);
+        for(var i = 0; i < response.length; i++) {
+            if(qw[response[i].category] == undefined) {
+                qw[response[i].category] = [];
+            }
+            qw[response[i].category].push(response[i]);
+        }
+        //console.log(qw);
+        res.send(qw)
+    });
 
+   // res.send(qw);
+};
 exports.find = function(req,res) {
      var id = req.params.id;
      qw = {"_id":objectId(id)};
