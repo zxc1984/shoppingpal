@@ -458,7 +458,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   $scope.lists = [];
   $scope.selectedLists = [];
   $scope.selectedItems = [];
-
   $scope.items = [];
   if(userId == undefined) {
     $location.path("/login");
@@ -468,7 +467,18 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     $scope.lists = List.query({"_id":userId});
   }
   $scope.initListDetail = function() {
-    $scope.items = [{"id":"51239233e4b029c335f08541","name":"Gardenia White Bread","qty":1,"unitOfMeasure":0},{"_id":"5123925be4b029c335f08545","name":"Spin Washing Machine Powder","qty":5,"unitOfMeasure":1}];
+    //$scope.items = [{"id":"51239233e4b029c335f08541","name":"Gardenia White Bread","qty":1,"unitOfMeasure":0},{"_id":"5123925be4b029c335f08545","name":"Spin Washing Machine Powder","qty":5,"unitOfMeasure":1}];
+    var allItems = getCookie("allItems", $cookieStore);
+    var items = [];
+    console.log(JSON.stringify(allItems[0].items));
+    for(var i = 0; i < allItems.length; i++) {
+      for(var j = 0; j < allItems[i].items.length; j++) {
+        //console.log(JSON.stringify(allItems[i].items));
+        items.push(allItems[i].items[j]);
+      }
+    }
+    $scope.items = items;
+    console.log(JSON.stringify(items));
   }
   $scope.listIsSelected = function(id) {
     for (var i = 0; i < $scope.selectedLists.length; i++) {
@@ -528,6 +538,14 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     }
 
   });
+
+  $scope.shoppingMode = function() {
+     console.log($scope.selectedLists);
+     $http.post("/api/Shopinglist/",$scope.selectedLists).success(function(data, status, headers, config) {
+      setCookie("allItems",data, $cookieStore);
+      $location.path("/shopping/on");
+     });
+  }
 }
 
 function PaymentCtrl($scope, $http, $location) {
