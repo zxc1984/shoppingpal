@@ -1,7 +1,8 @@
 header
-	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+	a.header-button.icon(href="/payment/details/1")
+		div Back
 		span Menu
-	h1#header Payment History
+	h1#header Transaction History
 
 div.stp-content-frame(ng-init="getTransactionDetails()")
 	div.stp-content-body
@@ -9,11 +10,11 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 			.six.columns.mobile-two
 				.header
 					h3
-						| Paid To:
+						| Payment To:
 				.well.single-value
 					i.icon-user.icon-2x
 					h4
-						| {{transactionDetails[0].payee}}
+						| {{transPayee}}
 			.six.columns.mobile-two
 				.header
 					h3
@@ -21,8 +22,17 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 				.well.single-value
 					i.icon-user.icon-2x
 					h4
-						| {{transactionDetails[0].payer}}
-
+						| {{transPayer}}
+		div.row.dashboard.navbox
+			.twelve.columns.mobile-four
+				.mobile-one.two.columns
+					.clickable
+						i.icon-circle-arrow-left.icon-2x
+				.mobile-two.center.eight.columns
+					|Till Today
+				.mobile-one.right.two.columns
+					.clickable
+						i.icon-circle-arrow-right.icon-2x
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
@@ -30,31 +40,28 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 					| Items Paying For:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in transactionDetails")
+				li(ng-repeat="list in transItems")
 					div.list-container
 						a(href="#")
 							div.row
 								div.mobile-two.columns.six
-									h5
-										small
-											| {{list.payer}}
 									h4
-										| {{list.item}} 
+										| {{list.name}} 
 										small
-											i.icon-search
+											
 									h5
 										small
-											| {{list.period}}
+											| Paid on {{transDate}}
 								div.mobile-one.columns.three
 									.pay-actions
 										center
 											h2
-												| {{list.amount}}
+												| ${{list.amount}}
 
 								div.mobile-one.columns.three
 									.pay-actions
 										center
-											i.icon-remove.icon-2x
-											h5
+											//i.icon-remove.icon-2x
+											h4
 												small
-													| Remove
+													| Qty: {{list.qty}} 
