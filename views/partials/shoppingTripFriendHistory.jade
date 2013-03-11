@@ -25,7 +25,7 @@ div.stp-content-frame
 					| Trips Made by Friends:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="trip in trips | filter:tripFilter")
+				li(ng-repeat="trip in trips | filter:friendsTrips")
 					div.list-container.selectable
 						div.row.expense-row
 							div.mobile5-four.columns.eight
