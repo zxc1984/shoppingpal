@@ -75,6 +75,7 @@ app.put('/api/users/update/:id',user.update);
 //EXPENSE API
 app.get('/api/userExpense',transactions.findAll);
 app.get('/api/userExpense/:id',transactions.find);
+app.put('/api/userExpense/:id',transactions.update);
 
 //TRANSACTION API
 app.get('/api/transactions',transactions.findall);
@@ -86,6 +87,7 @@ app.get('/api/shoppingTrips/:id',shopping.find);
 //iOwe API
 app.get('/api/iOwe',iOwe.findAll);
 app.get('/api/iOwe/:id',iOwe.find);
+app.put('/api/iOwe/:id',iOwe.updateSpecificListItems);
 
 //friendsOwe API
 app.get('/api/friendsOwe',friendsOwe.findAll);

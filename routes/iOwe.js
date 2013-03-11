@@ -52,6 +52,19 @@ exports.update = function(req, res) {
     db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
 };
 
+exports.updateSpecificListItems = function(req,res) {
+    //console.log(req);
+     var id = req.params.id;
+     console.log("iowe id "+ id);
+     var item = req.body;
+     console.log("iowe item "+ JSON.stringify(item));
+     //console.log("Entry"+entry+"Selected ID" + JSON.stringify(item));
+     var select = {"_id":objectId(id)};
+     console.log(select);
+     var qw = {$set:item};
+    db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
+};
+
 exports.delete = function(req, res) {
     var id = req.params.id;
     qw = {"_id":objectId(id)};
