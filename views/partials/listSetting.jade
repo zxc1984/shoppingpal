@@ -53,6 +53,6 @@ div.stp-content-frame
 									span.email-desc
 										span.label(ng-class="getStatusClass(user.status)")
 											span {{user.status}}
-									span.action(ng-click="alert('remove')")
+									span.action(ng-click="deleteFriendFromList($index)")
 										i.icon-remove
 			span.btn.btn-danger.btn-block(ng-click="delete(listSetting)") delete
