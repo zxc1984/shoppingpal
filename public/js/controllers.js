@@ -114,7 +114,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
       $scope.items = data[0].items;
       $scope.numItems = data[0].numItems;
       if($scope.numItems != $scope.items.length) {
-        console.log("not equal" + $scope.numItems + $scope.items.length);
+        //console.log("not equal" + $scope.numItems + $scope.items.length);
         $scope.numItems = $scope.items.length;
         list_id = getCookie("ListDetail", $cookieStore);
         $http.put("/api/list/"+list_id,{"numItems":$scope.numItems}).success(function(response) {
@@ -125,14 +125,14 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
            }
         });
       } else {
-        console.log("equal");
+        //console.log("equal");
       }
       $scope.loading = false;
     });
   }
   $scope.initListItemDetail = function() {
     var chosenItem = getCookie("ListItemDetail", $cookieStore);
-    console.log("chosen" + JSON.stringify(chosenItem));
+    //console.log("chosen" + JSON.stringify(chosenItem));
 
     if(chosenItem == undefined) {
       $location.path("/list/detail");
@@ -140,13 +140,13 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
    $scope.item = chosenItem.item;
    $scope.index = chosenItem.index;
    $scope.shareType = chosenItem.item.shareType;
-   console.log($scope.shareType);
+   //console.log($scope.shareType);
   }
   $scope.initListSettings = function() {
     list_id = getCookie("ListDetail", $cookieStore);
     $http.get("/api/list/"+list_id+"/settings/").success(function(response){
       $scope.listSetting = response[0];
-      console.log(JSON.stringify($scope.listSetting));
+      //console.log(JSON.stringify($scope.listSetting));
     });
 
   }
@@ -159,7 +159,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path('/list/detail');
   }
   $scope.ListItemDetail = function(item,index) {
-    console.log("index" + index);
+    //console.log("index" + index);
     setCookie("ListItemDetail",{"item":item,"index":index}, $cookieStore);
     $location.path('/list/detail/itemdetail/');
   }
@@ -202,9 +202,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     var userId = getCookie('UserId',$cookieStore);
     var own = {"_id":userId};
     listSetting.users.push(own);
-    console.log(listSetting.users.length);
+    //console.log(listSetting.users.length);
     listSetting.numFriends = listSetting.users.length;
-    console.log(JSON.stringify(listSetting));
+    //console.log(JSON.stringify(listSetting));
     $http.post("/api/list/",listSetting).success(function(response) {
       if(response.error) {
         console.log(response.error);
@@ -218,12 +218,12 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   $scope.addFriendToList = function(friendEmail) {
     var qw = {"email" : friendEmail};
     $scope.listSetting.users.push(qw);
-    console.log(JSON.stringify($scope.listSetting));
+    //console.log(JSON.stringify($scope.listSetting));
     $scope.friendemail ="";
   }
   $scope.deleteFriendFromList = function(index) {
     $scope.listSetting.users.splice(index,1);
-    console.log(JSON.stringify($scope.listSetting));
+    //console.log(JSON.stringify($scope.listSetting));
   }
   $scope.saveListItemDetail= function(item,index,shareType) {
     var qw = {};
@@ -231,7 +231,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     var name = 'items.'+ index;
     qw[name] = item;
     list_id = getCookie("ListDetail", $cookieStore);
-    console.log(item);
+    //console.log(item);
     $http.put("/api/list/"+list_id+"/items/",qw).success(function(response) {
        if(response.ok == 1) {
         console.log("Successfully Updated");
@@ -246,7 +246,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     var name = 'items.'+ index;
     qw[name] = 1;
     list_id = getCookie("ListDetail", $cookieStore);
-    console.log(qw);
+    //console.log(qw);
     $http.delete("/api/list/"+list_id+"/items/"+index).success(function(response) {
        if(response.ok == 1) {
         console.log("Successfully Deleted");
@@ -263,7 +263,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
 
   $scope.StartShopping = function(list_id) {
-    console.log(list_id)
+    //console.log(list_id)
     var selected = [list_id];
     $http.post("/api/Shopinglist/", selected).success(function(data, status, headers, config) {
       setCookie("allItems",data, $cookieStore);
@@ -574,7 +574,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   });
 
   $scope.shoppingMode = function() {
-     console.log($scope.selectedLists);
+     //console.log($scope.selectedLists);
      $http.post("/api/Shopinglist/",$scope.selectedLists).success(function(data, status, headers, config) {
       setCookie("allItems",data, $cookieStore);
       $location.path("/shopping/on");
