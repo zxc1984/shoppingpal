@@ -15,8 +15,8 @@ div.stp-content-frame
 					textarea(name="itemdesc",placeholder="Description",ng-model="item.description",class="input-block-level",rows="3")
 					select.select-block-level(ng-model="item.category", ng-options="cat for cat in typeahead")
 					div.btn-group(ng-model="radioValue", bs-buttons-radio)
-						button(type="button", class="btn", value="left", ng-class="classShareType('individual')",ng-click="toggleShareType()") Individual
-						button(type="button", class="btn", value="middle", ng-class="classShareType('share')",ng-click="toggleShareType()") Shared
+						button(type="button", class="btn", value="left", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'individual')") Individual
+						button(type="button", class="btn", value="middle", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'type')") Shared
 
 					div.quantity-control.row
 						div.columns.three.mobile-one.text-right

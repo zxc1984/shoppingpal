@@ -21,6 +21,11 @@ div.stp-content-frame
 					select.select-block-level
 						option(ng-repeat="uom in unitOfMeasure", value="{{$index}}") {{uom.singular}}
 
+
+					div.btn-group(ng-model="radioValue", bs-buttons-radio)
+						button(type="button", class="btn", value="left", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'individual')") Individual
+						button(type="button", class="btn", value="middle", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'shared')") Shared
+
 					span.btn.btn-primary.btn-block add item
 
 
