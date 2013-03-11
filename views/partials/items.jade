@@ -10,7 +10,7 @@ header
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame
-	div.stp-content-body
+	div.stp-content-body(ng-init="initAddItem()")
 		.row.non-list
 			div.columns.six.mobile-four
 				form
@@ -20,23 +20,23 @@ div.stp-content-frame
 								input(type="text",name="friendemail",placeholder="Category/Item...",class="input-block-level firstBox",ng-model="friendemail",maxlength="25")
 								button.btn(type="button",ng-click="friendemail = ''")
 									i.icon-search
-		div.row
+		div.row(ng-repeat="cat in items")
 			// My list of activities
 			.twelve.columns.mobile-four
 				div.listHeader
-					| Cat 1
-		div.row
-			ul.block-grid.two-up.mobile
-				li(ng-repeat="n in itemList")
-					div.list-container.selectable(ng-click="ToggleSelect(n)")
-						div.row
-							div.mobile5-four.columns.nine.list-name
-								
-								div.item-title.large {{n.name}}
-								br
-								div.item-title.uom
-									{{n.price | currency:"$"}} / {{getUnitOfMeasure(n.unitOfMeasure)}}
-							div.columns.three.mobile5-one.text-right
-								div.checkbox
-									i(ng-class="isSelected(n)").icon-large
+					| {{cat[0].category}}
+			div.row
+				ul.block-grid.two-up.mobile
+					li(ng-repeat="n in cat")
+						div.list-container.selectable(ng-click="ToggleSelect(n)")
+							div.row
+								div.mobile5-four.columns.nine.list-name
+									
+									div.item-title.large {{n.name}}
+									br
+									div.item-title.uom
+										{{n.price | currency:"$"}} / {{getUnitOfMeasure(n.unitOfMeasure)}}
+								div.columns.three.mobile5-one.text-right
+									div.checkbox
+										i(ng-class="isSelected(n)").icon-large
 	

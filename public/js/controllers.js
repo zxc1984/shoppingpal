@@ -348,6 +348,15 @@ function ItemCtrl($scope, $http,$location) {
     uom = parseInt(uom);
     return $scope.unitOfMeasure[uom].singular;
   } 
+
+  $scope.initAddItem = function() {
+    $http.get("/api/items/grouped").success(function(data, status, headers, config) {
+      console.log(JSON.stringify(data));
+      $scope.categories = Object.keys(data);
+      console.log($scope.categories);
+      $scope.items = data;
+    });
+  }
 }
 
 function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
