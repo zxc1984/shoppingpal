@@ -540,18 +540,6 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
     //console.log("iOweItems " + JSON.stringify(iOweItems));
 
-    $http.put("/api/iOwe/"+iOwe_id,qw).success(function(response) {
-
-        if(response.ok == 1) {
-        console.log("Successfully Updated");
-        
-        $location.path("/payment/" + iOwe_id + "/final");
-      
-       }else{
-         console.log("Something went wrong");
-       }
-    });   
-
     var userId = getCookie('UserId',$cookieStore);
     var todayDate = new Date();
     var todayMonth = todayDate.getMonth() + 1;
@@ -567,13 +555,27 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       items:iOweItems
     };
 
+
+    $http.put("/api/iOwe/"+iOwe_id,qw).success(function(response) {
+
+        if(response.ok == 1) {
+        console.log("Successfully Updated");
+        
+        //$location.path("/payment/" + iOwe_id + "/final");
+      
+       }else{
+         console.log("Something went wrong");
+       }
+    });   
+
+       
     $http.post("/api/userExpense/",newTransaction).success(function(response) {
       if(response.error) {
         console.log(response.error);
-      } else{
-        $location.path("/expense");
+      }else{
+        $location.path("/payment/" + iOwe_id + "/final");
       }
-    });   
+    });
     
   }
 
