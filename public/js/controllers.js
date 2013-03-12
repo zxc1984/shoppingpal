@@ -506,11 +506,15 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     });
   }
 
-  $scope.selectedIOwe = function(id,item,index) {
+  $scope.selectedIOwe = function(id,item,index,amount) {
     setCookie("selectedIOwe",{"id":id,"item":item,"index":index}, $cookieStore);
     $scope.iOweListsId = id;
     //console.log("iOweListsId " + id);
-    $location.path("/payment/" + id);
+
+    if (amount > 0){
+      $location.path("/payment/" + id);
+    }
+    
   }
 
   $scope.confirmPayment = function() {
@@ -551,18 +555,6 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
     //console.log("iOweItems " + JSON.stringify(iOweItems));
 
-    $http.put("/api/iOwe/"+iOwe_id,qw).success(function(response) {
-
-        if(response.ok == 1) {
-        console.log("Successfully Updated");
-        
-        $location.path("/payment/" + iOwe_id + "/final");
-      
-       }else{
-         console.log("Something went wrong");
-       }
-    });   
-
     var userId = getCookie('UserId',$cookieStore);
     var todayDate = new Date();
     var todayMonth = todayDate.getMonth() + 1;
@@ -578,13 +570,27 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       items:iOweItems
     };
 
+
+    $http.put("/api/iOwe/"+iOwe_id,qw).success(function(response) {
+
+        if(response.ok == 1) {
+        console.log("Successfully Updated");
+        
+        //$location.path("/payment/" + iOwe_id + "/final");
+      
+       }else{
+         console.log("Something went wrong");
+       }
+    });   
+
+       
     $http.post("/api/userExpense/",newTransaction).success(function(response) {
       if(response.error) {
         console.log(response.error);
-      } else{
-        $location.path("/expense");
+      }else{
+        $location.path("/payment/" + iOwe_id + "/final");
       }
-    });   
+    });
     
   }
 
@@ -620,6 +626,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       }
 
       $scope.friendsOweName = data[0].payer.name;
+      $scope.friendsOweImageUrl = data[0].payer.url;
+      console.log("image " + $scope.friendsOweImageUrl);
       $scope.friendsOweTotalAmount = 0;
         for (var i = 0; i < $scope.friendsOweItems.length; i++) {
             $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].amount;

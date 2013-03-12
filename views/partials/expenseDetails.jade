@@ -30,7 +30,7 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in iOweLists")
-					div.list-container.selectable(ng-click="selectedIOwe(item._id,item,$index)",style="padding:5px")
+					div.list-container.selectable(ng-click="selectedIOwe(item._id,item,$index,item.payee.amount)",style="padding:5px")
 							div.row
 								div.mobile5-three.columns.six(style="padding:5px")
 									h4
