@@ -95,9 +95,12 @@ exports.addListItems = function(req,res) {
      var select = {"_id":objectId(id)};
      var itemArr  = {};
      for(var i = 0;i < items.length; i++) {
-        var qw = {$push:{"items":items[i]}};
-        console.log(qw);
-        db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
+        var temp = items[i];
+        delete temp['selected'];
+        temp['qty'] = 1;
+        var qw = {$push:{"items":temp}};
+       db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
+        
      }
      res.send({ok:1});
      //db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
