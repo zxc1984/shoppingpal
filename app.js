@@ -64,7 +64,7 @@ app.del('/api/list/:id',list.delete);
 
 //ItemS API
 app.get('/api/items/grouped',item.findAllGrouped);
-
+app.post('/api/items/',item.insert);
 //USER API 
 app.get('/api/users',user.findAll);
 //app.get('/api/users/:id',user.find);

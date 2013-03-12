@@ -3,10 +3,11 @@ var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
   
-  $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"},{"singular":"Box","plural":"Boxes"}];
+  $scope.unitOfMeasure = [{"singular":"Select a Unit of Measure"},{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"},{"singular":"Box","plural":"Boxes"}];
   $scope.loading = false;
   $scope.alert = { show: false, msg: "test", className: 'success'};
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
+  $scope.typeahead = ["Select A Category", "Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"];
    $scope.logout = function() {
     removeCookie("UserId",$cookieStore);
     $location.path("/");
@@ -28,9 +29,9 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     //$location.path('/list/');
   };
   $scope.login = function(user) {
-     $scope.loading = true;
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
+        console.log("result received");
         setCookie("UserId",data._id,$cookieStore);
         $location.path("/list");
       } 
@@ -101,9 +102,6 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   if(userId == undefined) {
     $location.path("/login");
   }
-
-  $scope.friends = [{email:'Kevin@shoppalapp.com',status:'pending'},{email:'vincox@shoppalapp.com',status:'pending'},{email:'Jagdish@shoppalapp.com',status:'accepted'}];
-  $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"]
   $scope.initList = function() {
     $scope.loading = true;
     $scope.lists = List.query({"_id":userId});
@@ -297,9 +295,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     //$location.path("/shopping/on");
   }
 
-  $scope.getSharedStatus = function(item) {
-    if (item.status) {
-      if (item.status == "individual") 
+  $scope.getSharedStatus = function(status) {
+    if (status) {
+      if (status == "individual") 
         return "icon-user";
       else
         return "icon-group";
@@ -382,6 +380,17 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
       $scope.categories = Object.keys(data);
       console.log($scope.categories);
       $scope.items = data;
+    });
+  }
+
+  $scope.initCreateNewItem = function() {
+    $scope.item = {category:"Select A Category",unitOfMeasure:"Select Unit of Measure",name:'',price:''};
+  }
+
+  $scope.createNewItem = function(item) {
+    console.log("JSON" + JSON.stringify(item));
+    $http.post("/api/items/",item).success(function(response) {
+
     });
   }
 

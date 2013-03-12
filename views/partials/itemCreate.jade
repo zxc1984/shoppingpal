@@ -1,31 +1,28 @@
 header
-	a.header-button.icon(href="/list/1/additem")
+	a.header-button.icon(href="/list/additem")
 			div back
 	h1#header Add Item
 	div.header-menu-bar.right
-		a.header-menu-button.icon(href="/list/1/additem")
+		a.header-menu-button.icon(href="javascript:void(0)")(ng-click="createNewItem(item)")
 			span
 				i.icon-ok.icon-2x
 div.stp-content-frame
-	div.stp-content-body
+	div.stp-content-body(ng-init="initCreateNewItem()")
 		include alertBox
 		form
 			.row.non-list
 				div.columns.six.mobile-four
-					input(type="text",name="itemname",placeholder="Item name",value="{{item.name}}",class="input-block-level")
+					input(type="text",name="itemname",placeholder="Item name",ng-model="item.name",class="input-block-level")
 
 					div.input-prepend
 						span.add-on $
-						input(type="text",placeholder="5.00",maxlength="25")
+						input(type="text",placeholder="5.00",maxlength="25", ng-model="item.price")
 					
-					textarea(name="itemdesc",placeholder="Description",value="Brand XXX Super Powderful Detergent.",class="input-block-level",rows="3")
-					select.select-block-level
-						option(ng-repeat="uom in unitOfMeasure", value="{{$index}}") {{uom.singular}}
-
-
-					div.btn-group(ng-model="radioValue", bs-buttons-radio)
-						button(type="button", class="btn", value="left", ng-class="classShareType(item.shareType,'individual')",ng-click="toggleShareType(item,'individual')") Individual
-						button(type="button", class="btn", value="middle", ng-class="classShareType(item.shareType,'share')",ng-click="toggleShareType(item,'share')") Shared
+					textarea(name="itemdesc",placeholder="Description",class="input-block-level",rows="3",ng-model="item.description")
+					select.select-block-level(ng-model="item.category", ng-options="cat for cat in typeahead")
+					select.select-block-level(ng-model="item.unitOfMeasure")
+						option(ng-repeat="uom in unitOfMeasure", ng-model="item.uom") {{uom.singular}}
+					
 
 					span.btn.btn-primary.btn-block add item
 

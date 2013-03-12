@@ -66,9 +66,11 @@ exports.login = function(req,res) {
     qw = {"email":req.body.email,"password":req.body.password};
    var result = db.collection(collection).findOne(qw, function(err,item){
         if (item) {
+            console.log("authenticated");
             res.send({"result":true,"_id":item._id});
         }else {
             res.send({"result":false});
+            console.log("authenticated");
         }
     });
    
