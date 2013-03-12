@@ -93,11 +93,14 @@ exports.addListItems = function(req,res) {
      var id = req.params.id;
      var items = req.body;
      var select = {"_id":objectId(id)};
-     console.log(JSON.stringify(items));
-     var qw = {$push:{"items":items}};
-     db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
-     //proj = {"name": 1, "_id": 1 ,"items" : 1, "numItems":1};
-    //db.collection(collection).find(qw,proj).toArray(fn(req, res));
+     var itemArr  = {};
+     for(var i = 0;i < items.length; i++) {
+        var qw = {$push:{"items":items[i]}};
+        console.log(qw);
+        db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
+     }
+     res.send({ok:1});
+     //db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
 };
 
 exports.updateSpecificListItems = function(req,res) {
@@ -105,6 +108,7 @@ exports.updateSpecificListItems = function(req,res) {
      var item = req.body;
      //console.log("Entry"+entry+"Selected ID" + id + JSON.stringify(item));
      var select = {"_id":objectId(id)};
+
      var qw = {$set:item};
     db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
 };
