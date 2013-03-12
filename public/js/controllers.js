@@ -508,6 +508,12 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     $location.path("/payment/confirmation/");
   }
 
+  $scope.finalPaymentDetails = function(){
+    var payment = getCookie("finalPayment", $cookieStore);
+    $scope.finalPayee = payment.payee;
+    $scope.finalAmount = payment.amount;
+  }
+
   $scope.payNow = function(iOweItems){   
 
     var selectedIOwe = getCookie('selectedIOwe',$cookieStore);
@@ -526,7 +532,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
      $scope.iOwePayer = payer;
      $scope.iOwePayee = payee;
-     $scope.iOweFinalAmountPaid = total;
+
+     setCookie("finalPayment",{"payee":payee,"amount":total}, $cookieStore);
 
     qw[name] = iOweItems;
     iOwe_id = $routeParams.id;
