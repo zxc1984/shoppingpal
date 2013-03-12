@@ -22,7 +22,7 @@ div.stp-content-frame
 				.well.expense-action
 					h3
 						| {{today}}
-					a.btn.btn-primary.btn-block(href="/payment/confirmation/{{iOweListsId}}")
+					a.btn.btn-primary.btn-block(ng-click="payNow(iOweItems)")
 						| Pay Now
 		div.row
 			// My list of activities
