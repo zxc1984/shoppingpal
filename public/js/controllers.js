@@ -5,6 +5,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
   
   $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"}];
   $scope.loading = false;
+  $scope.alert = { show: false, msg: "test", className: 'success'};
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
    $scope.logout = function() {
     removeCookie("UserId",$cookieStore);
@@ -69,6 +70,20 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     removeCookie("listSetting", $cookieStore);
     $location.path("/list");
   }
+  $scope.closeAlert = function() {
+    $scope.alert.show = false;
+  }
+
+  $scope.showAlert = function(msg,type) {
+    $scope.alert.msg = "Saved";
+    $scope.alert.className = "success";
+    $scope.alert.show = true;
+    setTimeout(function() { 
+      $scope.$apply(function() {
+        $scope.alert.show = false;
+      });
+    }, 3000);
+  }
 }
 
 function MyCtrl1() {}
@@ -79,7 +94,7 @@ function MyCtrl2() {
 }
 MyCtrl2.$inject = [];
 
-function ListCtrl($scope, $http,$location, $cookieStore, List) {
+function ListCtrl($scope, $http,$location, $cookieStore, $defer, List) {
   //$scope.loading = true;
   //http://localhost:3000/api/unitOfMeasure
   $scope.categories = [{name:'bread',value:'bread'},{name:'drinks',value:'drinks'},{name:'frozen shits',value:'frozen shits'}];
@@ -192,11 +207,14 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     list_id = getCookie("ListDetail", $cookieStore);
     $http.put("/api/list/"+list_id+"/settings/",listSetting).success(function(response) {
        if(response.ok == 1) {
+        $scope.showAlert("Saved","success")
         console.log("Successfully Updated");
        }else{
          console.log("Something went wrong");
        }
+       
     });
+
   }
 
   $scope.newListAddFriends= function(listSetting) {
