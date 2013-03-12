@@ -17,7 +17,7 @@ div.stp-content-frame(ng-init="initShoppingCheckout()")
 				.well.expense-action
 					div(style="margin-bottom:15px;")
 						input(class="input-block-level text-right", value="50")
-					a.btn.btn-primary.btn-block(href="/expense")
+					a.btn.btn-primary.btn-block(ng-click="checkoutNow()")
 						.i.icon-save
 							|  Save
 		div.row

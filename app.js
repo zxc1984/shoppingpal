@@ -85,6 +85,7 @@ app.get('/api/transactions',transactions.findall);
 //SHOPPING API
 app.get('/api/shoppingTrips',shopping.findAll);
 app.get('/api/shoppingTrips/:id',shopping.find);
+app.post('/api/shoppingTrips/',shopping.insert);
 
 //iOwe API
 app.get('/api/iOwe',iOwe.findAll);
@@ -94,6 +95,7 @@ app.put('/api/iOwe/:id',iOwe.updateSpecificListItems);
 //friendsOwe API
 app.get('/api/friendsOwe',friendsOwe.findAll);
 app.get('/api/friendsOwe/:id',friendsOwe.find);
+app.put('/api/friendsOwe/',friendsOwe.insert);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
