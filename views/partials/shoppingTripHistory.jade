@@ -1,24 +1,25 @@
 header
 	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
-	h1#header Shopping Trips Made
+	h1#header All Trips
 
 div.stp-content-frame
 	div.stp-content-body
 		include alertBox
 		div.row
-			.six.columns.mobile-two(style="padding:10px")
-				span(style="vertical-align: middle")
-					center
-						a.btn.btn-success.btn-block(href="/shopping/my")
-							i.icon-user
-								|  MY TRIPS
-			.six.columns.mobile-two(style="padding:10px")
-				span(style="vertical-align: middle")
-					center
-						a.btn.btn-primary.btn-block(href="/shopping/friends")
-							i.icon-group
-								|  FRIEND'S TRIPS
+				.six.columns.mobile-four(style="padding:10px")
+						center
+							div.btn-group
+								a.btn.btn-success(href="/shopping/my")
+									i.icon-user
+										|  MY TRIPS
+								a.btn.btn-primary(href="/shopping/friends")
+									i.icon-group
+										|  FRIEND'S TRIPS
+								a.btn.btn-warning.disabled(href="javascript:void(0)")
+									i.icon-group
+										|  ALL TRIPS
+							
 		div.row
 			.twelve.columns.mobile-four
 				div.listHeader

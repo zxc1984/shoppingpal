@@ -1,6 +1,5 @@
 header
-	a.header-button.icon(href="/shopping/trips")
-		div Back
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
 		span Menu
 	h1#header Friends' Trips
 
@@ -8,18 +7,18 @@ div.stp-content-frame
 	div.stp-content-body
 		include alertBox
 		div.row
-			.six.columns.mobile-two(style="padding:10px")
-				span(style="vertical-align: middle")
+			.six.columns.mobile-four(style="padding:10px")
 					center
-						a.btn.btn-success.btn-block(href="/shopping/my")
-							i.icon-user
-								|  MY TRIPS
-			.six.columns.mobile-two(style="padding:10px")
-				span(style="vertical-align: middle")
-					center
-						a.btn.btn-primary.btn-block.disabled(href="/shopping/friends")
-							i.icon-group
-								|  FRIEND'S TRIPS
+						div.btn-group
+							a.btn.btn-success(href="/shopping/my")
+								i.icon-user
+									|  MY TRIPS
+							a.btn.btn-primary.disabled(href="javascript:void(0)")
+								i.icon-group
+									|  FRIEND'S TRIPS
+							a.btn.btn-warning(href="/shopping/trips")
+								i.icon-group
+									|  ALL TRIPS
 		div.row
 			.twelve.columns.mobile-four
 				div.listHeader
