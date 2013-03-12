@@ -468,11 +468,16 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
   $scope.payNow = function(iOweItems){   
 
     var selectedIOwe = getCookie('selectedIOwe',$cookieStore);
-
+    var payer = "";
+    var payee = "";
+    var total = 0;
     var qw = {};
     var name = 'items';
     
     for (var i = 0; i < iOweItems.length; i++) {
+          payee = iOweItems[i].buyer;
+          payer = iOweItems[i].boughtFor;
+          total += iOweItems[i].amount;
           iOweItems[i].status = "paid";
      }
 
@@ -488,7 +493,30 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
        }else{
          console.log("Something went wrong");
        }
-    });      
+    });   
+
+    var userId = getCookie('UserId',$cookieStore);
+    var todayDate = new Date();
+    var todayMonth = todayDate.getMonth() + 1;
+    var todayDay = todayDate.getDate();
+    var todayYear = todayDate.getFullYear();
+    var today = todayDay + '/' + todayMonth + '/' + todayYear;
+
+    var newTransaction = {
+      date:today,
+      total:total,
+      payer:{userId:userId,name:payer},
+      payee:{userId:"1111",name:payee},
+      items:[iOweItems]
+    }
+
+    $http.post("/api/userExpense/",newTransaction).success(function(response) {
+      if(response.error) {
+        console.log(response.error);
+      } else{
+        $location.path("/expense");
+      }
+    });   
     
   }
 
