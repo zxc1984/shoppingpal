@@ -54,13 +54,6 @@ exports.findUserList = function(req,res) {
      proj = {"name": 1, "_id": 1 ,"numItems" : 1, "numFriends" :1};
     db.collection(collection).find(qw,proj).toArray(fn(req, res));
 };
-exports.getListItems = function(req,res) {
-     var id = req.params.id;
-     qw = {"_id":objectId(id)};
-     proj = {"name": 1, "_id": 1 ,"items" : 1, "numItems":1};
-    db.collection(collection).find(qw,proj).toArray(fn(req, res));
-};
-
 exports.getAllItems = function(req,res) {
     var ids = req.body;
     console.log(JSON.stringify(ids));
@@ -88,6 +81,25 @@ exports.updateListSettings = function(req,res) {
      //console.log(qw);
      //res.send({"ok":1});
 };
+
+exports.getListItems = function(req,res) {
+     var id = req.params.id;
+     qw = {"_id":objectId(id)};
+     proj = {"name": 1, "_id": 1 ,"items" : 1, "numItems":1};
+    db.collection(collection).find(qw,proj).toArray(fn(req, res));
+};
+
+exports.addListItems = function(req,res) {
+     var id = req.params.id;
+     var items = req.body;
+     var select = {"_id":objectId(id)};
+     console.log(JSON.stringify(items));
+     var qw = {$push:{"items":items}};
+     db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
+     //proj = {"name": 1, "_id": 1 ,"items" : 1, "numItems":1};
+    //db.collection(collection).find(qw,proj).toArray(fn(req, res));
+};
+
 exports.updateSpecificListItems = function(req,res) {
      var id = req.params.id;
      var item = req.body;

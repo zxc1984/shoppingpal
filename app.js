@@ -53,6 +53,7 @@ app.get('/api/list/:id/settings',list.getListSettings);
 app.put('/api/list/:id/settings/',list.updateListSettings);
 
 app.get('/api/list/:id/items',list.getListItems);
+app.post('/api/list/:id/items',list.addListItems);
 app.put('/api/list/:id/items/',list.updateSpecificListItems);
 app.del('/api/list/:id/items/:entry',list.deleteSpecificListItems);
 

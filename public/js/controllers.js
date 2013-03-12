@@ -3,7 +3,7 @@ var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
   
-  $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"}];
+  $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"},{"singular":"Box","plural":"Boxes"}];
   $scope.loading = false;
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
    $scope.logout = function() {
@@ -322,9 +322,8 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
 }
 ListCtrl.$inject = ['$scope', '$http', '$location', '$cookieStore', 'List'];
-function ItemCtrl($scope, $http,$location) {
-  $scope.selectedItem = ['banana'];
-  $scope.itemList = [{name:'apple',unitOfMeasure:1, price:5},{name:'orange',unitOfMeasure:1, price:5},{name:'pear',unitOfMeasure:1, price:5},{name:'banana',unitOfMeasure:1, price:5},{name:'papaya',unitOfMeasure:1, price:5},{name:'pineapple',unitOfMeasure:1, price:5},{name:'Bread',unitOfMeasure:0, price:5}];
+function ItemCtrl($scope, $http,$location, $cookieStore) {
+  $scope.selectedItems = [];
   $scope.isSelected = function(item) {
     if (item.selected == 1)
         return "icon-check";
@@ -336,12 +335,22 @@ function ItemCtrl($scope, $http,$location) {
   $scope.ToggleSelect = function(item) {
     if (item.selected) {
       if (item.selected == 0) {
+        $scope.selectedItems.push(item);
         item.selected = 1;
       } else {
+        for (var i = 0; i < $scope.selectedItems.length; i++) {
+          if ($scope.selectedItems[i]._id == item._id) {
+            $scope.selectedItems.splice(i, 1);
+            return;
+          }
+        } 
         item.selected = 0;
       }
-    } else
+    } else{
       item.selected = 1;
+      $scope.selectedItems.push(item);
+    }
+      
   }
 
   $scope.getUnitOfMeasure = function(uom) {
@@ -356,6 +365,16 @@ function ItemCtrl($scope, $http,$location) {
       console.log($scope.categories);
       $scope.items = data;
     });
+  }
+
+  $scope.addItemToList = function() {
+    list_id = getCookie("ListDetail", $cookieStore);
+    console.log(list_id);
+    console.log(JSON.stringify($scope.selectedItems));
+    $http.post("/api/list/"+list_id+"/items", $scope.selectedItems).success(function(response){
+      console.log(response);
+    });
+    
   }
 }
 
