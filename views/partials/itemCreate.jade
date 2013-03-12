@@ -8,6 +8,7 @@ header
 				i.icon-ok.icon-2x
 div.stp-content-frame
 	div.stp-content-body
+		include alertBox
 		form
 			.row.non-list
 				div.columns.six.mobile-four
@@ -23,8 +24,8 @@ div.stp-content-frame
 
 
 					div.btn-group(ng-model="radioValue", bs-buttons-radio)
-						button(type="button", class="btn", value="left", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'individual')") Individual
-						button(type="button", class="btn", value="middle", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'shared')") Shared
+						button(type="button", class="btn", value="left", ng-class="classShareType(item.shareType,'individual')",ng-click="toggleShareType(item,'individual')") Individual
+						button(type="button", class="btn", value="middle", ng-class="classShareType(item.shareType,'share')",ng-click="toggleShareType(item,'share')") Shared
 
 					span.btn.btn-primary.btn-block add item
 

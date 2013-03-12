@@ -1,0 +1,6 @@
+div.row.alert-box(ng-show="alert.show")
+	div.columns.twelve.mobile-four.text-center
+		.alert(ng-class="alert.className")
+			button.close(type="button",data-dismiss="alert",ng-click="closeAlert()")
+				| &times;
+			| {{alert.msg}}

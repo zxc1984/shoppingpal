@@ -8,6 +8,7 @@ header
 				i.icon-ok.icon-2x
 div.stp-content-frame
 	div.stp-content-body(ng-init="initListItemDetail()")
+		include alertBox
 		form
 			.row.non-list
 				div.columns.six.mobile-four
@@ -15,8 +16,8 @@ div.stp-content-frame
 					textarea(name="itemdesc",placeholder="Description",ng-model="item.description",class="input-block-level",rows="3")
 					select.select-block-level(ng-model="item.category", ng-options="cat for cat in typeahead")
 					div.btn-group(ng-model="radioValue", bs-buttons-radio)
-						button(type="button", class="btn", value="left", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'individual')") Individual
-						button(type="button", class="btn", value="middle", ng-class="classShareType(item.shareType)",ng-click="toggleShareType(item,'type')") Shared
+						button(type="button", class="btn", value="left", ng-class="classShareType(item.shareType,'individual')",ng-click="toggleShareType(item,'individual')") Individual
+						button(type="button", class="btn", value="middle", ng-class="classShareType(item.shareType,'share')",ng-click="toggleShareType(item,'share')") Shared
 
 					div.quantity-control.row
 						div.columns.three.mobile-one.text-right

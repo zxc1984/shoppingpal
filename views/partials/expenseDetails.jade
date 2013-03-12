@@ -7,6 +7,7 @@ header
 
 div.stp-content-frame
 	div.stp-content-body
+		include alertBox
 		div.row.dashboard
 			.six.columns.mobile-two
 				.header
@@ -30,20 +31,20 @@ div.stp-content-frame
 					| Return Money To:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in iOweLists")
-					div.list-container.selectable(ng-click="linkToiOweDetails(list._id)",style="padding:5px")
+				li(ng-repeat="item in iOweLists")
+					div.list-container.selectable(ng-click="selectedIOwe(item._id,item,$index)",style="padding:5px")
 							div.row
 								div.mobile5-three.columns.six(style="padding:5px")
 									h4
-										| {{list.payee.name}} 
+										| {{item.payee.name}} 
 										h5
 											small
-												| for {{list.period}}
+												| for {{item.period}}
 								div.mobile5-one.columns.three
 									.pay-actions
 										center
 											h4
-												| ${{list.payee.amount}}
+												| ${{item.payee.amount}}
 												h5
 													small
 														| owed

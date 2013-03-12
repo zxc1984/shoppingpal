@@ -41,7 +41,7 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
     $routeProvider.when('/payment/new/:id', {templateUrl: 'partials/paymentCreate', controller: ExpenseCtrl});
     $routeProvider.when('/payment/confirmation/:id', {templateUrl: 'partials/paymentConfirmation', controller: ExpenseCtrl});
     $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: ExpenseCtrl});
-    $routeProvider.when('/payment/confirmation/final', {templateUrl: 'partials/paymentFinal', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/confirmation/:id/final', {templateUrl: 'partials/paymentFinal', controller: ExpenseCtrl});
     $routeProvider.when('/payment/transaction/:id', {templateUrl: 'partials/transactionHistory', controller: ExpenseCtrl});
 
     // Default
