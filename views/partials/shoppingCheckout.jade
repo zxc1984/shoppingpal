@@ -1,4 +1,6 @@
 header
+	a.header-button.icon(href="javascript:void(0)")(ng-click="backToListDetail()")
+		div back
 	h1#header Shopping Checkout
 div.stp-content-frame(ng-init="initListDetail()")
 	div.stp-content-body
@@ -26,12 +28,12 @@ div.stp-content-frame(ng-init="initListDetail()")
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in items")
-					div.list-container(ng-click="toggleSelectItem(item.id)")
-						div.row.list-name-box(ng-class="getSelectedItemClass(item)")
+					div.list-container
+						div.row.list-name-box
 							div.mobile5-three.columns.eight.list-name
 								div.item-title {{item.name}}
 								div.item-desc2
-									span {{item.qty}}
+									input(ng-model="item.qty",class="item-quantity-input")
 									span.uom
 										ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
 									span.status
