@@ -525,6 +525,10 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
           iOweItems[i].status = "paid";
      }
 
+     $scope.iOwePayer = payer;
+     $scope.iOwePayee = payee;
+     $scope.iOweFinalAmountPaid = total;
+     
     qw[name] = iOweItems;
     iOwe_id = $routeParams.id;
 
@@ -554,8 +558,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       total:total,
       payer:{userId:userId,name:payer},
       payee:{userId:"1111",name:payee},
-      items:[iOweItems]
-    }
+      items:iOweItems
+    };
 
     $http.post("/api/userExpense/",newTransaction).success(function(response) {
       if(response.error) {
