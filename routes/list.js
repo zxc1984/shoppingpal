@@ -100,7 +100,6 @@ exports.addListItems = function(req,res) {
         temp['qty'] = 1;
         var qw = {$push:{"items":temp}};
        db.collection(collection).update(select,qw, {safe:true}, fn(req, res));
-        
      }
      res.send({ok:1});
      //db.collection(collection).update(select,qw, {safe:true}, fn(req, res));

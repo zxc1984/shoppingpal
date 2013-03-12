@@ -390,7 +390,9 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
     console.log(list_id);
     console.log(JSON.stringify($scope.selectedItems));
     $http.post("/api/list/"+list_id+"/items", $scope.selectedItems).success(function(response){
-      console.log(response);
+      if(response.ok) {
+        $scope.showAlert("Items Added Succesfully");
+      }
     });
     
   }
