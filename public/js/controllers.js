@@ -3,11 +3,11 @@ var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
   
-  $scope.unitOfMeasure = [{"singular":"Select a Unit of Measure"},{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"},{"singular":"Box","plural":"Boxes"}];
+  $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"},{"singular":"Box","plural":"Boxes"}];
   $scope.loading = false;
   $scope.alert = { show: false, msg: "test", className: 'success'};
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
-  $scope.typeahead = ["Select A Category", "Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"];
+  $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"];
    $scope.logout = function() {
     removeCookie("UserId",$cookieStore);
     $location.path("/");
@@ -719,6 +719,12 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     //console.log(JSON.stringify($scope.selectedItems));
     setCookie("selectedItems",$scope.selectedItems, $cookieStore);
     $location.path("/shopping/checkout");
+  }
+
+
+  $scope.initShoppingCheckout = function() {
+
+    $scope.items = getCookie("selectedItems", $cookieStore);
   }
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
