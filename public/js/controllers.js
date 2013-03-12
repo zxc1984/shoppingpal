@@ -7,7 +7,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
   $scope.loading = false;
   $scope.alert = { show: false, msg: "test", className: 'success'};
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
-  $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"];
+  $scope.typeahead = ["Select A Category","Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"];
    $scope.logout = function() {
     removeCookie("UserId",$cookieStore);
     $location.path("/");
@@ -384,7 +384,7 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
   }
 
   $scope.initCreateNewItem = function() {
-    $scope.item = {category:"Select A Category",unitOfMeasure:"Select Unit of Measure",name:'',price:''};
+    $scope.item = {category:"Select A Category",unitOfMeasure:-1,name:'',price:''};
   }
 
   $scope.createNewItem = function(item) {

@@ -21,7 +21,8 @@ div.stp-content-frame
 					textarea(name="itemdesc",placeholder="Description",class="input-block-level",rows="3",ng-model="item.description")
 					select.select-block-level(ng-model="item.category", ng-options="cat for cat in typeahead")
 					select.select-block-level(ng-model="item.unitOfMeasure")
-						option(ng-repeat="uom in unitOfMeasure", ng-model="item.uom") {{uom.singular}}
+						option(value="-1") Select Unit of Measure
+						option(ng-repeat="uom in unitOfMeasure", value="{{$index}}") {{uom.singular}}
 					
 
 					span.btn.btn-primary.btn-block add item
