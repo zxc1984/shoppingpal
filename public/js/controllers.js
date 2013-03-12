@@ -45,10 +45,8 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
   };
 
  // $scope.shareType = "individual";
-  $scope.classShareType = function(type) {
-    if (type == 'individual')
-      return "active btn-primary";
-    if (type == 'share')
+  $scope.classShareType = function(itemShareType,type) {
+    if (type == itemShareType)
       return "active btn-primary";
     return "";
   }
@@ -252,15 +250,17 @@ function ListCtrl($scope, $http,$location, $cookieStore, $defer, List) {
   }
   $scope.saveListItemDetail= function(item,index,shareType) {
     var qw = {};
-    item.shareType = $scope.shareType;
+    item.shareType = $scope.item.shareType;
     var name = 'items.'+ index;
     qw[name] = item;
     list_id = getCookie("ListDetail", $cookieStore);
     console.log(item);
     $http.put("/api/list/"+list_id+"/items/",qw).success(function(response) {
        if(response.ok == 1) {
+        $scope.showAlert('Saved','success');
         console.log("Successfully Updated");
        }else{
+        $scope.showAlert('Error!','error');
          console.log("Something went wrong");
        }
     });
