@@ -420,7 +420,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       $scope.transPayee = data[0].payee.name;
       $scope.transDate = data[0].date;
       $scope.transItems = data[0].items;
-      console.log($scope.transItems);
+      //console.log($scope.transItems);
       $scope.transItemsTotalAmount = data.total;
     });
   }
@@ -428,8 +428,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
     var userId = getCookie('UserId',$cookieStore);
     $scope.transactions = data;
-    console.log("AAA " + data);
-    console.log($scope.transactions[0].payer.userId);
+    //console.log($scope.transactions[0].payer.userId);
         for (var i = 0; i < $scope.transactions.length; i++) {
           if ($scope.transactions[i].payer.userId != userId && $scope.transactions[i].payee.userId != userId){
             $scope.transactions.splice(i,1);
@@ -505,7 +504,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
   $scope.confirmPayment = function() {
     var selectedIOwe = getCookie('selectedIOwe',$cookieStore);
-    console.log("CONFIRM: " + selectedIOwe.id);
+    //console.log("CONFIRM: " + selectedIOwe.id);
     $location.path("/payment/confirmation/");
   }
 
@@ -528,7 +527,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
      $scope.iOwePayer = payer;
      $scope.iOwePayee = payee;
      $scope.iOweFinalAmountPaid = total;
-     
+
     qw[name] = iOweItems;
     iOwe_id = $routeParams.id;
 
@@ -578,7 +577,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     for (var i = 0; i < data.length; i++) {
       console.log(data[i].items[0].name);
           for (var j = 0; j < data[i].items.length; j++){
-            console.log("items " + data[i].items[j].name);
+            //console.log("items " + data[i].items[j].name);
             if (data[i].items[j].status == "unpaid"){
             $scope.friendsOweListTotalAmount += data[i].items[j].amount;
           }
@@ -587,14 +586,14 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
   });
 
   $scope.linkToFriendsOweDetails = function(id) {
-    $location.path("/payment/confirmation/" + id);
+    $location.path("/payment/details/" + id);
   }
 
   $scope.getFriendsOweDetails = function(){
       var id = $routeParams.id;
       $http.get('/api/friendsOwe/' + id).success(function(data, status, headers, config) {
       $scope.friendsOweItems = data[0].items;
-
+      console.log($scope.friendsOweItems);
       for (var i = 0; i < data[0].items.length; i++) {
           if ($scope.friendsOweItems[i].status == "paid"){
             $scope.friendsOweItems.splice(i,1);

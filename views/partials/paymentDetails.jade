@@ -4,7 +4,7 @@ header
 		span Menu
 	h1#header Payment History
 
-div.stp-content-frame
+div.stp-content-frame(ng-init="getFriendsOweDetails()")
 	div.stp-content-body
 		include alertBox
 		div.row.dashboard
@@ -20,7 +20,7 @@ div.stp-content-frame
 							| Amount Owed To You
 				.span.single-value(style="vertical-align:middle")
 					h2(style="font-size:40pt; padding:3px")
-						| $15
+						| ${{friendsOweTotalAmount}}
 		div.row.dashboard.navbox(style="padding:10px")
 			.twelve.columns.mobile-four
 				.mobile-one.two.columns
@@ -39,22 +39,22 @@ div.stp-content-frame
 					| Payment Activity
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in transactionDetails")
+				li(ng-repeat="item in friendsOweItems")
 					div.list-container
 							div.row
 								div.mobile-three.columns.six
 									h5
 										small
-											| {{list.payer}}
+											| {{item.payer}}
 									h4
-										| {{list.item}} 
+										| {{item.name}} 
 										small
 											i.icon-search
 									h5
 										small
-											| {{list.period}}
+											| {{item.period}}
 								div.mobile-one.columns.three
 									.pay-actions
 										center
 											h2
-												| {{list.amount}}
+												| ${{item.amount}}

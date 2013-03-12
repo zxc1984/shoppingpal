@@ -40,7 +40,7 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
     $routeProvider.when('/payment/', {templateUrl: 'partials/paymentSummary', controller: PaymentCtrl});
     $routeProvider.when('/payment/:id', {templateUrl: 'partials/paymentCreate', controller: ExpenseCtrl});
     $routeProvider.when('/payment/confirmation/', {templateUrl: 'partials/paymentConfirmation', controller: ExpenseCtrl});
-    $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/details/:id', {templateUrl: 'partials/paymentDetails', controller: ExpenseCtrl});
     $routeProvider.when('/payment/:id/final', {templateUrl: 'partials/paymentFinal', controller: ExpenseCtrl});
     $routeProvider.when('/payment/transaction/:id', {templateUrl: 'partials/transactionHistory', controller: ExpenseCtrl});
 
