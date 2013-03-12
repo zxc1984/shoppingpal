@@ -448,11 +448,11 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
   });
     
   $http.get('/api/iOwe').success(function(data, status, headers, config) {
-    var selectedIOwe = getCookie("selectedIOwe", $cookieStore);
+    //var selectedIOwe = getCookie("selectedIOwe", $cookieStore);
 
     $scope.iOweLists = data;
 
-    $scope.iOweListsId = data[selectedIOwe.index]._id;
+    //$scope.iOweListsId = data[selectedIOwe.index]._id;
     $scope.iOweListTotalAmount = 0;
     
 
