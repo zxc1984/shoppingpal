@@ -12,7 +12,7 @@ div.stp-content-frame(ng-init="getFriendsOweDetails()")
 				.header
 					h2(style="text-align:left")
 						| {{friendsOweName}}
-				img.img-polaroid(src="http://userserve-ak.last.fm/serve/_/72551712/Fred+Salazar+tzcvvrfbf7izn0mr28ew3pz5jcy42t.jpg")
+				img.img-polaroid(src="{{friendsOweImageUrl}}")
 			.six.columns.mobile-two
 				.header
 					h3
@@ -26,7 +26,7 @@ div.stp-content-frame(ng-init="getFriendsOweDetails()")
 			// My list of activities
 			.twelve.columns.mobile-four
 				div.listHeader
-					| Payment Activity
+					| Items Owed by Friend:
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in friendsOweItems")
@@ -38,13 +38,11 @@ div.stp-content-frame(ng-init="getFriendsOweDetails()")
 											| {{item.payer}}
 									h4
 										| {{item.name}} 
-										small
-											i.icon-search
 									h5
 										small
 											| {{item.period}}
 								div.mobile-one.columns.three
 									.pay-actions
 										center
-											h2
+											h3
 												| ${{item.amount}}

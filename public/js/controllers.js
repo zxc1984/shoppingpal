@@ -495,11 +495,15 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     });
   }
 
-  $scope.selectedIOwe = function(id,item,index) {
+  $scope.selectedIOwe = function(id,item,index,amount) {
     setCookie("selectedIOwe",{"id":id,"item":item,"index":index}, $cookieStore);
     $scope.iOweListsId = id;
     //console.log("iOweListsId " + id);
-    $location.path("/payment/" + id);
+
+    if (amount > 0){
+      $location.path("/payment/" + id);
+    }
+    
   }
 
   $scope.confirmPayment = function() {
@@ -611,6 +615,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       }
 
       $scope.friendsOweName = data[0].payer.name;
+      $scope.friendsOweImageUrl = data[0].payer.url;
+      console.log("image " + $scope.friendsOweImageUrl);
       $scope.friendsOweTotalAmount = 0;
         for (var i = 0; i < $scope.friendsOweItems.length; i++) {
             $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].amount;
