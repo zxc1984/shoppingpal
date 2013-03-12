@@ -92,7 +92,7 @@ function MyCtrl2() {
 }
 MyCtrl2.$inject = [];
 
-function ListCtrl($scope, $http,$location, $cookieStore, $defer, List) {
+function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //$scope.loading = true;
   //http://localhost:3000/api/unitOfMeasure
   $scope.categories = [{name:'bread',value:'bread'},{name:'drinks',value:'drinks'},{name:'frozen shits',value:'frozen shits'}];
