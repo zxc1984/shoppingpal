@@ -472,8 +472,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       $scope.iOweLists[i].payee.amount = 0;
           for (var j = 0; j < data[i].items.length; j++){
             if (data[i].items[j].status == "unpaid"){
-              $scope.iOweLists[i].payee.amount += data[i].items[j].amount;
-              $scope.iOweListTotalAmount += data[i].items[j].amount;
+              $scope.iOweLists[i].payee.amount += data[i].items[j].price;
+              $scope.iOweListTotalAmount += data[i].items[j].price;
             }
           }
       }
@@ -499,7 +499,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
       $scope.iOweTotalAmount = 0;
         for (var i = 0; i < $scope.iOweItems.length; i++) {
-            $scope.iOweTotalAmount += $scope.iOweItems[i].amount;
+            $scope.iOweTotalAmount += $scope.iOweItems[i].price;
         }
 
       $scope.iOweName = data[0].payee.name;
@@ -542,7 +542,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     for (var i = 0; i < iOweItems.length; i++) {
           payee = iOweItems[i].buyer;
           payer = iOweItems[i].boughtFor;
-          total += iOweItems[i].amount;
+          total += iOweItems[i].price;
           iOweItems[i].status = "paid";
      }
 
@@ -604,7 +604,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
           for (var j = 0; j < data[i].items.length; j++){
             //console.log("items " + data[i].items[j].name);
             if (data[i].items[j].status == "unpaid"){
-            $scope.friendsOweListTotalAmount += data[i].items[j].amount;
+            $scope.friendsOweListTotalAmount += data[i].items[j].price;
           }
           }
       }
@@ -631,7 +631,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       console.log("image " + $scope.friendsOweImageUrl);
       $scope.friendsOweTotalAmount = 0;
         for (var i = 0; i < $scope.friendsOweItems.length; i++) {
-            $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].amount;
+            $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].price;
         }
     });
   } 
@@ -759,22 +759,61 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
        }
      });
 
+     var myItems = [];
+     var totalAmount = 0;
+     for(var i=0;i<checkoutItems.length;i++)
+      {
+          var temp={};
+          temp["name"]=checkoutItems[i].name;
+          temp["buyer"]=userName;
+          temp["boughtFor"]="Tom";
+          temp["price"]=checkoutItems[i].price * checkoutItems[i].qty;
+          
+          temp["qty"]=checkoutItems[i].qty;
+          temp["period"]=today;
+          temp["paidDate"]='';
+          temp["status"]="unpaid";
+          totalAmount += checkoutItems[i].price * checkoutItems[i].qty;
+         myItems.push(temp);
+
+      }
+     
      var friendsOwe = {
       userId: userId,
       payer:{
-        userId:123456,
-        name:"John",
+        userId:"51322a9a6ebde1f40b000001",
+        name:"Tom",
         period:today,
-        amount:20,
-        url:"http://assets.rollingstone.com/assets/images/artists/304x304/john-lennon.jpg"
+        amount:totalAmount,
+        url:"http://static.tumblr.com/d4075dae7f5b2e80449ef00d2cbff5de/zghl0gv/Mifmhvhaj/tumblr_static_snn0116tom---_1646312a_1_.jpg"
       },
-      items:checkoutItems
-  };
+      items:myItems
+    };
+
+    var iOwe = {
+      userId: userId,
+      payee:{
+        userId:"51322a9a6ebde1f40b000001",
+        name:"Tom",
+        period:today,
+        amount:totalAmount,
+        url:"http://static.tumblr.com/d4075dae7f5b2e80449ef00d2cbff5de/zghl0gv/Mifmhvhaj/tumblr_static_snn0116tom---_1646312a_1_.jpg"
+      },
+      items:myItems
+    };
+
+  $http.post("/api/iOwe/",friendsOwe).success(function(response) {
+       if(response.error) {
+         console.log(response.error);
+       }
+  });  
+  
   $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
        if(response.error) {
          console.log(response.error);
        }
-     });
+  });
+
 
 }
   $scope.getSelectedItemClass = function(item) {

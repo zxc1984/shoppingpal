@@ -91,11 +91,12 @@ app.post('/api/shoppingTrips/',shopping.insert);
 app.get('/api/iOwe',iOwe.findAll);
 app.get('/api/iOwe/:id',iOwe.find);
 app.put('/api/iOwe/:id',iOwe.updateSpecificListItems);
+app.post('/api/iOwe/',iOwe.insert);
 
 //friendsOwe API
 app.get('/api/friendsOwe',friendsOwe.findAll);
 app.get('/api/friendsOwe/:id',friendsOwe.find);
-app.put('/api/friendsOwe/',friendsOwe.insert);
+app.post('/api/friendsOwe/',friendsOwe.insert);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
