@@ -730,7 +730,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   }
 
   $scope.checkoutNow = function(){
-    /*
     var userId = getCookie('UserId',$cookieStore);
     var userName = getCookie('UserName',$cookieStore);
     var checkoutItems = getCookie('selectedItems',$cookieStore);
@@ -766,13 +765,12 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       },
       items:checkoutItems
   };
-}
   $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
        if(response.error) {
          console.log(response.error);
        }
      });
-*/
+
 }
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
