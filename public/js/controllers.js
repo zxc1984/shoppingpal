@@ -761,11 +761,11 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
         name:"John",
         period:today,
         amount:20,
-        url:""http://assets.rollingstone.com/assets/images/artists/304x304/john-lennon.jpg""
+        url:"http://assets.rollingstone.com/assets/images/artists/304x304/john-lennon.jpg"
       },
       items:checkoutitems
   };
-
+}
   $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
        if(response.error) {
          console.log(response.error);
