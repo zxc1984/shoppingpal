@@ -730,6 +730,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   }
 
   $scope.checkoutNow = function(){
+    /*
     var userId = getCookie('UserId',$cookieStore);
     var userName = getCookie('UserName',$cookieStore);
     var checkoutItems = getCookie('selectedItems',$cookieStore);
@@ -763,7 +764,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
         amount:20,
         url:""http://assets.rollingstone.com/assets/images/artists/304x304/john-lennon.jpg""
       },
-      items:checkoutitems
+      items:checkoutItems
   };
 
   $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
@@ -771,7 +772,8 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
          console.log(response.error);
        }
      });
-
+*/
+}
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
       return "selected";
