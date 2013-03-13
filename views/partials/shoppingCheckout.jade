@@ -1,5 +1,5 @@
 header
-	a.header-button.icon(href="javascript:void(0)")(ng-click="backToListDetail()")
+	a.header-button.icon(href="javascript:void(0)")(ng-click="checkoutTrial()")
 		div back
 	h1#header Shopping Checkout
 div.stp-content-frame(ng-init="initShoppingCheckout()")
@@ -10,7 +10,7 @@ div.stp-content-frame(ng-init="initShoppingCheckout()")
 				.header
 					| Calculated Total
 				.well.single-value
-					| $50.00
+					| {{total= getTotal() | currency:$}}
 			.six.columns.mobile-two
 				.header
 					Actual Total ($)
@@ -42,4 +42,4 @@ div.stp-content-frame(ng-init="initShoppingCheckout()")
 								div.update-box.text-right
 									div.update-header.label item total ($)
 									div
-										input(class="input-block-level")
+										input(class="input-block-level",value="{{calculateItemTotal(item.qty,item.price)}}")
