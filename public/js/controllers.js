@@ -33,6 +33,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
       if(data.result) {
         console.log("result received");
         setCookie("UserId",data._id,$cookieStore);
+        setCookie("UserName",data.name,$cookieStore);
         $location.path("/list");
       } 
     });
@@ -725,7 +726,52 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   $scope.initShoppingCheckout = function() {
 
     $scope.items = getCookie("selectedItems", $cookieStore);
+    console.log("checkoutitems " + JSON.stringify($scope.items));
   }
+
+  $scope.checkoutNow = function(){
+    var userId = getCookie('UserId',$cookieStore);
+    var userName = getCookie('UserName',$cookieStore);
+    var checkoutItems = getCookie('selectedItems',$cookieStore);
+
+    var todayDate = new Date();
+    var todayMonth = todayDate.getMonth() + 1;
+    var todayDay = todayDate.getDate();
+    var todayYear = todayDate.getFullYear();
+    var today = todayDay + '/' + todayMonth + '/' + todayYear;
+
+    var newTrip = {
+      userId: userId,
+      name: userName,
+      Location: "NTUC in Chinatown",
+      amount: 5,
+      date:today
+    };
+       
+     $http.post("/api/shoppingTrips/",newTrip).success(function(response) {
+       if(response.error) {
+         console.log(response.error);
+       }
+     });
+
+     var friendsOwe = {
+      userId: userId,
+      payer:{
+        userId:123456,
+        name:"John",
+        period:today,
+        amount:20,
+        url:""http://assets.rollingstone.com/assets/images/artists/304x304/john-lennon.jpg""
+      },
+      items:checkoutitems
+  };
+
+  $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
+       if(response.error) {
+         console.log(response.error);
+       }
+     });
+
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
       return "selected";
