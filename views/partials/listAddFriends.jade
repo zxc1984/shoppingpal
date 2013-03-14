@@ -30,11 +30,16 @@ div.stp-content-frame
 				li(ng-repeat="friend in listSetting.users")
 					div.list-container
 						div.row
-							div.mobile-two.columns.six.list-name
-								div.email-title {{friend.email}}
-							div.mobile-two.columns.six.nopad.right.text-right
-								span.email-desc
-									span.label(ng-class="getStatusClass(friend.status)")
-										span {{friend.status}}
-								span.action(ng-click="deleteFriendFromList($index)")
-									i.icon-remove
+							div.mobile5-three.columns.eight.list-name
+									div.item-title.large {{friend.name}}
+									br
+									div.item-title.uom {{friend.email}}
+								div.mobile5-two.columns.four.nopad.right.text-right
+									//-
+										div.email-desc
+											span.label(ng-class="getStatusClass(friend.status)")
+												span {{friend.status}}
+									div.action
+										div(ng-click="deleteFriendFromList($index)")
+											i.icon-remove.icon-2x
+											div.small remove

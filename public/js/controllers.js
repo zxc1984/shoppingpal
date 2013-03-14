@@ -35,6 +35,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
         console.log("result received");
         setCookie("UserId",data._id,$cookieStore);
         setCookie("UserName",data.name,$cookieStore);
+        setCookie("User",data, $cookieStore);
         $scope.loading = false;
         $location.path("/list");
       } 
@@ -226,7 +227,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
 
   $scope.createNewList= function(listSetting) {
     var userId = getCookie('UserId',$cookieStore);
-    var own = {"_id":userId};
+    var userName = getCookie('UserName',$cookieStore);
+    var user = getCookie('User', $cookieStore);
+    console.log("mail" + JSON.stringify(user));
+    var own = {"_id":userId,"name":userName,"email":user.email};
     listSetting.users.push(own);
     console.log(listSetting.users.length);
     listSetting.numFriends = listSetting.users.length;
