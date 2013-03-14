@@ -934,8 +934,8 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
      return total;
   }
 
-  $scope.checkoutTrial = function() {
-    console.log($scope.total);
+  $scope.backToShopping= function() {
+    $location.path("/shopping/on")
   }
 
   $scope.adjust = function(item) {
