@@ -29,11 +29,13 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     //$location.path('/list/');
   };
   $scope.login = function(user) {
+    $scope.loginLoading = true;
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
         console.log("result received");
         setCookie("UserId",data._id,$cookieStore);
         setCookie("UserName",data.name,$cookieStore);
+        $scope.loginLoading = false;
         $location.path("/list");
       } 
     });
