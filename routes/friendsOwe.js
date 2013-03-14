@@ -53,13 +53,10 @@ exports.update = function(req, res) {
 };
 
 exports.updateSpecificListItems = function(req,res) {
-     var id = req.params.id;
-     var userId = req.params.userId;
-     var item = req.body;
-     //console.log("iowe item "+ JSON.stringify(item));
-     //var select = {"_id":objectId(id)};
+
      var select = {"userId":"5123925be4b029c335f08546"};
-     console.log(select);
+     console.log("select " + select);
+     var item = req.body;
      var qw = {$set:item};
     db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
 };

@@ -480,8 +480,9 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       }
 
       for (var i = 0; i < data.length; i++) {
-      console.log(data);
+      //console.log(data);
       //console.log(data[i].items[0].name);
+        if (data[i].items.length > 0){
           for (var j = 0; j < data[i].items.length; j++){
             //console.log("items " + data[i].items);
             if (data[i].items[j].status == "paid"){
@@ -495,6 +496,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
               $scope.friendsOweListTotalAmount += data[i].items[j].price;
             }
           }
+        } 
       }
 
   });
@@ -617,7 +619,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
        }
     });  
 
-    $http.put("/api/friendsOwe/"+ getCookie('UserId',$cookieStore),qw2).success(function(response) {
+    $http.put("/api/friendsOwe",qw2).success(function(response) {
 
             if(response.ok == 1) {
             console.log("Successfully Updated1");
@@ -640,9 +642,9 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
   $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
     $scope.friendsOweLists = data;
     $scope.friendsOweListTotalAmount = 0;
-    
+    //setCookie("friendsOweLists",friendsOweLists, $cookieStore);
     for (var i = 0; i < data.length; i++) {
-      console.log(data);
+      console.log("RR" + data[i]._id);
       //console.log(data[i].items[0].name);
           for (var j = 0; j < data[i].items.length; j++){
             //console.log("items " + data[i].items);
@@ -650,6 +652,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
               console.log("paid : " + data[i].items[j].name); 
               $scope.friendsOweLists.splice(i,1);
               j--;
+              i--;
+              break;
             }else{
 
               console.log("unpaid : " + data[i].items[j].name);
@@ -667,21 +671,26 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       var id = $routeParams.id;
       $http.get('/api/friendsOwe/' + id).success(function(data, status, headers, config) {
       $scope.friendsOweItems = data[0].items;
-      console.log($scope.friendsOweItems);
+      $scope.friendsOweName = data[0].payer.name;
+      $scope.friendsOweImageUrl = data[0].payer.url;
+      $scope.friendsOweTotalAmount = 0;
+
+      //console.log($scope.friendsOweItems);
       for (var i = 0; i < data[0].items.length; i++) {
           if ($scope.friendsOweItems[i].status == "paid"){
             $scope.friendsOweItems.splice(i,1);
             i--;
+          }else{
+            $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].price;
           }
       }
 
-      $scope.friendsOweName = data[0].payer.name;
-      $scope.friendsOweImageUrl = data[0].payer.url;
-      console.log("image " + $scope.friendsOweImageUrl);
-      $scope.friendsOweTotalAmount = 0;
-        for (var i = 0; i < $scope.friendsOweItems.length; i++) {
-            $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].price;
-        }
+      
+      //console.log("image " + $scope.friendsOweImageUrl);
+      // $scope.friendsOweTotalAmount = 0;
+      //   for (var i = 0; i < $scope.friendsOweItems.length; i++) {
+      //       $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].price;
+      //   }
     });
   } 
     
@@ -797,20 +806,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     var todayYear = todayDate.getFullYear();
     var today = todayDay + '/' + todayMonth + '/' + todayYear;
 
-    var newTrip = {
-      userId: userId,
-      name: userName,
-      Location: "NTUC in Chinatown",
-      amount: 5,
-      date:today
-    };
-       
-     $http.post("/api/shoppingTrips/",newTrip).success(function(response) {
-       if(response.error) {
-         console.log(response.error);
-       }
-     });
-
      var myItems = [];
      var totalAmount = 0;
      for(var i=0;i<checkoutItems.length;i++)
@@ -830,6 +825,20 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
 
       }
      
+     var newTrip = {
+      userId: userId,
+      name: userName,
+      Location: "NTUC in Chinatown",
+      amount: totalAmount,
+      date:today
+    };
+       
+     $http.post("/api/shoppingTrips/",newTrip).success(function(response) {
+       if(response.error) {
+         console.log(response.error);
+       }
+     });
+
      var friendsOwe = {
       userId: userId,
       payer:{
@@ -864,7 +873,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
          console.log(response.error);
        }
   });
-
 
 }
   $scope.getSelectedItemClass = function(item) {
