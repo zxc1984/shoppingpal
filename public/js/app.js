@@ -18,10 +18,9 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
     $routeProvider.when('/list/settings', {templateUrl: 'partials/listSetting', controller: ListCtrl});
     
     // Add Items Scenario
-    $routeProvider.when('/list/1/additem/', {templateUrl: 'partials/items', controller: ItemCtrl});
-    $routeProvider.when('/list/1/additem/create', {templateUrl: 'partials/itemCreate', controller: ItemCtrl});
-    $routeProvider.when('/list/1/additem/1', {templateUrl: 'partials/itemCreate', controller: ItemCtrl});
-
+    $routeProvider.when('/list/additem/', {templateUrl: 'partials/items', controller: ItemCtrl});
+    $routeProvider.when('/list/additem/create', {templateUrl: 'partials/itemCreate', controller: ItemCtrl});
+    
     // Shopping Scenario
     $routeProvider.when('/shopping', {templateUrl: 'partials/shoppingChooseList', controller: ShoppingCtrl});
     $routeProvider.when('/shopping/on', {templateUrl: 'partials/startShopping', controller: ShoppingCtrl});
@@ -38,10 +37,10 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
 
     // payment scenario
     $routeProvider.when('/payment/', {templateUrl: 'partials/paymentSummary', controller: PaymentCtrl});
-    $routeProvider.when('/payment/new/:id', {templateUrl: 'partials/paymentCreate', controller: ExpenseCtrl});
-    $routeProvider.when('/payment/confirmation/:id', {templateUrl: 'partials/paymentConfirmation', controller: ExpenseCtrl});
-    $routeProvider.when('/payment/details/1', {templateUrl: 'partials/paymentDetails', controller: ExpenseCtrl});
-    $routeProvider.when('/payment/confirmation/:id/final', {templateUrl: 'partials/paymentFinal', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/:id', {templateUrl: 'partials/paymentCreate', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/confirmation/', {templateUrl: 'partials/paymentConfirmation', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/details/:id', {templateUrl: 'partials/paymentDetails', controller: ExpenseCtrl});
+    $routeProvider.when('/payment/:id/final', {templateUrl: 'partials/paymentFinal', controller: ExpenseCtrl});
     $routeProvider.when('/payment/transaction/:id', {templateUrl: 'partials/transactionHistory', controller: ExpenseCtrl});
 
     // Default

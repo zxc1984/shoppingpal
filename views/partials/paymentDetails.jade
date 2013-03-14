@@ -4,15 +4,15 @@ header
 		span Menu
 	h1#header Payment History
 
-div.stp-content-frame
+div.stp-content-frame(ng-init="getFriendsOweDetails()")
 	div.stp-content-body
 		include alertBox
 		div.row.dashboard
 			.six.columns.mobile-two
 				.header
 					h2(style="text-align:left")
-						| Fred
-				img.img-polaroid(src="http://userserve-ak.last.fm/serve/_/72551712/Fred+Salazar+tzcvvrfbf7izn0mr28ew3pz5jcy42t.jpg")
+						| {{friendsOweName}}
+				img.img-polaroid(src="{{friendsOweImageUrl}}")
 			.six.columns.mobile-two
 				.header
 					h3
@@ -20,41 +20,29 @@ div.stp-content-frame
 							| Amount Owed To You
 				.span.single-value(style="vertical-align:middle")
 					h2(style="font-size:40pt; padding:3px")
-						| $15
-		div.row.dashboard.navbox(style="padding:10px")
-			.twelve.columns.mobile-four
-				.mobile-one.two.columns
-					.clickable
-						i.icon-circle-arrow-left.icon-2x
-				.mobile-two.center.eight.columns
-					|Till Today
-				.mobile-one.right.two.columns
-					.clickable
-						i.icon-circle-arrow-right.icon-2x
+						| ${{friendsOweTotalAmount}}
 
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
 				div.listHeader
-					| Payment Activity
+					| Items Owed by Friend:
 		div.row
 			ul.block-grid.two-up.mobile
-				li(ng-repeat="list in transactionDetails")
+				li(ng-repeat="item in friendsOweItems")
 					div.list-container
 							div.row
 								div.mobile-three.columns.six
 									h5
 										small
-											| {{list.payer}}
+											| {{item.payer}}
 									h4
-										| {{list.item}} 
-										small
-											i.icon-search
+										| {{item.name}} 
 									h5
 										small
-											| {{list.period}}
+											| {{item.period}}
 								div.mobile-one.columns.three
 									.pay-actions
 										center
-											h2
-												| {{list.amount}}
+											h3
+												| ${{item.price}}

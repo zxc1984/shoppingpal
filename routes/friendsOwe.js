@@ -52,12 +52,21 @@ exports.update = function(req, res) {
     db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
 };
 
+exports.updateSpecificListItems = function(req,res) {
+    var userId = JSON.parse(req.cookies.iOweFriendId);
+    //console.log("f id : " + userId)
+     var select = {"userId":userId};
+     console.log("select " + select);
+     var item = req.body;
+     var qw = {$set:item};
+    db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
+};
+
 exports.delete = function(req, res) {
     var id = req.params.id;
     qw = {"_id":objectId(id)};
     db.collection(collection).remove(qw);
 };
-
 
 exports.query = function(req, res) {
     var item, sort = {}, qw = {};

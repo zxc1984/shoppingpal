@@ -3,10 +3,11 @@ var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
   
-  $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"}];
+  $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"},{"singular":"Box","plural":"Boxes"}];
   $scope.loading = false;
   $scope.alert = { show: false, msg: "test", className: 'success'};
   $scope.user = {"email" :"vincox@gmail.com", "password" : "123456"};
+  $scope.typeahead = ["Select A Category","Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"];
    $scope.logout = function() {
     removeCookie("UserId",$cookieStore);
     $location.path("/");
@@ -28,10 +29,11 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     //$location.path('/list/');
   };
   $scope.login = function(user) {
-     $scope.loading = true;
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
+        console.log("result received");
         setCookie("UserId",data._id,$cookieStore);
+        setCookie("UserName",data.name,$cookieStore);
         $location.path("/list");
       } 
     });
@@ -92,7 +94,7 @@ function MyCtrl2() {
 }
 MyCtrl2.$inject = [];
 
-function ListCtrl($scope, $http,$location, $cookieStore, $defer, List) {
+function ListCtrl($scope, $http,$location, $cookieStore, List) {
   //$scope.loading = true;
   //http://localhost:3000/api/unitOfMeasure
   $scope.categories = [{name:'bread',value:'bread'},{name:'drinks',value:'drinks'},{name:'frozen shits',value:'frozen shits'}];
@@ -101,9 +103,6 @@ function ListCtrl($scope, $http,$location, $cookieStore, $defer, List) {
   if(userId == undefined) {
     $location.path("/login");
   }
-
-  $scope.friends = [{email:'Kevin@shoppalapp.com',status:'pending'},{email:'vincox@shoppalapp.com',status:'pending'},{email:'Jagdish@shoppalapp.com',status:'accepted'}];
-  $scope.typeahead = ["Groceries","Fresh and Frozen","Beverages","Snacks/Tidbits","Baby","Toiletries","Household Items","Others"]
   $scope.initList = function() {
     $scope.loading = true;
     $scope.lists = List.query({"_id":userId});
@@ -297,9 +296,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, $defer, List) {
     //$location.path("/shopping/on");
   }
 
-  $scope.getSharedStatus = function(item) {
-    if (item.status) {
-      if (item.status == "individual") 
+  $scope.getSharedStatus = function(status) {
+    if (status) {
+      if (status == "individual") 
         return "icon-user";
       else
         return "icon-group";
@@ -340,9 +339,8 @@ function ListCtrl($scope, $http,$location, $cookieStore, $defer, List) {
   }
 }
 ListCtrl.$inject = ['$scope', '$http', '$location', '$cookieStore', 'List'];
-function ItemCtrl($scope, $http,$location) {
-  $scope.selectedItem = ['banana'];
-  $scope.itemList = [{name:'apple',unitOfMeasure:1, price:5},{name:'orange',unitOfMeasure:1, price:5},{name:'pear',unitOfMeasure:1, price:5},{name:'banana',unitOfMeasure:1, price:5},{name:'papaya',unitOfMeasure:1, price:5},{name:'pineapple',unitOfMeasure:1, price:5},{name:'Bread',unitOfMeasure:0, price:5}];
+function ItemCtrl($scope, $http,$location, $cookieStore) {
+  $scope.selectedItems = [];
   $scope.isSelected = function(item) {
     if (item.selected == 1)
         return "icon-check";
@@ -354,12 +352,22 @@ function ItemCtrl($scope, $http,$location) {
   $scope.ToggleSelect = function(item) {
     if (item.selected) {
       if (item.selected == 0) {
+        $scope.selectedItems.push(item);
         item.selected = 1;
       } else {
+        for (var i = 0; i < $scope.selectedItems.length; i++) {
+          if ($scope.selectedItems[i]._id == item._id) {
+            $scope.selectedItems.splice(i, 1);
+            return;
+          }
+        } 
         item.selected = 0;
       }
-    } else
+    } else{
       item.selected = 1;
+      $scope.selectedItems.push(item);
+    }
+      
   }
 
   $scope.getUnitOfMeasure = function(uom) {
@@ -374,6 +382,29 @@ function ItemCtrl($scope, $http,$location) {
       console.log($scope.categories);
       $scope.items = data;
     });
+  }
+
+  $scope.initCreateNewItem = function() {
+    $scope.item = {category:"Select A Category",unitOfMeasure:-1,name:'',price:''};
+  }
+
+  $scope.createNewItem = function(item) {
+    console.log("JSON" + JSON.stringify(item));
+    $http.post("/api/items/",item).success(function(response) {
+
+    });
+  }
+
+  $scope.addItemToList = function() {
+    list_id = getCookie("ListDetail", $cookieStore);
+    console.log(list_id);
+    console.log(JSON.stringify($scope.selectedItems));
+    $http.post("/api/list/"+list_id+"/items", $scope.selectedItems).success(function(response){
+      if(response.ok) {
+        $scope.showAlert("Items Added Succesfully");
+      }
+    });
+    
   }
 }
 
@@ -401,7 +432,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       $scope.transPayee = data[0].payee.name;
       $scope.transDate = data[0].date;
       $scope.transItems = data[0].items;
-      console.log($scope.transItems);
+      //console.log($scope.transItems);
       $scope.transItemsTotalAmount = data.total;
     });
   }
@@ -409,15 +440,16 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
     var userId = getCookie('UserId',$cookieStore);
     $scope.transactions = data;
-    console.log($scope.transactions[0].payer.userId);
+    //console.log($scope.transactions[0].payer.userId);
         for (var i = 0; i < $scope.transactions.length; i++) {
           if ($scope.transactions[i].payer.userId != userId && $scope.transactions[i].payee.userId != userId){
             $scope.transactions.splice(i,1);
             i--;
           }
       }
+       $scope.transactions.reverse();
   });
-  
+ 
   /*  
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
     $scope.userExpense = data;
@@ -441,22 +473,45 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       $scope.iOweLists[i].payee.amount = 0;
           for (var j = 0; j < data[i].items.length; j++){
             if (data[i].items[j].status == "unpaid"){
-              $scope.iOweLists[i].payee.amount += data[i].items[j].amount;
-              $scope.iOweListTotalAmount += data[i].items[j].amount;
+              $scope.iOweLists[i].payee.amount += data[i].items[j].price;
+              //$scope.iOweListTotalAmount += data[i].items[j].price;
             }
           }
       }
+
+      if (data.length > 0){
+        for (var i = 0; i < data.length; i++) {
+        //console.log(data);
+        //console.log(data[i].items[0].name);
+          if (data[i].items.length > 0){
+            for (var j = 0; j < data[i].items.length; j++){
+              //console.log("items " + data[i].items);
+              if (data[i].items[j].status == "paid"){
+                console.log("paid : " + data[i].items[j].name);
+                data.splice(i,1);
+                i--;
+                break;
+              }else{
+                //console.log("unpaid : " + data[i].items[j].name);
+                //$scope.iOweLists[i].payee.amount += data[i].items[j].price;
+                $scope.iOweListTotalAmount += data[i].items[j].price;
+              }
+            }
+          } 
+        }
+      }
+      
 
   });
 
   $scope.linkToiOweDetails = function(list_id) {
     setCookie("iOwe_id",list_id, $cookieStore);
-    $location.path("/payment/new/" + id);
+    $location.path("/payment/" + id);
   }
 
-  $scope.getiOweDetails = function(){   
-
-      var id = $routeParams.id;
+  $scope.getiOweDetails = function(){  
+      var selectedIOwe = getCookie('selectedIOwe',$cookieStore);
+      var id = selectedIOwe.id;
       $http.get('/api/iOwe/' + id).success(function(data, status, headers, config) {
       $scope.iOweItems = data[0].items;
       for (var i = 0; i < data[0].items.length; i++) {
@@ -468,7 +523,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
       $scope.iOweTotalAmount = 0;
         for (var i = 0; i < $scope.iOweItems.length; i++) {
-            $scope.iOweTotalAmount += $scope.iOweItems[i].amount;
+            $scope.iOweTotalAmount += $scope.iOweItems[i].price;
         }
 
       $scope.iOweName = data[0].payee.name;
@@ -476,42 +531,70 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     });
   }
 
-  $scope.selectedIOwe = function(id,item,index) {
-    console.log("index" + index);
-    console.log("item" + JSON.stringify(item));
-    setCookie("selectedIOwe",{"item":item,"index":index}, $cookieStore);
-    $location.path("/payment/new/" + id);
+  $scope.selectedIOwe = function(id,item,index,amount,friendId) {
+    setCookie("selectedIOwe",{"id":id,"item":item,"index":index}, $cookieStore);
+    $scope.iOweListsId = id;
+    setCookie("iOweFriendId",friendId, $cookieStore);
+    //console.log("iOweListsId " + id);
+
+    if (amount > 0){
+      $location.path("/payment/" + id);
+    }
+    
+  }
+
+  $scope.confirmPayment = function() {
+    var selectedIOwe = getCookie('selectedIOwe',$cookieStore);
+    //console.log("CONFIRM: " + selectedIOwe.id);
+    $location.path("/payment/confirmation/");
+  }
+
+  $scope.finalPaymentDetails = function(){
+    var payment = getCookie("finalPayment", $cookieStore);
+    $scope.finalPayee = payment.payee;
+    $scope.finalAmount = payment.amount;
   }
 
   $scope.payNow = function(iOweItems){   
+
+    var friendsOweItems = iOweItems;
 
     var selectedIOwe = getCookie('selectedIOwe',$cookieStore);
     var payer = "";
     var payee = "";
     var total = 0;
     var qw = {};
+    var qw2 = {};
     var name = 'items';
     
+    var qwFriendsOwe = {};
+    var friendsOwePayee = ""
+    var friendsOwePayer = ""
+
     for (var i = 0; i < iOweItems.length; i++) {
-          payee = iOweItems[i].buyer;
+          payee = iOweItems[i].buyer; 
           payer = iOweItems[i].boughtFor;
-          total += iOweItems[i].amount;
           iOweItems[i].status = "paid";
+
+          friendsOwePayer = iOweItems[i].buyer;
+          friendsOwePayee = iOweItems[i].boughtFor;
+          friendsOweItems[i].status = "paid";
+
+          total += iOweItems[i].price;
      }
+
+    
+
+     $scope.iOwePayer = payer;
+     $scope.iOwePayee = payee;
+
+     setCookie("finalPayment",{"payee":payee,"amount":total}, $cookieStore);
 
     qw[name] = iOweItems;
     iOwe_id = $routeParams.id;
 
-    console.log("iOweItems " + JSON.stringify(iOweItems));
-
-    $http.put("/api/iOwe/"+iOwe_id,qw).success(function(response) {
-       if(response.ok == 1) {
-        console.log("Successfully Updated");
-        //$location.path("/payment/new/" + id);
-       }else{
-         console.log("Something went wrong");
-       }
-    });   
+    qw2[name] = friendsOweItems;
+    //console.log("iOweItems " + JSON.stringify(iOweItems));
 
     var userId = getCookie('UserId',$cookieStore);
     var todayDate = new Date();
@@ -524,56 +607,88 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       date:today,
       total:total,
       payer:{userId:userId,name:payer},
-      payee:{userId:"1111",name:payee},
-      items:[iOweItems]
-    }
+      payee:{userId:"5123925be4b029c335f08546",name:payee},
+      items:iOweItems
+    };
+
+    var fOweLists = [];
+
+    $http.put("/api/iOwe/"+iOwe_id,qw).success(function(response) {
+
+        if(response.ok == 1) {
+        console.log("Successfully Updated");
+      
+       }else{
+         console.log("Something went wrong");
+       }
+    });  
+
+    $http.put("/api/friendsOwe",qw2).success(function(response) {
+
+            if(response.ok == 1) {
+            console.log("Successfully Updated1");
+          
+           }else{
+             console.log("Something went wrong1");
+           }
+    });
 
     $http.post("/api/userExpense/",newTransaction).success(function(response) {
       if(response.error) {
         console.log(response.error);
-      } else{
-        $location.path("/expense");
+      }else{
+        $location.path("/payment/" + iOwe_id + "/final");
       }
-    });   
+    });
     
   }
 
   $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
     $scope.friendsOweLists = data;
     $scope.friendsOweListTotalAmount = 0;
-    
+    //setCookie("friendsOweLists",friendsOweLists, $cookieStore);
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i].items[0].name);
+      console.log("RR" + data[i]._id);
+      //console.log(data[i].items[0].name);
           for (var j = 0; j < data[i].items.length; j++){
-            console.log("items " + data[i].items[j].name);
-            if (data[i].items[j].status == "unpaid"){
-            $scope.friendsOweListTotalAmount += data[i].items[j].amount;
-          }
+            //console.log("items " + data[i].items);
+            if (data[i].items[j].status == "paid"){
+              console.log("paid : " + data[i].items[j].name); 
+              $scope.friendsOweLists.splice(i,1);
+              j--;
+              i--;
+              break;
+            }else{
+
+              console.log("unpaid : " + data[i].items[j].name);
+              $scope.friendsOweListTotalAmount += data[i].items[j].price;
+            }
           }
       }
   });
 
   $scope.linkToFriendsOweDetails = function(id) {
-    $location.path("/payment/confirmation/" + id);
+    $location.path("/payment/details/" + id);
   }
 
   $scope.getFriendsOweDetails = function(){
       var id = $routeParams.id;
       $http.get('/api/friendsOwe/' + id).success(function(data, status, headers, config) {
       $scope.friendsOweItems = data[0].items;
+      $scope.friendsOweName = data[0].payer.name;
+      $scope.friendsOweImageUrl = data[0].payer.url;
+      $scope.friendsOweTotalAmount = 0;
 
+      //console.log($scope.friendsOweItems);
       for (var i = 0; i < data[0].items.length; i++) {
           if ($scope.friendsOweItems[i].status == "paid"){
             $scope.friendsOweItems.splice(i,1);
             i--;
+          }else{
+            $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].price;
           }
       }
 
-      $scope.friendsOweName = data[0].payer.name;
-      $scope.friendsOweTotalAmount = 0;
-        for (var i = 0; i < $scope.friendsOweItems.length; i++) {
-            $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].amount;
-        }
     });
   } 
     
@@ -601,9 +716,13 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       for(var j = 0; j < allItems[i].items.length; j++) {
         //console.log(JSON.stringify(allItems[i].items));
         if(test[allItems[i].items[j]._id] == undefined) {
-          test[allItems[i].items[j]._id] = {"qty":0,"_id":allItems[i].items[j]._id,"name":allItems[i].items[j].name,'unitOfMeasure':allItems[i].items[j].unitOfMeasure};
+          test[allItems[i].items[j]._id] = {"price":0,"total":0,"qty":0,"_id":allItems[i].items[j]._id,"name":allItems[i].items[j].name,'unitOfMeasure':allItems[i].items[j].unitOfMeasure};
         }
         test[allItems[i].items[j]._id].qty = test[allItems[i].items[j]._id].qty + allItems[i].items[j].qty;
+        if(test[allItems[i].items[j]._id].price < allItems[i].items[j].price) {
+           test[allItems[i].items[j]._id].price = allItems[i].items[j].price;
+        }
+       
       }
     }
     for(var obj in test){
@@ -658,10 +777,105 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
 
   $scope.proceedToCheckout = function() {
    // console.log(JSON.stringify(items));
-    //console.log(JSON.stringify($scope.selectedItems));
+    console.log("Selected Items" + JSON.stringify($scope.selectedItems));
     setCookie("selectedItems",$scope.selectedItems, $cookieStore);
     $location.path("/shopping/checkout");
   }
+
+
+  $scope.initShoppingCheckout = function() {
+
+    $scope.items = getCookie("selectedItems", $cookieStore);
+    $scope.total = 0;
+    angular.forEach($scope.items,function(item){
+      item.total = item.qty * item.price
+    });
+    console.log("checkoutitems " + JSON.stringify($scope.items));
+  }
+
+  $scope.checkoutNow = function(selectedItems){
+    var userId = getCookie('UserId',$cookieStore);
+    var userName = getCookie('UserName',$cookieStore);
+    var checkoutItems = selectedItems;
+
+    var todayDate = new Date();
+    var todayMonth = todayDate.getMonth() + 1;
+    var todayDay = todayDate.getDate();
+    var todayYear = todayDate.getFullYear();
+    var today = todayDay + '/' + todayMonth + '/' + todayYear;
+
+     var myItems = [];
+     var totalAmount = 0;
+     for(var i=0;i<checkoutItems.length;i++)
+      {
+          var temp={};
+          temp["name"]=checkoutItems[i].name;
+          temp["buyer"]=userName;
+          temp["boughtFor"]="Tom";
+          temp["price"]=checkoutItems[i].price * checkoutItems[i].qty;
+          
+          temp["qty"]=checkoutItems[i].qty;
+          temp["period"]=today;
+          temp["paidDate"]='';
+          temp["status"]="unpaid";
+          totalAmount += checkoutItems[i].price * checkoutItems[i].qty;
+         myItems.push(temp);
+
+      }
+     
+     var newTrip = {
+      userId: userId,
+      name: userName,
+      Location: "NTUC in Chinatown",
+      amount: totalAmount,
+      date:today
+    };
+       
+     $http.post("/api/shoppingTrips/",newTrip).success(function(response) {
+       if(response.error) {
+         console.log(response.error);
+       }
+     });
+
+     var friendsOwe = {
+      userId: userId,
+      payer:{
+        userId:"51322a9a6ebde1f40b000001",
+        name:"Tom",
+        period:today,
+        amount:totalAmount,
+        url:"http://static.tumblr.com/d4075dae7f5b2e80449ef00d2cbff5de/zghl0gv/Mifmhvhaj/tumblr_static_snn0116tom---_1646312a_1_.jpg"
+      },
+      items:myItems
+    };
+
+    var iOwe = {
+      userId: "51322a9a6ebde1f40b000001",
+      payee:{
+        userId:userId,
+        name:userName,
+        period:today,
+        amount:totalAmount
+      },
+      items:myItems
+    };
+
+  $http.post("/api/iOwe/",iOwe).success(function(response) {
+       if(response.error) {
+         console.log(response.error);
+       }
+  });  
+  
+  $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
+       if(response.error) {
+         console.log(response.error);
+       }else{
+        $location.path("/list");
+       }
+
+  });
+  
+}
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
       return "selected";
@@ -694,6 +908,23 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       $location.path("/shopping/on");
      });
   }
+
+  $scope.getTotal = function() {
+    var total = 0;
+     for(var i =0;i < $scope.items.length; i++) {
+        total = ($scope.items[i].qty * $scope.items[i].price) + total;
+     }
+     return total;
+  }
+
+  $scope.checkoutTrial = function() {
+    console.log($scope.total);
+  }
+
+  $scope.adjust = function(item) {
+    item.price = item.total / item.qty;
+  }
+
 }
 
 function PaymentCtrl($scope, $http, $location) {

@@ -53,6 +53,7 @@ app.get('/api/list/:id/settings',list.getListSettings);
 app.put('/api/list/:id/settings/',list.updateListSettings);
 
 app.get('/api/list/:id/items',list.getListItems);
+app.post('/api/list/:id/items',list.addListItems);
 app.put('/api/list/:id/items/',list.updateSpecificListItems);
 app.del('/api/list/:id/items/:entry',list.deleteSpecificListItems);
 
@@ -63,7 +64,7 @@ app.del('/api/list/:id',list.delete);
 
 //ItemS API
 app.get('/api/items/grouped',item.findAllGrouped);
-
+app.post('/api/items/',item.insert);
 //USER API 
 app.get('/api/users',user.findAll);
 //app.get('/api/users/:id',user.find);
@@ -84,15 +85,19 @@ app.get('/api/transactions',transactions.findall);
 //SHOPPING API
 app.get('/api/shoppingTrips',shopping.findAll);
 app.get('/api/shoppingTrips/:id',shopping.find);
+app.post('/api/shoppingTrips/',shopping.insert);
 
 //iOwe API
 app.get('/api/iOwe',iOwe.findAll);
 app.get('/api/iOwe/:id',iOwe.find);
 app.put('/api/iOwe/:id',iOwe.updateSpecificListItems);
+app.post('/api/iOwe/',iOwe.insert);
 
 //friendsOwe API
 app.get('/api/friendsOwe',friendsOwe.findAll);
 app.get('/api/friendsOwe/:id',friendsOwe.find);
+app.post('/api/friendsOwe/',friendsOwe.insert);
+app.put('/api/friendsOwe',friendsOwe.updateSpecificListItems);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

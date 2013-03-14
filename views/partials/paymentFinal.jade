@@ -3,7 +3,7 @@ header
 		span Menu
 	h1#header Payment Successful!
 
-div.stp-content-frame
+div.stp-content-frame(ng-init="finalPaymentDetails()")
 	div.stp-content-body
 		include alertBox
 		div.row.dashboard
@@ -14,10 +14,10 @@ div.stp-content-frame
 							| You have successfully paid:
 					p
 						h2
-							| Fred
+							| {{finalPayee}}
 					p
 						h2
-							| $15
+							| ${{finalAmount}}
 					p
 						a.btn.btn-primary.btn-large(href="/expense")
 							i.icon-reply
