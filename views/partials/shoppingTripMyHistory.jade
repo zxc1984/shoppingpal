@@ -10,13 +10,13 @@ div.stp-content-frame
 			.six.columns.mobile-four(style="padding:10px")
 					center
 						div.btn-group
-							a.btn.btn-success.disabled(href="javascript:void(0)")
+							a.btn.btn-mini.btn-success.disabled(href="javascript:void(0)")
 								i.icon-user
 									|  MY TRIPS
-							a.btn.btn-primary(href="/shopping/friends")
+							a.btn.btn-mini.btn-primary(href="/shopping/friends")
 								i.icon-group
 									|  FRIEND'S TRIPS
-							a.btn.btn-warning(href="/shopping/trips")
+							a.btn.btn-mini.btn-warning(href="/shopping/trips")
 								i.icon-group
 									|  ALL TRIPS
 		div.row
@@ -29,13 +29,13 @@ div.stp-content-frame
 					div.list-container.selectable
 						div.row.expense-row
 							div.mobile5-four.columns.eight
-								h5
-									| &nbsp;{{trip.name}} 
-									small
-										| spent ${{trip.amount}} at {{trip.Location}}
+									h5
+										| &nbsp;{{trip.name}} 
+										small
+											| spent ${{trip.amount}} at {{trip.Location}}
 							div.mobile5-one.columns.four
 								.pay-actions
-									h6
+									h6(style="text-align:right")
 										small
-											| {{trip.date}}
+											| {{trip.date | date:'dd/MM/yyyy'}}
 

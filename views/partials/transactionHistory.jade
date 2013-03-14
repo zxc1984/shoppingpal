@@ -44,13 +44,14 @@ div.stp-content-frame(ng-init="getTransactionDetails()")
 								div.mobile-one.columns.three
 									.pay-actions
 										center
-											h2
+											h3
 												| ${{list.price}}
 
 								div.mobile-one.columns.three
 									.pay-actions
 										center
-											//i.icon-remove.icon-2x
 											h4
 												small
-													| Qty: {{list.qty}} 
+													| Qty: 
+											h3 
+												| {{list.qty}} 
