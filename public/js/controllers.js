@@ -29,13 +29,13 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     //$location.path('/list/');
   };
   $scope.login = function(user) {
-    $scope.loginLoading = true;
+    $scope.loading = true;
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
         console.log("result received");
         setCookie("UserId",data._id,$cookieStore);
         setCookie("UserName",data.name,$cookieStore);
-        $scope.loginLoading = false;
+        $scope.loading = false;
         $location.path("/list");
       } 
     });
@@ -107,7 +107,9 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
   $scope.initList = function() {
     $scope.loading = true;
-    $scope.lists = List.query({"_id":userId});
+    $scope.lists = List.query({"_id":userId},function(data) {
+      $scope.loading = false;
+    });
   }
   $scope.initNewList = function() {
     $scope.listSetting = {name:'',users:[],items:[],numFriends:0,numItems:0,};
