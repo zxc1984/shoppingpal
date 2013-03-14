@@ -474,30 +474,33 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
           for (var j = 0; j < data[i].items.length; j++){
             if (data[i].items[j].status == "unpaid"){
               $scope.iOweLists[i].payee.amount += data[i].items[j].price;
-              $scope.iOweListTotalAmount += data[i].items[j].price;
+              //$scope.iOweListTotalAmount += data[i].items[j].price;
             }
           }
       }
 
-      for (var i = 0; i < data.length; i++) {
-      //console.log(data);
-      //console.log(data[i].items[0].name);
-        if (data[i].items.length > 0){
-          for (var j = 0; j < data[i].items.length; j++){
-            //console.log("items " + data[i].items);
-            if (data[i].items[j].status == "paid"){
-              console.log("paid : " + data[i].items[j].name);
-              data.splice(i,1);
-              i--;
-              j++;
-            }else{
-
-              console.log("unpaid : " + data[i].items[j].name);
-              $scope.friendsOweListTotalAmount += data[i].items[j].price;
+      if (data.length > 0){
+        for (var i = 0; i < data.length; i++) {
+        //console.log(data);
+        //console.log(data[i].items[0].name);
+          if (data[i].items.length > 0){
+            for (var j = 0; j < data[i].items.length; j++){
+              //console.log("items " + data[i].items);
+              if (data[i].items[j].status == "paid"){
+                console.log("paid : " + data[i].items[j].name);
+                data.splice(i,1);
+                i--;
+                break;
+              }else{
+                //console.log("unpaid : " + data[i].items[j].name);
+                //$scope.iOweLists[i].payee.amount += data[i].items[j].price;
+                $scope.iOweListTotalAmount += data[i].items[j].price;
+              }
             }
-          }
-        } 
+          } 
+        }
       }
+      
 
   });
 
@@ -528,9 +531,10 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     });
   }
 
-  $scope.selectedIOwe = function(id,item,index,amount) {
+  $scope.selectedIOwe = function(id,item,index,amount,friendId) {
     setCookie("selectedIOwe",{"id":id,"item":item,"index":index}, $cookieStore);
     $scope.iOweListsId = id;
+    setCookie("iOweFriendId",friendId, $cookieStore);
     //console.log("iOweListsId " + id);
 
     if (amount > 0){
@@ -685,12 +689,6 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
           }
       }
 
-      
-      //console.log("image " + $scope.friendsOweImageUrl);
-      // $scope.friendsOweTotalAmount = 0;
-      //   for (var i = 0; i < $scope.friendsOweItems.length; i++) {
-      //       $scope.friendsOweTotalAmount += $scope.friendsOweItems[i].price;
-      //   }
     });
   } 
     
@@ -871,9 +869,12 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
        if(response.error) {
          console.log(response.error);
+       }else{
+        $location.path("/list");
        }
-  });
 
+  });
+  
 }
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {

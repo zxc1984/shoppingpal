@@ -53,8 +53,9 @@ exports.update = function(req, res) {
 };
 
 exports.updateSpecificListItems = function(req,res) {
-
-     var select = {"userId":"5123925be4b029c335f08546"};
+    var userId = JSON.parse(req.cookies.iOweFriendId);
+    //console.log("f id : " + userId)
+     var select = {"userId":userId};
      console.log("select " + select);
      var item = req.body;
      var qw = {$set:item};
