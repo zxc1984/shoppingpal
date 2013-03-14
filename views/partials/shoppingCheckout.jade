@@ -41,5 +41,5 @@ div.stp-content-frame(ng-init="initShoppingCheckout()")
 							div.mobile5-two.columns.columns
 								div.update-box.text-right
 									div.update-header.label item total ($)
-									div
-										input(class="input-block-level",value="{{calculateItemTotal(item.qty,item.price)}}")
+									div 
+										input(class="input-block-level",ng-change="adjust(item)",ng-model="item.total")

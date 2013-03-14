@@ -707,7 +707,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       for(var j = 0; j < allItems[i].items.length; j++) {
         //console.log(JSON.stringify(allItems[i].items));
         if(test[allItems[i].items[j]._id] == undefined) {
-          test[allItems[i].items[j]._id] = {"price":0,"qty":0,"_id":allItems[i].items[j]._id,"name":allItems[i].items[j].name,'unitOfMeasure':allItems[i].items[j].unitOfMeasure};
+          test[allItems[i].items[j]._id] = {"price":0,"total":0,"qty":0,"_id":allItems[i].items[j]._id,"name":allItems[i].items[j].name,'unitOfMeasure':allItems[i].items[j].unitOfMeasure};
         }
         test[allItems[i].items[j]._id].qty = test[allItems[i].items[j]._id].qty + allItems[i].items[j].qty;
         if(test[allItems[i].items[j]._id].price < allItems[i].items[j].price) {
@@ -778,6 +778,9 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
 
     $scope.items = getCookie("selectedItems", $cookieStore);
     $scope.total = 0;
+    angular.forEach($scope.items,function(item){
+      item.total = item.qty * item.price
+    });
     console.log("checkoutitems " + JSON.stringify($scope.items));
   }
 
@@ -898,7 +901,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   $scope.getTotal = function() {
     var total = 0;
      for(var i =0;i < $scope.items.length; i++) {
-        total = ($scope.items[i].price * $scope.items[i].qty)   + total;
+        total = ($scope.items[i].qty * $scope.items[i].price) + total;
      }
      return total;
   }
@@ -907,10 +910,10 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     console.log($scope.total);
   }
 
-   $scope.calculateItemTotal= function(qty,price) {
-    return qty * price;
-    // /return 0;
+  $scope.adjust = function(item) {
+    item.price = item.total / item.qty;
   }
+
 }
 
 function PaymentCtrl($scope, $http, $location) {
