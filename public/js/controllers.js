@@ -848,11 +848,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       date:today
     };
        
-     $http.post("/api/shoppingTrips/",newTrip).success(function(response) {
-       if(response.error) {
-         console.log(response.error);
-       }
-     });
+     
 
      var friendsOwe = {
       userId: userId,
@@ -881,16 +877,24 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
        if(response.error) {
          console.log(response.error);
        }
-  });  
-  
-  $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
+       $http.post("/api/shoppingTrips/",newTrip).success(function(response) {
        if(response.error) {
          console.log(response.error);
-       }else{
-        $location.path("/list");
        }
+        $http.post("/api/friendsOwe/",friendsOwe).success(function(response) {
+         if(response.error) {
+           console.log(response.error);
+         }else{
+          $location.path("/expense");
+         }
 
-  });
+       });
+     });
+
+      
+  });  
+  
+  
   
 }
   $scope.getSelectedItemClass = function(item) {

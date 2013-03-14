@@ -8,15 +8,15 @@ div.stp-content-frame(ng-init="initShoppingCheckout()")
 		.row.non-list.dashboard
 			.six.columns.mobile-two
 				.header
-					| Calculated Total
+					| Total
 				.well.single-value
 					| {{total= getTotal() | currency:$}}
 			.six.columns.mobile-two
 				.header
-					Actual Total ($)
+					Location
 				.well.expense-action
 					div(style="margin-bottom:15px;")
-						input(class="input-block-level text-right", value="50")
+						input(class="input-block-level text-right", value="NTUC", ng-model="location")
 					a.btn.btn-primary.btn-block(ng-click="checkoutNow(items)")
 						.i.icon-save
 							|  Save
