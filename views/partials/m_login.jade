@@ -2,6 +2,9 @@ form
 	div.stp-content-frame
 		div.stp-content-body
 			div.misc-container.center
+				div.loading(ng-show="loading")
+					i.icon-refresh.icon-spin.icon-large
+					span.loading-text Loading...
 				div
 					input(type="text",id="user-email",name="user-email",ng-model="user.email",class="input-block-level", placeholder="Email")
 					input(type="password",id="user-password",name="user-password",ng-model="user.password",class="input-block-level", placeholder="Password")
