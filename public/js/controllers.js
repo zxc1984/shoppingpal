@@ -242,12 +242,17 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
   }
 
   $scope.addFriendToList = function(friendEmail) {
-    var qw = {"email" : friendEmail};
+    var qw = {"email" : friendEmail,"name":"Unknown"};
    // $scope.listSetting.users.push(qw);
     console.log(JSON.stringify($scope.listSetting));
     $http.get("/api/users/"+friendEmail+"/email").success(function(data, status, headers, config) {
-      console.log(JSON.stringify(data));
-      $scope.listSetting.users.push(data[0]);
+      console.log(JSON.stringify(data.length));
+      if(data.length > 0) {
+        $scope.listSetting.users.push(data[0]);
+      }else{
+        $scope.listSetting.users.push(qw);
+      }
+      
     });
     $scope.friendemail ="";
   }
