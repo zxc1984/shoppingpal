@@ -784,10 +784,10 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     console.log("checkoutitems " + JSON.stringify($scope.items));
   }
 
-  $scope.checkoutNow = function(){
+  $scope.checkoutNow = function(selectedItems){
     var userId = getCookie('UserId',$cookieStore);
     var userName = getCookie('UserName',$cookieStore);
-    var checkoutItems = getCookie('selectedItems',$cookieStore);
+    var checkoutItems = selectedItems;
 
     var todayDate = new Date();
     var todayMonth = todayDate.getMonth() + 1;
