@@ -648,6 +648,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
             //console.log("items " + data[i].items);
             if (data[i].items[j].status == "paid"){
               console.log("paid : " + data[i].items[j].name); 
+              $scope.friendsOweLists.splice(i,1);
+              j--;
             }else{
 
               console.log("unpaid : " + data[i].items[j].name);
