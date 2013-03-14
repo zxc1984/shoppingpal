@@ -447,8 +447,9 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
             i--;
           }
       }
+       $scope.transactions.reverse();
   });
-  
+ 
   /*  
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
     $scope.userExpense = data;
@@ -474,6 +475,24 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
             if (data[i].items[j].status == "unpaid"){
               $scope.iOweLists[i].payee.amount += data[i].items[j].price;
               $scope.iOweListTotalAmount += data[i].items[j].price;
+            }
+          }
+      }
+
+      for (var i = 0; i < data.length; i++) {
+      console.log(data);
+      //console.log(data[i].items[0].name);
+          for (var j = 0; j < data[i].items.length; j++){
+            //console.log("items " + data[i].items);
+            if (data[i].items[j].status == "paid"){
+              console.log("paid : " + data[i].items[j].name);
+              data.splice(i,1);
+              i--;
+              j++;
+            }else{
+
+              console.log("unpaid : " + data[i].items[j].name);
+              $scope.friendsOweListTotalAmount += data[i].items[j].price;
             }
           }
       }
@@ -532,19 +551,33 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
   $scope.payNow = function(iOweItems){   
 
+    var friendsOweItems = iOweItems;
+
     var selectedIOwe = getCookie('selectedIOwe',$cookieStore);
     var payer = "";
     var payee = "";
     var total = 0;
     var qw = {};
+    var qw2 = {};
     var name = 'items';
     
+    var qwFriendsOwe = {};
+    var friendsOwePayee = ""
+    var friendsOwePayer = ""
+
     for (var i = 0; i < iOweItems.length; i++) {
-          payee = iOweItems[i].buyer;
+          payee = iOweItems[i].buyer; 
           payer = iOweItems[i].boughtFor;
-          total += iOweItems[i].price;
           iOweItems[i].status = "paid";
+
+          friendsOwePayer = iOweItems[i].buyer;
+          friendsOwePayee = iOweItems[i].boughtFor;
+          friendsOweItems[i].status = "paid";
+
+          total += iOweItems[i].price;
      }
+
+    
 
      $scope.iOwePayer = payer;
      $scope.iOwePayee = payee;
@@ -554,6 +587,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     qw[name] = iOweItems;
     iOwe_id = $routeParams.id;
 
+    qw2[name] = friendsOweItems;
     //console.log("iOweItems " + JSON.stringify(iOweItems));
 
     var userId = getCookie('UserId',$cookieStore);
@@ -567,24 +601,32 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       date:today,
       total:total,
       payer:{userId:userId,name:payer},
-      payee:{userId:"1111",name:payee},
+      payee:{userId:"5123925be4b029c335f08546",name:payee},
       items:iOweItems
     };
 
+    var fOweLists = [];
 
     $http.put("/api/iOwe/"+iOwe_id,qw).success(function(response) {
 
         if(response.ok == 1) {
         console.log("Successfully Updated");
-        
-        //$location.path("/payment/" + iOwe_id + "/final");
       
        }else{
          console.log("Something went wrong");
        }
-    });   
+    });  
 
-       
+    $http.put("/api/friendsOwe/"+ getCookie('UserId',$cookieStore),qw2).success(function(response) {
+
+            if(response.ok == 1) {
+            console.log("Successfully Updated1");
+          
+           }else{
+             console.log("Something went wrong1");
+           }
+    });
+
     $http.post("/api/userExpense/",newTransaction).success(function(response) {
       if(response.error) {
         console.log(response.error);
@@ -600,12 +642,17 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     $scope.friendsOweListTotalAmount = 0;
     
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i].items[0].name);
+      console.log(data);
+      //console.log(data[i].items[0].name);
           for (var j = 0; j < data[i].items.length; j++){
-            //console.log("items " + data[i].items[j].name);
-            if (data[i].items[j].status == "unpaid"){
-            $scope.friendsOweListTotalAmount += data[i].items[j].price;
-          }
+            //console.log("items " + data[i].items);
+            if (data[i].items[j].status == "paid"){
+              console.log("paid : " + data[i].items[j].name); 
+            }else{
+
+              console.log("unpaid : " + data[i].items[j].name);
+              $scope.friendsOweListTotalAmount += data[i].items[j].price;
+            }
           }
       }
   });
@@ -791,18 +838,17 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     };
 
     var iOwe = {
-      userId: userId,
+      userId: "51322a9a6ebde1f40b000001",
       payee:{
-        userId:"51322a9a6ebde1f40b000001",
-        name:"Tom",
+        userId:userId,
+        name:userName,
         period:today,
-        amount:totalAmount,
-        url:"http://static.tumblr.com/d4075dae7f5b2e80449ef00d2cbff5de/zghl0gv/Mifmhvhaj/tumblr_static_snn0116tom---_1646312a_1_.jpg"
+        amount:totalAmount
       },
       items:myItems
     };
 
-  $http.post("/api/iOwe/",friendsOwe).success(function(response) {
+  $http.post("/api/iOwe/",iOwe).success(function(response) {
        if(response.error) {
          console.log(response.error);
        }

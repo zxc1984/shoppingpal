@@ -97,6 +97,7 @@ app.post('/api/iOwe/',iOwe.insert);
 app.get('/api/friendsOwe',friendsOwe.findAll);
 app.get('/api/friendsOwe/:id',friendsOwe.find);
 app.post('/api/friendsOwe/',friendsOwe.insert);
+app.put('/api/friendsOwe/:id',friendsOwe.updateSpecificListItems);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

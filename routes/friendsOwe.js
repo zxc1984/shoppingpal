@@ -52,12 +52,23 @@ exports.update = function(req, res) {
     db.collection(collection).update({"_id":objectId(id)}, qw, {safe:true}, fn(req, res));
 };
 
+exports.updateSpecificListItems = function(req,res) {
+     var id = req.params.id;
+     var userId = req.params.userId;
+     var item = req.body;
+     //console.log("iowe item "+ JSON.stringify(item));
+     //var select = {"_id":objectId(id)};
+     var select = {"userId":"5123925be4b029c335f08546"};
+     console.log(select);
+     var qw = {$set:item};
+    db.collection(collection).update(select, qw, {safe:true}, fn(req, res));
+};
+
 exports.delete = function(req, res) {
     var id = req.params.id;
     qw = {"_id":objectId(id)};
     db.collection(collection).remove(qw);
 };
-
 
 exports.query = function(req, res) {
     var item, sort = {}, qw = {};
