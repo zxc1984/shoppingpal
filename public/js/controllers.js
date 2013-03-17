@@ -179,6 +179,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
       $scope.list.name = "";
   };
   $scope.ListDetails = function(list_id) {
+    $scope.loading = true;
     setCookie("ListDetail",list_id, $cookieStore);
     $location.path('/list/detail');
   }
@@ -323,30 +324,6 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     return "icon-user";
   }
 
-
-   /*
-  $scope.create = function($event) {
-    Item.create({object:c});   
-  }
-  
-  $scope.update = function($event,category) {
-    var $choices = $($event.target).closest('.modal').find('.chzn-choices li');
-    category.products = [];
-    $.each ($choices, function(index,value) {
-      if (value.className != "search-field") {
-        category.products.push($scope.products[parseInt(value.childNodes[1].rel) - 1]);
-      }
-    });
-    var self = this;
-    Category.update({id:category.id,object:category},function(response){
-      self.closeModal($event);
-      //self.refresh('category updated');
-      showLoader('category updated','whitesmoke','#222',2);
-    });
-  }
-
-  */
-
   $scope.delete = function(listSetting) {
     //console.log(list.name);
     List.remove({_id:listSetting._id},function(response){
@@ -375,6 +352,7 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
         for (var i = 0; i < $scope.selectedItems.length; i++) {
           if ($scope.selectedItems[i]._id == item._id) {
             $scope.selectedItems.splice(i, 1);
+            item.selected = 0;
             return;
           }
         } 
@@ -393,11 +371,13 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
   } 
 
   $scope.initAddItem = function() {
+    $scope.loading = true;
     $http.get("/api/items/grouped").success(function(data, status, headers, config) {
       console.log(JSON.stringify(data));
       $scope.categories = Object.keys(data);
       console.log($scope.categories);
       $scope.items = data;
+      $scope.loading = false;
     });
   }
 
@@ -413,6 +393,7 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
   }
 
   $scope.addItemToList = function() {
+    $scope.loading = true;
     list_id = getCookie("ListDetail", $cookieStore);
     console.log(list_id);
     console.log(JSON.stringify($scope.selectedItems));
@@ -420,6 +401,7 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
       if(response.ok) {
         $scope.showAlert("Items Added Succesfully");
       }
+      $scope.loading = false;
     });
     
   }
@@ -722,7 +704,9 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   }
   $scope.initList = function() {
     $scope.loading = true;
-    $scope.lists = List.query({"_id":userId});
+    $scope.lists = List.query({"_id":userId}, function(data) {
+      $scope.loading = false;
+    });
   }
   $scope.initListDetail = function() {
     //$scope.items = [{"id":"51239233e4b029c335f08541","name":"Gardenia White Bread","qty":1,"unitOfMeasure":0},{"_id":"5123925be4b029c335f08545","name":"Spin Washing Machine Powder","qty":5,"unitOfMeasure":1}];

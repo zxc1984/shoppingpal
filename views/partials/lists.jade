@@ -20,19 +20,21 @@ div.stp-content-frame(ng-init="initList()")
 				li(ng-repeat="list in lists")
 					div.list-container.selectable(ng-click="ListDetails(list._id)")
 						div.row
-							div.mobile5-three.columns.six.list-name
+							div.mobile5-five.columns.six.list-name
 								div.list-title {{list.name}}
-							div.mobile5-two.columns.six.list-info
-								div.list-desc
-									span.label-header Items
-									span.label.label-info
-										span {{list.numItems}} 
+								div
+									span.item-header.small.first
 										i.icon-tags
-								div.list-desc
-									span.label-header Friends
-									span.label.label-success
-										span {{list.numFriends}}  
+										span 
+											| Items&nbsp;&nbsp;
+											span.badge.badge-info {{list.numItems}} 
+									span.item-header.small 
 										i.icon-group
+										span 
+											| Friends&nbsp;&nbsp;
+											span.badge.badge-important {{list.numFriends}} 
+							div.bgIcon
+								i.icon-chevron-right
 				li.buffer
 				li(ng-show="noList()")
 					div

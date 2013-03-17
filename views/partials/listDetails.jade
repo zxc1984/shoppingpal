@@ -28,17 +28,16 @@ div.stp-content-frame(ng-init="initListDetail()")
 				li(ng-repeat="item in items")
 					div.list-container
 						div.row.list-name-box
-							div.mobile5-three.columns.eight.list-name
-								div.item-title {{item.name}}
+							div.mobile5-five.columns.eight.list-name
+								div.list-title {{item.name}}
 								div.item-desc2
-									span {{item.qty}}
-									span.uom
+									span.badge.badge-info.quantity {{item.qty}}
+									span.uom.blue-text
 										ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
-									span.status
+									span.status.label
 										i(ng-class="getSharedStatus(item.shareType)")
-							div.mobile5-two.columns.columns.four.text-right
+							div.fgAction
 								div.action
 									div(ng-click="ListItemDetail(item,$index)")
 										i.icon-edit.icon-2x
 										div.small edit&nbsp;&nbsp;&nbsp;
-	

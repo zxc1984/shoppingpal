@@ -29,15 +29,15 @@ div.stp-content-frame(ng-init="initListDetail()")
 				li(ng-repeat="item in items")
 					div.list-container
 						div.row.list-name-box(ng-class="getSelectedItemClass(item)")
-							div.mobile5-three.columns.eight.list-name
+							div.mobile5-four.columns.eight.list-name
 								div.item-title {{item.name}}
 								div.item-desc2
-									span {{item.qty}}
-									span.uom
+									span.badge.badge-info.quantity {{item.qty}}
+									span.uom.blue-text
 										ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
-									span.status
+									span.status.label
 										i.icon-group
-							div.mobile5-two.columns.columns.four.text-right
+							div.fgAction
 								div.action
 									div(ng-hide="itemIsSelected(item)",ng-click="toggleSelectItem(item)") 
 										i.icon-ok.icon-2x
