@@ -28,14 +28,16 @@ div.stp-content-frame
 				li(ng-repeat="trip in trips | filter:myTrips")
 					div.list-container.selectable
 						div.row.expense-row
-							div.mobile5-four.columns.eight
-									h5
-										| &nbsp;{{trip.name}} 
-										small
-											| spent ${{trip.amount}} at {{trip.Location}}
-							div.mobile5-one.columns.four
-								.pay-actions
-									h6(style="text-align:right")
-										small
-											| {{trip.date | date:'dd/MM/yyyy'}}
+							div.mobile5-two.columns.six
+								div.list-title spent {{trip.name}} 
+									div
+										span.item-header.small.first
+											span  {{trip.date | date:'dd/MM/yyyy'}}
+							div.mobile5-three.columns.six
+									.pay-actions.text-right
+										div.list-title {{trip.amount | currency:$}}
+											div
+												span.item-header.small 
+													i.icon-map-marker
+													| {{trip.Location}}
 

@@ -20,7 +20,7 @@ div.stp-content-frame
 			.six.columns.mobile-two
 				.header
 					| FRIENDS OWE
-				.well.single-value
+				.well.single-value.small
 					| ${{friendsOweListTotalAmount}}
 
 		div.row
@@ -32,20 +32,16 @@ div.stp-content-frame
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="list in friendsOweLists")
 					div.list-container.selectable
-							div.row(ng-click="linkToFriendsOweDetails(list._id)")
-								div.mobile-three.columns.six
-									h4
-										| {{list.payer.name}} 
-										h5
-											small
-												| {{list.payer.period}}
-								div.mobile-one.columns.three
-									.pay-actions
-										center
-											h4
-												| ${{list.payer.amount}}
-											h5
-												small
-													| to collect
+							div.row.expense-row(ng-click="linkToFriendsOweDetails(list._id)")
+								div.mobile5-three.columns.six
+									div.list-title {{list.payer.name}} 
+										div
+											span.item-header.small.first
+												span {{list.payer.period}}
+								div.mobile5-two.columns.three
+									.pay-actions.text-right
+										div.list-title ${{list.payer.amount}}
+											div
+												span.item-header.small to collect
 
 	

@@ -690,7 +690,12 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
 
     });
   } 
-    
+  $scope.gotoFriendsOwe = function () {
+    $location.path('/expense/friends');
+  };
+  $scope.gotoIOwe = function () {
+    $location.path('/expense/details/1');
+  };
 }
 
 function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {

@@ -7,20 +7,16 @@ header
 div.stp-content-frame(ng-init="getFriendsOweDetails()")
 	div.stp-content-body
 		include alertBox
-		div.row.dashboard
+		div.row.dashboard(style="margin: 10px 0;")
 			.six.columns.mobile-two
-				.header
-					h2(style="text-align:left")
-						| {{friendsOweName}}
 				img.img-polaroid(src="{{friendsOweImageUrl}}")
 			.six.columns.mobile-two
-				.header
-					h3
-						small
-							| Amount Owed To You
-				.span.single-value(style="vertical-align:middle")
-					h2(style="font-size:40pt; padding:3px")
-						| ${{friendsOweTotalAmount}}
+				.header.text-center(style='font-size:1.1em;font-weight:bold;')
+					| {{friendsOweName}}
+				div.text-center(style="font-size:0.8em;")
+					| Amount Owed To You
+				.well.single-value.small
+					| ${{friendsOweTotalAmount}}
 
 		div.row
 			// My list of activities
@@ -31,18 +27,17 @@ div.stp-content-frame(ng-init="getFriendsOweDetails()")
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in friendsOweItems")
 					div.list-container
-							div.row
-								div.mobile-three.columns.six
-									h5
-										small
-											| {{item.payer}}
-									h4
-										| {{item.name}} 
-									h5
-										small
-											| {{item.period}}
-								div.mobile-one.columns.three
-									.pay-actions
-										center
-											h3
-												| ${{item.price}}
+							div.row.expense-row
+								div.mobile5-three.columns.six
+									div
+										span.item-header.small.first
+											span {{item.payer}}
+									div.list-title {{item.name}} 
+										div
+											span.item-header.small.first
+												span {{item.period}}
+								div.mobile5-two.columns.three
+									.pay-actions.text-right
+										div.list-title {{item.price | currency:$}}
+											div
+												span.item-header.small to collect

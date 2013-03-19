@@ -12,21 +12,19 @@ div.stp-content-frame
 			.six.columns.mobile-two
 				.header
 					| I OWE
-				.well.single-value.selectable
+				.well.single-value.selectable(ng-click="gotoIOwe()")
 					| ${{iOweListTotalAmount}}
 					h5
-						small
-						a(href="expense/details/1")
+						span.blue-text
 							i.icon-eye-open
 							|  view details
 			.six.columns.mobile-two
 				.header
 					| FRIENDS OWE
-				.well.single-value.selectable
+				.well.single-value.selectable(ng-click="gotoFriendsOwe()")
 					| ${{friendsOweListTotalAmount}}
 					h5
-						small
-						a(href="/expense/friends")
+						span.blue-text
 							i.icon-eye-open
 							|  view details
 		div.row
