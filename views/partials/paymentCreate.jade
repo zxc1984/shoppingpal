@@ -13,17 +13,14 @@ div.stp-content-frame
 			.six.columns.mobile-two
 				.header
 					| Pay {{iOweName}}
-				.well.single-value
-					h2
-						| ${{iOweTotalAmount}}
+				.well.single-value {{iOweTotalAmount | currency:$}}
 			.six.columns.mobile-two
 				.header
 					br
-				.well.expense-action
-					h3
-						| {{today}}
-					a.btn.btn-primary.btn-block(ng-click="payNow(iOweItems)")
-						| Pay Now
+				.well.expense-action(style="font-size:1.2em;")
+					| {{today | date:'dd-MMMM-yyyy'}}
+				a.btn.btn-primary.btn-block(ng-click="payNow(iOweItems)")
+					| Pay Now
 		div.row
 			// My list of activities
 			.twelve.columns.mobile-four
@@ -32,17 +29,16 @@ div.stp-content-frame
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in iOweItems")
-							div.row
-								div.mobile-two.columns.ten
-									h4
-										| {{item.name}} 
-									h5
-										small
-											| {{iOwePeriod}}
-								div.mobile-two.columns.two
-									.pay-actions
-											h3(style="text-align:right; vertical-align:middle")
-												| ${{item.price}}
+					div.list-container.selectable
+						div.row.expense-row
+							div.mobile5-three.columns.six
+								div.list-title {{item.name}} 
+									div
+										span.item-header.small.first
+											span  {{iOwePeriod}}
+							div.mobile5-two.columns.six
+									.pay-actions.text-right
+										div.list-title {{item.price | currency:$}}
 											
 
 	

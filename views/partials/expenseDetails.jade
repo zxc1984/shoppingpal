@@ -31,29 +31,17 @@ div.stp-content-frame
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="item in iOweLists")
 					div.list-container.selectable(ng-click="selectedIOwe(item._id,item,$index,item.payee.amount,item.payee.userId)",style="padding:5px")
-							div.row
-								div.mobile5-three.columns.six(style="padding:5px")
-									h4
-										| {{item.payee.name}} 
-										h5
-											small
-												| {{item.period}}
-								div.mobile5-one.columns.three
-									.pay-actions
-										center
-											h4
-												| ${{item.payee.amount}}
-												h5
-													small
-														| owed
-								div.mobile5-one.columns.three
-									.pay-actions
-										center
-											i.icon-money
-											h5
-												small
-													| Pay
-
-													ul.block-grid.two-up.mobile
+							div.row.expense-row
+								div.mobile5-four.columns.six
+									div.list-title {{item.payee.name}} 
+										div
+											span.item-header.small.first
+												span.label.label-important {{item.payee.amount | currency:$}}
+												span &nbsp;&nbsp;owed
+								div.fgAction(style="margin-top:-10px;")
+									div.action
+										div
+											i.icon-money.icon-2x
+											div.small Pay&nbsp;&nbsp;&nbsp;
 
 	
