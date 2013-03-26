@@ -36,9 +36,9 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
         console.log(data);
-        setCookie("UserId",data._id,$cookieStore);
-        setCookie("UserName",data.name,$cookieStore);
-        setCookie("User",data, $cookieStore);
+        //setCookie("UserId",data._id,$cookieStore);
+        //setCookie("UserName",data.name,$cookieStore);
+        //setCookie("User",data, $cookieStore);
         $scope.loading = false;
         $location.path("/list");
       } 
@@ -81,7 +81,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
   }
 
   $scope.showAlert = function(msg,type) {
-    $scope.alert.msg = "Saved";
+    $scope.alert.msg = msg;
     $scope.alert.className = "success";
     $scope.alert.show = true;
     setTimeout(function() { 
@@ -244,7 +244,10 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
         console.log(response.error);
       } else{
         removeCookie("listSetting", $cookieStore);
-        $location.path("/list");
+        setCookie("ListDetail",response[0]._id, $cookieStore);
+        //console.log();
+        $scope.showAlert("List Created");
+        $location.path("/list/detail");
       }
     });
   }
