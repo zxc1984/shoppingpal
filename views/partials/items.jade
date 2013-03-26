@@ -12,15 +12,16 @@ header
 div.stp-content-frame
 	div.stp-content-body(ng-init="initAddItem()")
 		include alertBox
-		.row.non-list
-			div.columns.six.mobile-four
-				form
-					.row
-						div.mobile-four.twelve.columns.form-box
-							div.input-append(style="width:90%;")
-								input(type="text",name="friendemail",placeholder="Category/Item...",class="input-block-level firstBox",ng-model="friendemail",maxlength="25")
-								button.btn(type="button",ng-click="friendemail = ''")
-									i.icon-search
+		//-
+			.row.non-list
+				div.columns.six.mobile-four
+					form
+						.row
+							div.mobile-four.twelve.columns.form-box
+								div.input-append(style="width:90%;")
+									input(type="text",name="friendemail",placeholder="Category/Item...",class="input-block-level firstBox",ng-model="friendemail",maxlength="25")
+									button.btn(type="button",ng-click="friendemail = ''")
+										i.icon-search
 		div.row(ng-repeat="cat in items")
 			// My list of activities
 			.twelve.columns.mobile-four
