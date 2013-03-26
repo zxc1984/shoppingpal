@@ -2,7 +2,10 @@
 var st = sidetap();
 
 function AppCtrl($scope, $http, $location, $cookieStore) {
-  
+  setCookie("UserId","5123925be4b029c335f08546",$cookieStore);
+  setCookie("UserName","vincox",$cookieStore);
+  var data = {result: true, _id: "5123925be4b029c335f08546", name: "vincox", email: "vincox@gmail.com"};
+  setCookie("User",data, $cookieStore);
   $scope.unitOfMeasure = [{"singular":"Loaf","plural":"Loaves"},{"singular":"KG","plural":"KG(s)"},{"singular":"Box","plural":"Boxes"}];
   $scope.loading = false;
   $scope.alert = { show: false, msg: "test", className: 'success'};
@@ -32,7 +35,7 @@ function AppCtrl($scope, $http, $location, $cookieStore) {
     $scope.loading = true;
     $http.post('/api/users/login', user).success(function(data){
       if(data.result) {
-        console.log("result received");
+        console.log(data);
         setCookie("UserId",data._id,$cookieStore);
         setCookie("UserName",data.name,$cookieStore);
         setCookie("User",data, $cookieStore);
