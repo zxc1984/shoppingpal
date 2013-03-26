@@ -276,6 +276,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
        if(response.ok == 1) {
         $scope.showAlert('Saved','success');
         console.log("Successfully Updated");
+        $scope.backToListDetail();
        }else{
         $scope.showAlert('Error!','error');
          console.log("Something went wrong");
@@ -400,6 +401,7 @@ function ItemCtrl($scope, $http,$location, $cookieStore) {
     $http.post("/api/list/"+list_id+"/items", $scope.selectedItems).success(function(response){
       if(response.ok) {
         $scope.showAlert("Items Added Succesfully");
+        $location.path("/list/detail");
       }
       $scope.loading = false;
     });
@@ -704,9 +706,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
   $scope.selectedLists = [];
   $scope.selectedItems = [];
   $scope.items = [];
-  if(userId == undefined) {
-    $location.path("/login");
-  }
+  
   $scope.initList = function() {
     $scope.loading = true;
     $scope.lists = List.query({"_id":userId}, function(data) {
@@ -883,7 +883,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       
   });  
   
-  
+  $location.path("/expense");
   
 }
   $scope.getSelectedItemClass = function(item) {
@@ -897,10 +897,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     $location.path('/shopping/itemdetail/1');
   }
 
-  $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
-    var userId = getCookie('UserId',$cookieStore);
-    $scope.trips = data;
-
     $scope.myTrips = function(item) {
         return item.userId == userId;
     }
@@ -909,7 +905,6 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
         return item.userId != userId;
     }
 
-  });
 
   $scope.shoppingMode = function() {
      console.log($scope.selectedLists);
