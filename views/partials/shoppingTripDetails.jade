@@ -1,0 +1,57 @@
+header
+	a.header-button.icon.menu(href="javascript:void(0)",ng-click="menuClick()")
+		span Menu
+	h1#header Shopping Trip Details
+
+div.stp-content-frame(ng-init="getShoppingTripDetails()")
+	div.stp-content-body
+		include alertBox
+		div.row.dashboard
+			.six.columns.mobile-two
+				.header
+					h3
+						| Paid To:
+				.well.single-value
+					i.icon-user.icon-2x
+					h4
+						| {{tripPayee}}
+			.six.columns.mobile-two
+				.header
+					h3
+						| Paid By:
+				.well.single-value
+					i.icon-user.icon-2x
+					h4
+						| {{tripPayer}}
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| Items Paying For:
+		div.row
+			ul.block-grid.two-up.mobile
+				li(ng-repeat="list in tripItems")
+					div.list-container
+							div.row
+								div.mobile-two.columns.six
+									h4
+										| {{list.name}}
+										small
+											
+									h5
+										small
+											| Paid on {{list.paidDate}}
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											h3
+												| ${{list.price}}
+
+								div.mobile-one.columns.three
+									.pay-actions
+										center
+											h4
+												small
+													| Qty: 
+											h3 
+												| {{list.qty}} 

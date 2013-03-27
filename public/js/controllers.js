@@ -805,6 +805,18 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     console.log("checkoutitems " + JSON.stringify($scope.items));
   }
 
+  $scope.getShoppingTripDetails = function(){   
+    var id = $routeParams.id;
+    $http.get('/api/shoppingTrips/' + id).success(function(data, status, headers, config) {
+      $scope.tripDetails = data;
+      $scope.tripPayer = data[0].payer.name;
+      $scope.tripPayee = data[0].payee.name;
+      $scope.tripDate = data[0].date;
+      $scope.tripItems = data[0].items;
+      $scope.tripItemsTotalAmount = data.total;
+    });
+  }
+
   $scope.checkoutNow = function(selectedItems){
     var userId = getCookie('UserId',$cookieStore);
     var userName = getCookie('UserName',$cookieStore);
@@ -840,7 +852,8 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       name: userName,
       Location: "NTUC in Chinatown",
       amount: totalAmount,
-      date:today
+      date:today,
+      items:myItems
     };
        
      
