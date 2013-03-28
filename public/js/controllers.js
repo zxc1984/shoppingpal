@@ -208,13 +208,19 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
     $location.path("/list/detail");
   }
 
-  $scope.saveListSetting = function(listSetting) {
+  $scope.saveListSetting = function(listSetting,type) {
     var qw = {"users":listSetting};
     list_id = getCookie("ListDetail", $cookieStore);
     $http.put("/api/list/"+list_id+"/settings/",listSetting).success(function(response) {
        if(response.ok == 1) {
-        $scope.showAlert("Saved","success")
-        console.log("Successfully Updated");
+        if(type == 1 ){
+          $scope.showAlert("List Successfully Updated","success")
+          console.log("Successfully Updated");
+           $location.path("/list/detail");
+        } else {
+          $scope.showAlert("Friend Added","success")
+          //console.log("Successfully Updated");
+        }
        }else{
          console.log("Something went wrong");
        }
@@ -263,7 +269,7 @@ function ListCtrl($scope, $http,$location, $cookieStore, List) {
       }else{
         $scope.listSetting.users.push(qw);
       }
-      
+      $scope.saveListSetting($scope.listSetting, 2);
     });
     $scope.friendemail ="";
   }
