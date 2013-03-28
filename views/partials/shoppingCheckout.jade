@@ -1,5 +1,5 @@
 header
-	a.header-button.icon(href="javascript:void(0)")(ng-click="backToShopping()")
+	a.header-button.icon(href="javascript:void(0)",ng-click="backToShopping()")
 		div back
 	h1#header Shopping Checkout
 div.stp-content-frame(ng-init="initShoppingCheckout()")
@@ -17,7 +17,7 @@ div.stp-content-frame(ng-init="initShoppingCheckout()")
 				.well.expense-action
 					//-div(style="margin-bottom:15px;")
 					//-	input(class="input-block-level text-right", value="NTUC", ng-model="location")
-					a.btn.btn-primary.btn-block(ng-click="checkoutNow(items)")
+					a.btn.btn-primary.btn-block(href="javascript:void(0)",ng-click="checkoutNow(items)")
 						.i.icon-save
 							|  Save
 		div.row

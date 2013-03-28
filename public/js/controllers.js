@@ -444,6 +444,10 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     });
   }
 
+$scope.initExpenseSummary = function () {
+
+  $scope.initFriendsOwe();
+  $scope.initIOWE();
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
     var userId = getCookie('UserId',$cookieStore);
     $scope.transactions = data;
@@ -456,6 +460,8 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
       }
        $scope.transactions.reverse();
   });
+} 
+  
  
   /*  
   $http.get('/api/userExpense').success(function(data, status, headers, config) {
@@ -463,53 +469,81 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     $scope.userExpenseItems = data[0].items;
   });
   */
-  $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
-    $scope.trips = data;
-  });
+  $scope.initIOWE = function () {
     
-  $http.get('/api/iOwe').success(function(data, status, headers, config) {
-    //var selectedIOwe = getCookie("selectedIOwe", $cookieStore);
+    $http.get('/api/iOwe').success(function(data, status, headers, config) {
+      //var selectedIOwe = getCookie("selectedIOwe", $cookieStore);
 
-    $scope.iOweLists = data;
+      $scope.iOweLists = data;
 
-    //$scope.iOweListsId = data[selectedIOwe.index]._id;
-    $scope.iOweListTotalAmount = 0;
-    
+      //$scope.iOweListsId = data[selectedIOwe.index]._id;
+      $scope.iOweListTotalAmount = 0;
+      
 
-    for (var i = 0; i < data.length; i++) {
-      $scope.iOweLists[i].payee.amount = 0;
-          for (var j = 0; j < data[i].items.length; j++){
-            if (data[i].items[j].status == "unpaid"){
-              $scope.iOweLists[i].payee.amount += data[i].items[j].price;
-              //$scope.iOweListTotalAmount += data[i].items[j].price;
+      for (var i = 0; i < data.length; i++) {
+        $scope.iOweLists[i].payee.amount = 0;
+            for (var j = 0; j < data[i].items.length; j++){
+              if (data[i].items[j].status == "unpaid"){
+                $scope.iOweLists[i].payee.amount += data[i].items[j].price;
+                //$scope.iOweListTotalAmount += data[i].items[j].price;
+              }
             }
-          }
-      }
+        }
 
-      if (data.length > 0){
-        for (var i = 0; i < data.length; i++) {
-        //console.log(data);
+        if (data.length > 0){
+          for (var i = 0; i < data.length; i++) {
+          //console.log(data);
+          //console.log(data[i].items[0].name);
+            if (data[i].items.length > 0){
+              for (var j = 0; j < data[i].items.length; j++){
+                //console.log("items " + data[i].items);
+                if (data[i].items[j].status == "paid"){
+                  console.log("paid : " + data[i].items[j].name);
+                  data.splice(i,1);
+                  i--;
+                  break;
+                }else{
+                  //console.log("unpaid : " + data[i].items[j].name);
+                  //$scope.iOweLists[i].payee.amount += data[i].items[j].price;
+                  $scope.iOweListTotalAmount += data[i].items[j].price;
+                }
+              }
+            } 
+          }
+        }
+        
+
+    });
+
+
+  }
+
+  $scope.initFriendsOwe = function(){ 
+    $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
+      $scope.friendsOweLists = data;
+      $scope.friendsOweListTotalAmount = 0;
+      //setCookie("friendsOweLists",friendsOweLists, $cookieStore);
+      for (var i = 0; i < data.length; i++) {
+        console.log("RR" + data[i]._id);
         //console.log(data[i].items[0].name);
-          if (data[i].items.length > 0){
             for (var j = 0; j < data[i].items.length; j++){
               //console.log("items " + data[i].items);
               if (data[i].items[j].status == "paid"){
-                console.log("paid : " + data[i].items[j].name);
-                data.splice(i,1);
+                console.log("paid : " + data[i].items[j].name); 
+                $scope.friendsOweLists.splice(i,1);
+                j--;
                 i--;
                 break;
               }else{
-                //console.log("unpaid : " + data[i].items[j].name);
-                //$scope.iOweLists[i].payee.amount += data[i].items[j].price;
-                $scope.iOweListTotalAmount += data[i].items[j].price;
+
+                console.log("unpaid : " + data[i].items[j].name);
+                $scope.friendsOweListTotalAmount += data[i].items[j].price;
               }
             }
-          } 
         }
-      }
-      
-
-  });
+    });
+  
+  }
 
   $scope.linkToiOweDetails = function(list_id) {
     setCookie("iOwe_id",list_id, $cookieStore);
@@ -649,31 +683,7 @@ function ExpenseCtrl($scope, $http, $location,$routeParams, $cookieStore) {
     });
     
   }
-
-  $http.get('/api/friendsOwe').success(function(data, status, headers, config) {
-    $scope.friendsOweLists = data;
-    $scope.friendsOweListTotalAmount = 0;
-    //setCookie("friendsOweLists",friendsOweLists, $cookieStore);
-    for (var i = 0; i < data.length; i++) {
-      console.log("RR" + data[i]._id);
-      //console.log(data[i].items[0].name);
-          for (var j = 0; j < data[i].items.length; j++){
-            //console.log("items " + data[i].items);
-            if (data[i].items[j].status == "paid"){
-              console.log("paid : " + data[i].items[j].name); 
-              $scope.friendsOweLists.splice(i,1);
-              j--;
-              i--;
-              break;
-            }else{
-
-              console.log("unpaid : " + data[i].items[j].name);
-              $scope.friendsOweListTotalAmount += data[i].items[j].price;
-            }
-          }
-      }
-  });
-
+  
   $scope.linkToFriendsOweDetails = function(id) {
     $location.path("/payment/details/" + id);
   }
@@ -805,6 +815,12 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     console.log("checkoutitems " + JSON.stringify($scope.items));
   }
 
+  $scope.initShoppingTripHistory = function() {
+    $http.get('/api/shoppingTrips').success(function(data, status, headers, config) {
+      $scope.trips = data;
+    });
+  }
+
   $scope.getShoppingTripDetails = function(){   
     var id = $routeParams.id;
     $http.get('/api/shoppingTrips/' + id).success(function(data, status, headers, config) {
@@ -880,8 +896,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       },
       items:myItems
     };
-
-  $http.post("/api/iOwe/",iOwe).success(function(response) {
+$http.post("/api/iOwe/",iOwe).success(function(response) {
        if(response.error) {
          console.log(response.error);
        }
@@ -900,11 +915,11 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
      });
 
       
-  });  
+    });  
   
-  $location.path("/expense");
+    $location.path("/expense");
   
-}
+  }
   $scope.getSelectedItemClass = function(item) {
     if (item.selected && item.selected == 1) {
       return "selected";
@@ -954,6 +969,7 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
 function PaymentCtrl($scope, $http, $location) {
   
 }
+
 angular.module('myApp.cookie', ['ngCookies']);
 function getCookie(cookie_name, $cookieStore) {
    var cookieValue = $cookieStore.get(cookie_name);
