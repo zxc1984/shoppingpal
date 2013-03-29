@@ -29,7 +29,7 @@ angular.module('myApp', ['myApp.cookie','myApp.List','myApp.filters', 'myApp.dir
     $routeProvider.when('/shopping/trips', {templateUrl: 'partials/shoppingTripHistory', controller: ShoppingCtrl});
     $routeProvider.when('/shopping/my', {templateUrl: 'partials/shoppingTripMyHistory', controller: ShoppingCtrl});
     $routeProvider.when('/shopping/friends', {templateUrl: 'partials/shoppingTripFriendHistory', controller: ShoppingCtrl});
-    $routeProvider.when('/shopping/trips/:id', {templateUrl: 'partials/shoppingTripDetails', controller: ShoppingCtrl});
+    $routeProvider.when('/shopping/trips/:id', {templateUrl: 'partials/shoppingHistoryDetail', controller: ShoppingCtrl});
 
     // Expenditure Scenario
     $routeProvider.when('/expense', {templateUrl: 'partials/expenseSummary', controller: ExpenseCtrl});

@@ -838,6 +838,9 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       $scope.tripItemsTotalAmount = data.total;
     });
   }
+  $scope.gototrip = function(id) {
+    $location.path('/shopping/trips/' + id);
+  }
 
   $scope.checkoutNow = function(selectedItems){
     var userId = getCookie('UserId',$cookieStore);
