@@ -1,0 +1,39 @@
+header
+	h1#header Some trip (give date)
+div.stp-content-frame
+	div.stp-content-body
+		include alertBox
+		.row.non-list.dashboard
+			.six.columns.mobile-two
+				.header
+					| Total
+				.well.single-value
+					| some total
+			.six.columns.mobile-two
+				.header
+					Location
+				.well.expense-action
+					a.btn.btn-primary.btn-block(href="javascript:void(0)")
+						.i.icon-circle-arrow-left
+							|  Back
+		div.row
+			// My list of activities
+			.twelve.columns.mobile-four
+				div.listHeader
+					| Cart Items
+		div.row
+			ul.block-grid.two-up.mobile
+				li
+					div.list-container
+						div.row.list-name-box
+							div.mobile5-three.columns.eight.list-name
+								div.item-title {{item.name}}
+								div.item-desc2
+									span.badge.badge-info.quantity {{item.qty}}
+									span.uom
+										ng-pluralize(count="item.qty",when="{'one' : unitOfMeasure[item.unitOfMeasure].singular, 'other' : unitOfMeasure[item.unitOfMeasure].plural}")
+									span.status
+										i.icon-group
+							div.mobile5-two.columns.columns
+								div.update-box.text-right
+									div.list-title {{item.total | currency:$}}
