@@ -722,7 +722,7 @@ $scope.initExpenseSummary = function () {
   };
 }
 
-function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
+function ShoppingCtrl($scope, $http,$location,$cookieStore,$routeParams,List) {
   var userId = getCookie('UserId',$cookieStore);
   $scope.lists = [];
   $scope.selectedLists = [];
@@ -831,11 +831,11 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
     var id = $routeParams.id;
     $http.get('/api/shoppingTrips/' + id).success(function(data, status, headers, config) {
       $scope.tripDetails = data;
-      $scope.tripPayer = data[0].payer.name;
-      $scope.tripPayee = data[0].payee.name;
+      //$scope.tripPayer = data[0].payer.name;
+      //$scope.tripPayee = data[0].payee.name;
       $scope.tripDate = data[0].date;
       $scope.tripItems = data[0].items;
-      $scope.tripItemsTotalAmount = data.total;
+      $scope.tripItemsTotalAmount = data[0].amount;
     });
   }
   $scope.gototrip = function(id) {
@@ -878,6 +878,18 @@ function ShoppingCtrl($scope, $http,$location,$cookieStore,List) {
       Location: "NTUC in Chinatown",
       amount: totalAmount,
       date:today,
+      payer:{
+        userId:userId,
+        name:userName,
+        period:today,
+        amount:totalAmount
+      },
+      payee:{
+        userId:"51322a9a6ebde1f40b000001",
+        name:"Tom",
+        period:today,
+        amount:totalAmount
+      },
       items:myItems
     };
        

@@ -28,7 +28,7 @@ div.stp-content-frame(ng-init="initShoppingTripHistory()")
 		div.row
 			ul.block-grid.two-up.mobile
 				li(ng-repeat="trip in trips | filter:tripFilter")
-					div.list-container.selectable(ng-click="gototrip(trip.id)")
+					div.list-container.selectable(ng-click="gototrip(trip._id)")
 						div.row.expense-row
 							div.mobile5-two.columns.six
 								div.list-title Made by {{trip.name}} 

@@ -1,6 +1,6 @@
 header
-	h1#header Some trip (give date)
-div.stp-content-frame
+	h1#header Shopping Trip @ NTUC Chinatown
+div.stp-content-frame(ng-init="getShoppingTripDetails()")
 	div.stp-content-body
 		include alertBox
 		.row.non-list.dashboard
@@ -8,7 +8,7 @@ div.stp-content-frame
 				.header
 					| Total
 				.well.single-value
-					| some total
+					| ${{tripItemsTotalAmount}}
 			.six.columns.mobile-two
 				.header
 					Location
@@ -21,7 +21,7 @@ div.stp-content-frame
 			.twelve.columns.mobile-four
 				div.listHeader
 					| Cart Items
-		div.row
+		div.row(ng-repeat="item in tripItems")
 			ul.block-grid.two-up.mobile
 				li
 					div.list-container
